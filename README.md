@@ -2,7 +2,7 @@
 
 Coyote Rental Solutions' purpose is to promote the connection between tenants and landlords.
 
-Authors:
+Author:
 
 Lindsey Woo
 Colin Matson-Jones
