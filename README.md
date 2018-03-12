@@ -6,5 +6,9 @@ Authors:
 
 Lindsey Woo
 Colin Matson-Jones
+<<<<<<< HEAD
 Aaron Griffiths
+=======
+A-a-ron Griffiths
+>>>>>>> Added an authors section to the README
 Nicholas Johnston
