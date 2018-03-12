@@ -4,5 +4,5 @@ Authors:
 
 Lindsey Woo
 Colin Matson-Jones
-A-a-ron Griffiths
+Aaron Griffiths
 Nicholas Johnston
