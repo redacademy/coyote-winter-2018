@@ -9,7 +9,7 @@ The Coyote kick off is now! Coyote Rental Solutions' purpose is to promote the c
 * Firebase
 * Github
 
-Author:
+#Author:
 
 Lindsey Woo
 Colin Matson-Jones
