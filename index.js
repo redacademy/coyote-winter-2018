@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './js';
+import App from './App';
 
 AppRegistry.registerComponent('coyote', () => App);
