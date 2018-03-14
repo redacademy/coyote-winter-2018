@@ -19,7 +19,7 @@ import {
 
 import { colors } from "../config/styles";
 
-import Router from "./Routes";
+import Router from "./routes";
 
 class Nav extends Component {
   _renderTitle(isSelected, title) {

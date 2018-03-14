@@ -4,17 +4,36 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import React, { Component } from "react";
+import {
+  NavigationProvider,
+  StackNavigation,
+  NavigationContext
+} from "@expo/ex-navigation";
+
+import { Provider } from "react-redux";
+
+import Router from "./navigation/routes";
+
+import Store from "./redux/store";
 
 export default class App extends Component {
   render() {
+    const navigationContext = new NavigationContext({
+      router: Router,
+      store: Store
+    });
     return (
-      <View>
-        <Text>
-          Welcome to Coyote Rentals! This will be a login page.
-        </Text>
-      </View>
+      <Provider store={Store}>
+        <NavigationProvider
+          context={navigationContext}
+        >
+          <StackNavigation
+            navigatorUID="root"
+            initialRoute={Router.getRoute("layout")}
+          />
+        </NavigationProvider>
+      </Provider>
     );
   }
 }
