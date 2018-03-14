@@ -6,10 +6,10 @@ export const colors = {
   GREY: "#f1f1f1",
   OFF_WHITE: "#f3e8bb",
   // This is the main orange color
-  MAIN: "#fbb756",
+  MAIN_: "#fbb756",
   // This is the off orange
   MAIN_LIGHT: "#f18b01",
-  MAIN_: "#ee896b",
+  MAIN: "#ee896b",
   lilac: "#ab627d",
   night: "#323e54"
 };
