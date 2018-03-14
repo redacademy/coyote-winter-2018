@@ -1,11 +1,11 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { colors, textStyles } from "../config/styles";
 
 const { height, width } = Dimensions.get("window");
 
-export const buttonStyle = StyleSheet.create({
+export const buttonStyle = {
   B_MAIN: {
-    backgroundColor: colors.tangerine,
+    backgroundColor: colors.MAIN_LIGHT,
     borderRadius: 50,
     height: height / 8,
     width: width / 2,
@@ -14,7 +14,6 @@ export const buttonStyle = StyleSheet.create({
   B_MAIN_OUTLINE: {
     backgroundColor: colors.white,
     borderColor: colors.tangerine,
-    borderWidth: 50,
-    fontFamily: textStyles.BODY
+    borderWidth: 50
   }
-});
+};
