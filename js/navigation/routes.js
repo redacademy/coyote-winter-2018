@@ -16,10 +16,11 @@ const Router = createRouter(() => ({
   layout: () => Nav,
   application: () => ApplicationContainer,
   confirmation: () => ConfirmationContainer,
-  favourite: () => FavouriteContainer,
+  favourites: () => FavouriteContainer,
   listing: () => ListingContainer,
   locationsearch: () => LocationSearchContainer,
   login: () => LoginContainer,
+  // messages: () => MessagesContainer
   profile: () => ProfileContainer,
   searchresult: () => SearchResultContainer,
   signup: () => SignUpContainer
