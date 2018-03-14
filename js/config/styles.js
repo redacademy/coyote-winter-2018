@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  snow: "#ffffff",
-  shadow: "#f1f1f1",
-  vanilla: "#f3e8bb",
-  tangerine: "#fbb756",
-  juicy: "#f18b01",
-  peachy: "#ee896b",
+  BACKGROUND: "#ffffff",
+  // This is light grey
+  GREY: "#f1f1f1",
+  OFF_WHITE: "#f3e8bb",
+  // This is the main orange color
+  MAIN: "#fbb756",
+  // This is the off orange
+  MAIN_LIGHT: "#f18b01",
+  MAIN_: "#ee896b",
   lilac: "#ab627d",
   night: "#323e54"
 };
@@ -14,33 +17,34 @@ export const colors = {
 const typography = {
   M_BOLD: "Montserrat-Bold",
   M_SEMIBOLD: "Montserrat-SemiBold",
-  M_REGULAR: "Montserrat-Regular",
+  M_MEDIUM: "Montserrat-Medium",
   OS_REGULAR: "OpenSans-Regular"
 };
 
 export const textStyles = StyleSheet.create({
-  h1: {
-    fontFamily: { M_BOLD },
+  H1: {
+    fontFamily: typography.M_BOLD,
     fontSize: 25
   },
-  h2: {
-    fontFamily: { M_SEMIBOLD },
+  H2: {
+    fontFamily: typography.M_SEMIBOLD,
     fontSize: 17
   },
-  h3: {
-    fontFamily: { M_SEMIBOLD },
+  H3: {
+    fontFamily: typography.M_SEMIBOLD,
     fontSize: 16
   },
-  h4: {
-    fontFamily: { M_SEMIBOLD },
+
+  H4: {
+    fontFamily: typography.M_SEMIBOLD,
     fontSize: 14
   },
-  small: {
-    fontFamily: { M_REGULAR },
+  SMALL: {
+    fontFamily: typography.M_MEDIUM,
     fontSize: 10
   },
-  body: {
-    fontFamily: { OS_REGULAR },
+  BODY: {
+    fontFamily: typography.OS_REGULAR,
     fontSize: 13
   }
 });
