@@ -9,12 +9,12 @@ export const buttonStyle = StyleSheet.create({
     borderRadius: 50,
     height: height / 8,
     width: width / 2,
-    fontFamily: textStyles.h2
+    fontFamily: textStyles.SMALL
   },
   B_MAIN_OUTLINE: {
     backgroundColor: colors.white,
     borderColor: colors.tangerine,
     borderWidth: 50,
-    fontFamily: textStyles.h2
+    fontFamily: textStyles.BODY
   }
 });
