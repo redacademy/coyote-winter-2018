@@ -1,0 +1,117 @@
+[
+  {
+    "listingId": "abcOPUsVxcTvZ2CeFFae4lv4ZAo2",
+    "address": "501 1337 RICHARDS STREET, Vancouver, British Columbia V6B1S2",
+    "price": "1500",
+    "pictures": {
+      "pic1":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/501_Richards4.jpg?alt=media&token=c6f36f4c-0dd7-461c-95f4-df9c36e1b4d1",
+      "pic2":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/501Richards_1.jpg?alt=media&token=2ba1553b-635a-4d75-a98e-ac564375da79",
+      "pic3":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/501Richards_2.jpg?alt=media&token=683b2f23-feda-4b09-8f1d-46df170082a9",
+      "pic4":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/501Richards_3.jpg?alt=media&token=527764df-54a2-4a01-8bf2-f317c47bddbc"
+    },
+    "description":
+      "An ideal space for a busy professional who likes sophistication and luxury.",
+    "propertyType": "Apartment",
+    "numBedrooms": "1",
+    "numBathrooms": "2",
+    "laundryInBuilding": false,
+    "laundryInSuite": true,
+    "pets": false,
+    "wheelchairAccess": true,
+    "furnished": false,
+    "canSmoke": false,
+    "availableParking": true,
+    "listingCreatedDate": "1521001200",
+    "landlordId": "jlsOPUsVxcTvZ2CeFFae4lv4ZAo2"
+  },
+  {
+    "listingId": "d3LYPbjyvBccXJDVGuMbQZk81337",
+    "address": "915 Cotton Dr, Vancouver, BC V5L 3T2",
+    "price": "900",
+    "pictures": {
+      "pic1":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/915_cotton_1.jpg?alt=media&token=22f51923-d358-4782-a717-d70c98e64151",
+      "pic2":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/915_cotton_2.jpg?alt=media&token=0b990069-b842-47d7-b016-c86658771268",
+      "pic3":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/915_cotton_3.jpg?alt=media&token=322fecac-178b-4279-ae7f-e5a4aed32c77",
+      "pic4": ""
+    },
+    "description":
+      "Perfect studio space for a student or artist. Small cats only.",
+    "propertyType": "Studio",
+    "numBedrooms": "0",
+    "numBathrooms": "1",
+    "laundryInBuilding": true,
+    "laundryInSuite": false,
+    "pets": true,
+    "wheelchairAccess": true,
+    "furnished": true,
+    "canSmoke": false,
+    "availableParking": true,
+    "listingCreatedDate": "1518268800",
+    "landlordId": "d3LYPbjyvBccXJDVGuMbQZk8ZlI3"
+  },
+  {
+    "listingId": "co38EO820KZfSJEEx420KyuJibh2",
+    "address": "630 Kingsway, Vancouver, BC V5T 3K4",
+    "price": "1300",
+    "pictures": {
+      "pic1":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/630_Kingsway_1.jpg?alt=media&token=28fbbd3a-db7e-4d15-b908-fe6a4adb04c1",
+      "pic2":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/630_Kingsway_2.jpg?alt=media&token=03584ecb-c4b4-4081-9170-174ef26d58d3",
+      "pic3":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/630_Kingsway_3.jpg?alt=media&token=b89622f8-9c51-444f-9291-48dbdc5c3fc4",
+      "pic4":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/630_Kingsway_4.jpg?alt=media&token=6434b894-0a70-4fa1-a0f2-37a9491850ba"
+    },
+    "description":
+      "This third story walk-up is an ideal home for an urban dweller who enjoys a crantini over the soothing sounds of the city.",
+    "propertyType": "Apartment",
+    "numBedrooms": "2",
+    "numBathrooms": "1",
+    "laundryInBuilding": true,
+    "laundryInSuite": false,
+    "pets": false,
+    "wheelchairAccess": false,
+    "furnished": true,
+    "canSmoke": true,
+    "availableParking": false,
+    "listingCreatedDate": "1519464000",
+    "landlordId": "co38EO820KZfSJEEx24xKyuJibh2"
+  },
+  {
+    "listingId": "4232OjyKweGTpikDa5idUeQCQr1",
+    "address": "2539 W Broadway, Vancouver, BC V6K 2E9",
+    "price": "2000",
+    "pictures": {
+      "pic1":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/2539_1.jpg?alt=media&token=9980d50e-6946-49a6-9b99-c49464c7d44e",
+      "pic2":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/2539_2.jpg?alt=media&token=9e724859-deae-4d0a-b5c7-cf1759325a6d",
+      "pic3":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/2539_3.jpg?alt=media&token=e2544991-fed6-4d9f-82e7-b6671ad3b193",
+      "pic4":
+        "https://firebasestorage.googleapis.com/v0/b/coyote-2018.appspot.com/o/2539_4.jpg?alt=media&token=02da566c-840a-45d5-bcda-a100479af81b"
+    },
+    "description":
+      "Built with Scandinavian ingenuity and Danish hygge, this gem of a house offers historic context and the utmost in comfort and style. Ideal for a family or a close-knit group of friends.",
+    "propertyType": "House",
+    "numBedrooms": "6",
+    "numBathrooms": "7",
+    "laundryInBuilding": true,
+    "laundryInSuite": false,
+    "pets": false,
+    "wheelchairAccess": true,
+    "furnished": false,
+    "canSmoke": false,
+    "availableParking": true,
+    "listingCreatedDate": "1520170620",
+    "landlordId": "20032OjyKweGTpikv65HoUeQCQr1"
+  }
+]

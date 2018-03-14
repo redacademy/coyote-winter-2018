@@ -1,0 +1,30 @@
+[
+  {
+    "userId": "QhP2yK3dx4P8BAB3AHJiLPAZgn93",
+    "applications": [
+      {
+        "applicationId": "25532OjyKweGTpikv65HoUeQCQr1",
+        "createdOnDate": "1521055539",
+        "listingId": "d3LYPbjyvBccXJDVGuMbQZk81337",
+        "applicationStatus": "pending"
+      },
+      {
+        "applicationId": "35532OjyKweGTpikv65HoUeQCQr1",
+        "createdOnDate": "1520623538",
+        "listingId": "co38EO820KZfSJEEx420KyuJibh2",
+        "applicationStatus": "pending"
+      }
+    ]
+  },
+  {
+    "userId": "co38EO820KZfSJEEx24xKyuJibh2",
+    "applications": [
+      {
+        "applicationId": "no38EO820KZfSJEEx24xKyuJibh2",
+        "createdOnDate": "1518841260",
+        "listingId": "4232OjyKweGTpikDa5idUeQCQr1",
+        "applicationStatus": "pending"
+      }
+    ]
+  }
+]
