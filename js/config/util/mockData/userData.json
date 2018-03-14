@@ -1,0 +1,65 @@
+[
+  {
+    "uid": "20032OjyKweGTpikv65HoUeQCQr1",
+    "email": "dwight@dundermifflin.com",
+    "password": "password",
+    "firstName": "Dwight",
+    "lastName": "Schrute",
+    "role": { "tenant": false, "landlord": true },
+    "bio":
+      "Fortunately my feelings generate at twice the speed of a normal man.",
+    "photoURL": "https://avatars.io/platform/dwight"
+  },
+  {
+    "uid": "QhP2yK3dx4P8BAB3AHJiLPAZgn93",
+    "email": "mca@beastieboys.com",
+    "password": "password",
+    "firstName": "Adam",
+    "lastName": "Yauch",
+    "role": { "tenant": true, "landlord": false },
+    "bio":
+      "Time and money for girls covered in honey. The mind aspires to be as cunning.",
+    "photoURL": "https://avatars.io/platform/mca"
+  },
+  {
+    "uid": "co38EO820KZfSJEEx24xKyuJibh2",
+    "email": "ada@lovelace.com",
+    "password": "password",
+    "firstName": "Ada",
+    "lastName": "Lovelace",
+    "role": { "tenant": true, "landlord": true },
+    "bio": "The world's first computer scientist and a whiz with a loom.",
+    "photoURL": "https://avatars.io/platform/adaLovelace"
+  },
+  {
+    "uid": "d3LYPbjyvBccXJDVGuMbQZk8ZlI3",
+    "email": "claire@whitehouse.gov",
+    "password": "password",
+    "firstName": "Claire",
+    "lastName": "Underwood",
+    "role": { "tenant": false, "landlord": true },
+    "bio": "Prime time television's first woman president.",
+    "photoURL": "https://avatars.io/platform/claireUnderwood"
+  },
+  {
+    "uid": "jlsOPUsVxcTvZ2CeFFae4lv4ZAo2",
+    "email": "claire@wolf.ca",
+    "password": "password",
+    "firstName": "Claire",
+    "lastName": "Wolf",
+    "role": { "tenant": false, "landlord": true },
+    "bio":
+      "Passions include knitting and temporarily boarding shelter kittens.",
+    "photoURL": "https://avatars.io/platform/claireWolf"
+  },
+  {
+    "uid": "krurd1mdLUTgqLUGVGBcOtpUDYt1",
+    "email": "colin@musk.ca",
+    "password": "password",
+    "firstName": "Colin",
+    "lastName": "Musk",
+    "role": { "tenant": true, "landlord": false },
+    "bio": "I like pina coladas and getting caught in the rain.",
+    "photoURL": "https://avatars.io/platform/colinMusk"
+  }
+]
