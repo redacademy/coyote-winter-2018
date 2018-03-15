@@ -4,17 +4,12 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import React, { Component } from "react";
+// import RootStack from "./config/rootStack";
+import RootStack from "./config/rootStack";
 
 export default class App extends Component {
   render() {
-    return (
-      <View>
-        <Text>
-          Welcome to Coyote Rentals! This will be a login page.
-        </Text>
-      </View>
-    );
+    return <RootStack />;
   }
 }

@@ -13,16 +13,16 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {
   profileIcon,
   heartIcon,
-  searchIcon,
-  chatIcon
+  searchIcon
+  // chatIcon
 } from "../config/iconType";
 
 import { colors } from "../config/styles";
 
-import Router from "./Routes";
+import Router from "./routes";
 
 class Nav extends Component {
-  _renderTitle(isSelected, title) {
+  renderTitle(isSelected, title) {
     // selectively set title style (color) to be white if selected, otherwise grey
     return (
       <Text
@@ -36,7 +36,7 @@ class Nav extends Component {
       </Text>
     );
   }
-  _renderIcon(isSelected, iconName) {
+  renderIcon(isSelected, iconName) {
     const iconSize = 30;
 
     return (
@@ -68,9 +68,9 @@ class Nav extends Component {
         <TabItem
           id="search"
           title="Search"
-          _renderTitle={this._renderTitle}
-          _renderIcon={isSelected =>
-            this._renderIcon(isSelected, searchIcon)
+          renderTitle={this.renderTitle}
+          renderIcon={isSelected =>
+            this.renderIcon(isSelected, searchIcon)
           }
         >
           <StackNavigation
@@ -85,9 +85,9 @@ class Nav extends Component {
         <TabItem
           id="favourites"
           title="Favourites"
-          _renderTitle={this._renderTitle}
-          _renderIcon={isSelected =>
-            this._renderIcon(isSelected, heartIcon)
+          renderTitle={this.renderTitle}
+          renderIcon={isSelected =>
+            this.renderIcon(isSelected, heartIcon)
           }
         >
           <StackNavigation
@@ -101,29 +101,29 @@ class Nav extends Component {
 
         {/* This is the chat tab in navigation bar */}
 
-        <TabItem
+        {/* <TabItem
           id="chat"
           title="Messages"
-          _renderTitle={this._renderTitle}
-          _renderIcon={isSelected =>
-            this._renderIcon(isSelected, chatIcon)
+          renderTitle={this.renderTitle}
+          renderIcon={isSelected =>
+            this.renderIcon(isSelected, chatIcon)
           }
         >
           <StackNavigation
             id="chat"
-            // navigatorUID="chat"
-            // initialRoute={Router.getRoute("chat")}
+            navigatorUID="chat"
+            initialRoute={Router.getRoute("chat")}
           />
-        </TabItem>
+        </TabItem> */}
 
         {/* This is the profile tab in navigation bar */}
 
         <TabItem
           id="profile"
           title="Profile"
-          _renderTitle={this._renderTitle}
-          _renderIcon={isSelected =>
-            this._renderIcon(isSelected, profileIcon)
+          renderTitle={this.renderTitle}
+          renderIcon={isSelected =>
+            this.renderIcon(isSelected, profileIcon)
           }
         >
           <StackNavigation
