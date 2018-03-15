@@ -1,16 +1,25 @@
 import firebase from 'firebase';
 import 'firebase/auth';
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  DATABASE_URL,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDING_ID
+} from 'react-native-dotenv';
 
 // Initialize firebase app
 const config = {
-  apiKey: "AIzaSyCieBwguDuYharx8U99VYfVxreXAEfy3RA",
-  authDomain: "coyote-2018.firebaseapp.com",
-  databaseURL: "https://coyote-2018.firebaseio.com",
-  projectId: "coyote-2018",
-  storageBucket: "coyote-2018.appspot.com",
-  messagingSenderId: "672612380925"
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDING_ID
 };
 
 const firebaseApp = firebase.initializeApp(config);
 const firebaseAuth = firebaseApp.auth();
-export { firebaseApp, firebaseAuth };
+const firestoreDb = firebase.firestore();
+export { firebaseAuth, firestoreDb };
