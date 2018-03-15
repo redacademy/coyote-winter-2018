@@ -11,9 +11,7 @@ export default class App extends Component {
   render() {
     return (
       <View>
-        <Text>
-          Welcome to Coyote Rentals! This will be a login page.
-        </Text>
+        <Text>Welcome to Coyote Rentals! This will be a login page.</Text>
       </View>
     );
   }
