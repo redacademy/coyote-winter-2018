@@ -3,9 +3,9 @@ import { colors, textStyles } from "../config/styles";
 
 const { height, width } = Dimensions.get("window");
 
-export const buttonStyle = StyleSheet.create({
+export const buttonStyle = {
   B_MAIN: {
-    backgroundColor: colors.tangerine,
+    backgroundColor: colors.MAIN,
     borderRadius: 50,
     height: height / 8,
     width: width / 2,
@@ -17,4 +17,4 @@ export const buttonStyle = StyleSheet.create({
     borderWidth: 50,
     fontFamily: textStyles.BODY
   }
-});
+};

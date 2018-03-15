@@ -14,14 +14,14 @@ export const colors = {
   night: "#323e54"
 };
 
-const typography = {
+export const typography = {
   M_BOLD: "Montserrat-Bold",
   M_SEMIBOLD: "Montserrat-SemiBold",
   M_MEDIUM: "Montserrat-Medium",
   OS_REGULAR: "OpenSans-Regular"
 };
 
-export const textStyles = StyleSheet.create({
+export const textStyles = {
   H1: {
     fontFamily: typography.M_BOLD,
     fontSize: 25
@@ -47,4 +47,4 @@ export const textStyles = StyleSheet.create({
     fontFamily: typography.OS_REGULAR,
     fontSize: 13
   }
-});
+};
