@@ -4,10 +4,10 @@
  * @flow
  */
 
-import React, { Component } from "react";
-import Login from "./screens/Login";
-import { Provider } from "react-redux";
-import Store from "./redux/store";
+import React, { Component } from 'react';
+import Login from './screens/Login';
+import { Provider } from 'react-redux';
+import Store from './redux/store';
 
 export default class App extends Component {
   render() {
