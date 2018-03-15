@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../config/styles";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   background: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 25,
-    borderColor: colors.MAIN_,
+    borderColor: colors.MAIN,
     marginTop: 20,
     marginRight: 20,
     marginLeft: 10,
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   button: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.MAIN_,
+    backgroundColor: colors.MAIN,
     borderRadius: 25,
     minWidth: 100,
     minHeight: 30,

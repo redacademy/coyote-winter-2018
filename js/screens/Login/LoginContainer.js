@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
-import { buttonStyle } from "../../config/button";
-import { updateAuthState } from "../../redux/modules/auth";
+
 import { connect } from "react-redux";
-import { loginUser } from "../../lib/authHelper";
 import { firebaseAuth } from "../../config/firebaseConfig";
-import { styles } from "./styles";
+import Login from "./Login";
+import PropTypes from "prop-types";
 
 class LoginContainer extends Component {
   constructor() {
@@ -16,6 +14,20 @@ class LoginContainer extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+  }
+
+  handleEmail(text) {
+    this.setState({
+      emailInput: text
+    });
+  }
+
+  handlePassword(text) {
+    this.setState({
+      passwordInput: text
+    });
   }
 
   handleSubmit() {
@@ -30,34 +42,11 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <View style={styles.background}>
-        <View style={styles.container}>
-          <TextInput
-            placeholderTextColor="#ee896b"
-            autoCapitalize="none"
-            style={styles.input}
-            placeholder="Email"
-            onChangeText={text => this.setState({ emailInput: text })}
-          />
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="#ee896b"
-            secureTextEntry={true}
-            autoCapitalize="none"
-            placeholder="Password"
-            onChangeText={text => this.setState({ passwordInput: text })}
-          />
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-              <Text> Sign In </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text>Sign Up</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <Login
+        handleSubmit={this.handleSubmit}
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+      />
     );
   }
 }
