@@ -14,16 +14,16 @@ import SignUpContainer from "../screens/SignUp";
 
 const Router = createRouter(() => ({
   layout: () => Nav,
-  application: () => ApplicationContainer,
-  confirmation: () => ConfirmationContainer,
+  // application: () => ApplicationContainer,
+  // confirmation: () => ConfirmationContainer,
   favourites: () => FavouriteContainer,
-  listing: () => ListingContainer,
-  locationsearch: () => LocationSearchContainer,
-  login: () => LoginContainer,
+  // listing: () => ListingContainer,
+  // locationsearch: () => LocationSearchContainer,
+  // login: () => LoginContainer,
   // messages: () => MessagesContainer
   profile: () => ProfileContainer,
-  searchresult: () => SearchResultContainer,
-  signup: () => SignUpContainer
+  searchresult: () => SearchResultContainer
+  // signup: () => SignUpContainer
 }));
 
 export default Router;

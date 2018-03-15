@@ -5,35 +5,11 @@
  */
 
 import React, { Component } from "react";
-import {
-  NavigationProvider,
-  StackNavigation,
-  NavigationContext
-} from "@expo/ex-navigation";
-
-import { Provider } from "react-redux";
-
-import Router from "./navigation/routes";
-
-import Store from "./redux/store";
+// import RootStack from "./config/rootStack";
+import RootStack from "./config/rootStack";
 
 export default class App extends Component {
   render() {
-    const navigationContext = new NavigationContext({
-      router: Router,
-      store: Store
-    });
-    return (
-      <Provider store={Store}>
-        <NavigationProvider
-          context={navigationContext}
-        >
-          <StackNavigation
-            navigatorUID="root"
-            initialRoute={Router.getRoute("layout")}
-          />
-        </NavigationProvider>
-      </Provider>
-    );
+    return <RootStack />;
   }
 }

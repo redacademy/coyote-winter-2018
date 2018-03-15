@@ -16,7 +16,7 @@ export const profileIcon = Platform.select({
 });
 
 export const searchIcon = Platform.select({
-  ios: "ios-search-outline",
+  ios: "ios-search",
   android: "md-search"
 });
 
@@ -31,7 +31,7 @@ export const homeIcon = Platform.select({
 });
 
 export const heartIcon = Platform.select({
-  ios: "ios-heart-outline",
+  ios: "ios-heart",
   android: "md-heart"
 });
 

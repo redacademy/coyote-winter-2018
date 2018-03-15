@@ -1,23 +1,40 @@
 import React, { Component } from "react";
+import { View, Text, Button } from "react-native";
+import { StackNavigator } from "react-navigation";
 import PropTypes from "prop-types";
 
-import { View, Text } from "react-native";
-
-export default class ApplicationContainer extends Component {
-  static propTypes = {
-    prop: PropTypes
+class ApplicationContainer extends Component {
+  static navigationOptions = {
+    title: "Application"
   };
-  static routes = {
-    navigationBar: {
-      title: "About"
-    }
+  static propTypes = {
+    navigation: PropTypes.object,
+    navigate: PropTypes.func
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
         <Text>profile</Text>
+        <Button
+          title="Go to details"
+          onPress={() =>
+            navigate("Favourites", {
+              itemId: 86,
+              otherParam: "anything you want here"
+            })
+          }
+        />
       </View>
     );
   }
 }
+
+export default ApplicationContainer;
