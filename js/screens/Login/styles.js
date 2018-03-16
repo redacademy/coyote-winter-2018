@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "column",
-    marginTop: height / 2.5
+    marginTop: height / 6
   },
   input: {
     borderWidth: 1,
@@ -36,5 +36,11 @@ export const styles = StyleSheet.create({
     minWidth: 100,
     minHeight: 30,
     marginTop: 10
+  },
+  coyote: {
+    height: 100,
+    width: 100,
+    alignSelf: "center",
+    marginBottom: 50
   }
 });
