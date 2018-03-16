@@ -1,27 +1,27 @@
-import { StyleSheet } from "react-native";
-
+/*
+GREY is light grey
+MAIN_ is the accent color
+MAIN_LIGHT is the primary color
+*/
 export const colors = {
-  BACKGROUND: "#ffffff",
-  // This is light grey
-  GREY: "#f1f1f1",
-  OFF_WHITE: "#f3e8bb",
-  // This is the main orange color
-  MAIN_: "#fbb756",
-  // This is the off orange
-  MAIN_LIGHT: "#f18b01",
-  MAIN: "#ee896b",
-  lilac: "#ab627d",
-  night: "#323e54"
+  BACKGROUND: '#ffffff',
+  GREY: '#f1f1f1',
+  OFF_WHITE: '#f3e8bb',
+  MAIN_: '#fbb756',
+  MAIN_LIGHT: '#f18b01',
+  MAIN: '#ee896b',
+  lilac: '#ab627d',
+  night: '#323e54'
 };
 
-const typography = {
-  M_BOLD: "Montserrat-Bold",
-  M_SEMIBOLD: "Montserrat-SemiBold",
-  M_MEDIUM: "Montserrat-Medium",
-  OS_REGULAR: "OpenSans-Regular"
+export const typography = {
+  M_BOLD: 'Montserrat-Bold',
+  M_SEMIBOLD: 'Montserrat-SemiBold',
+  M_MEDIUM: 'Montserrat-Medium',
+  OS_REGULAR: 'OpenSans-Regular'
 };
 
-export const textStyles = StyleSheet.create({
+export const textStyles = {
   H1: {
     fontFamily: typography.M_BOLD,
     fontSize: 25
@@ -47,4 +47,4 @@ export const textStyles = StyleSheet.create({
     fontFamily: typography.OS_REGULAR,
     fontSize: 13
   }
-});
+};
