@@ -1,4 +1,4 @@
 import { AppRegistry } from "react-native";
-import ProfileContainer from "./js/screens/Profile/ProfileContainer";
+import App from './js'
 
 AppRegistry.registerComponent("coyote", () => App);
