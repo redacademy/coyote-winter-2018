@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-import ProfileHeaderContainer from "../../components/ProfileHeader/ProfileHeaderContainer";
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
 import { styles } from "./styles";
 
 const Profile = () => {
@@ -11,7 +11,7 @@ const Profile = () => {
         <Text style={styles.profileText}>Profile</Text>
         <Text style={styles.profileText}>My Applications</Text>
       </View>
-      <ProfileHeaderContainer />;
+      <ProfileHeader />;
     </View>
   );
 };
