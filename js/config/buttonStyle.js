@@ -5,7 +5,7 @@ const { height, width } = Dimensions.get("window");
 
 export const buttonStyle = {
   B_MAIN: {
-    backgroundColor: colors.MAIN_LIGHT,
+    backgroundColor: colors.MAIN,
     borderRadius: 50,
     height: height / 8,
     width: width / 2,

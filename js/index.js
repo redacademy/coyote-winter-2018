@@ -4,17 +4,17 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import LocationSearchContainer from './screens/LocationSearch/';
+import React, { Component } from "react";
+import Login from "./screens/Login";
+import { Provider } from "react-redux";
+import Store from "./redux/store";
 
 export default class App extends Component {
   render() {
     return (
-      <View>
-        <Text>Welcome to Coyote Rentals! This will be a login page.</Text>
-        <LocationSearchContainer />
-      </View>
+      <Provider store={Store}>
+        <Login />
+      </Provider>
     );
   }
 }
