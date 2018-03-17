@@ -18,8 +18,34 @@ export const updateUserProfile = (userId, userData) => {
   return db.update(userData);
 };
 
+/**
+ * since firestore cannot order on fields not included in a query,
+ * we must write our own sort functions:
+ * - sorts listings in descending order
+ * */
+export const sortListingsByDateDesc = (result1, result2) => {
+  return sortListings(result1, result2, true, 'listingCreatedDate');
+};
+
+export const sortListingsByPriceAsc = (result1, result2) => {
+  return sortListings(result1, result2, false, 'price');
+};
+export const sortListingsByPriceDsc = (result1, result2) => {
+  return sortListings(result1, result2, true, 'price');
+};
+/**
+ * Generic Sort Function
+ * - result1 and result2 are objects from the query
+ * - desc is true if we are sorting in descending order. if false, sort in ascending order
+ * - fieldToSort is the name of object field we should sort on
+ **/
+const sortListings = (result1, result2, desc, fieldToSort) => {
+  if (desc) return `result2.${fieldToSort}` - `result1.${fieldToSort}`;
+  return `result1.${fieldToSort}` - `result2.${fieldToSort}`;
+};
+
 export const getListingsByLocation = location => {
-  const db = firestoreDb.collection("listings").where("city", "==", location);
+  const db = firestoreDb.collection('listings').where('city', '==', location);
 
   return db.get();
 };
