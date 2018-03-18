@@ -1,9 +1,18 @@
-import React from "react";
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
-import { styles } from "./styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity
+} from 'react-native';
+import { styles } from './styles';
+import PropTypes from 'prop-types';
 
-const SignUp = ({ addUser, handleEmail, handlePassword }) => {
+const SignUp = ({
+  addUser,
+  handleEmail,
+  handlePassword
+}) => {
   return (
     <View style={styles.backgroundContainer}>
       <View style={styles.container}>
@@ -21,8 +30,13 @@ const SignUp = ({ addUser, handleEmail, handlePassword }) => {
           secureTextEntry={true}
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={addUser}>
-            <Text style={{ color: "white" }}> Sign Up </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={addUser}
+          >
+            <Text style={{ color: 'white' }}>
+              Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
