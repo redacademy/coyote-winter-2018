@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 10
   },
-  listing: { marginTop: 15 },
+  listing: { marginTop: 5 },
   title: {
     marginBottom: 5,
     //fontFamily: typography.M_BOLD,

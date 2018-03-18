@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Store from './redux/store';
 import { Provider } from 'react-redux';
-import Favourite from './screens/Favourite';
+import FilteringScreen from './screens/Filtering';
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={Store}>
-        <Favourite />
+        <FilteringScreen />
       </Provider>
     );
   }
