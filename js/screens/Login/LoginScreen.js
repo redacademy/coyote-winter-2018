@@ -21,7 +21,12 @@ class LoginContainer extends Component {
     this.handlePassword = this.handlePassword.bind(
       this
     );
+    this._signInAsync = this._signInAsync.bind(this);
   }
+
+  static navigationOptions = {
+    header: null
+  };
 
   handleEmail(text) {
     this.props.dispatch(fetchEmail(text));
@@ -69,6 +74,7 @@ class LoginContainer extends Component {
         email={this.props.email}
         password={this.props.password}
         error={this.props.error}
+        navigation={this.props.navigation}
       />
     );
   }
