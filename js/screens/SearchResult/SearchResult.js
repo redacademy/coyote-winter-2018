@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, FlatList } from 'react-native';
-import PropTypes from 'prop-types';
-import ListItem from '../../components/ListItem/';
-import { List } from 'react-native-elements';
-import { styles } from './styles';
+import React from "react";
+import { View, FlatList } from "react-native";
+import PropTypes from "prop-types";
+import ListItem from "../../components/ListItem/";
+import { List } from "react-native-elements";
+import { styles } from "./styles";
 
 const renderSeparator = () => {
   return <View style={styles.separator} />;
