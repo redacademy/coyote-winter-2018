@@ -6,38 +6,57 @@ import {
   newUserError
 } from '../../redux/modules/signup';
 
-import { connect } from 'react-redux';
+import { connect, AsyncStorage } from 'react-redux';
 import SignUp from './SignUp';
 import { newUser } from '../../config/helpers';
 
 import PropTypes from 'prop-types';
 
-class SignUpContainer extends Component {
-  constructor() {
-    super();
+class SignUpScreen extends Component {
+  constructor(props) {
+    super(props);
 
-    this.addUser = this.addUser.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
     this.userError = this.userError.bind(this);
   }
 
-  handleEmail(text) {
+  static navigationOptions = { header: null };
+
+  handleEmail = text => {
     this.props.dispatch(fetchEmail(text));
-  }
+  };
 
-  handlePassword(text) {
+  handlePassword = text => {
     this.props.dispatch(fetchPassword(text));
-  }
+  };
 
-  userError(error) {
+  userError = error => {
     this.props.dispatch(newUserError(error));
-  }
+  };
 
-  addUser() {
-    const { email, password, firstName, lastName, error } = this.props;
-    newUser(email, password, firstName, lastName, this.userError(error));
-  }
+  _signInAsync = async ({ newUser }) => {
+    await AsyncStorage.setItem('userToken', {
+      newUser
+    });
+    this.props.navigation.navigate('Profile');
+  };
+
+  addUser = () => {
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      error
+    } = this.props;
+    newUser(
+      email,
+      password,
+      firstName,
+      lastName,
+      this.userError(error)
+    );
+    this.props.navigation.navigate('Profile');
+  };
 
   render() {
     return (
@@ -45,12 +64,13 @@ class SignUpContainer extends Component {
         handleEmail={this.handleEmail}
         handlePassword={this.handlePassword}
         addUser={this.addUser}
+        navigation={this.props.navigation}
       />
     );
   }
 }
 
-SignUpContainer.defaultProps = {
+SignUpScreen.defaultProps = {
   firstName: '',
   email: '',
   password: '',
@@ -58,13 +78,14 @@ SignUpContainer.defaultProps = {
   error: ''
 };
 
-SignUpContainer.propTypes = {
+SignUpScreen.propTypes = {
   firstName: PropTypes.string,
   email: PropTypes.string,
   password: PropTypes.string,
   lastName: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -75,4 +96,4 @@ const mapStateToProps = state => ({
   error: state.signup.error
 });
 
-export default connect(mapStateToProps)(SignUpContainer);
+export default connect(mapStateToProps)(SignUpScreen);

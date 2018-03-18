@@ -1,9 +1,18 @@
-import React from "react";
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
-import { styles } from "../SignUp/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity
+} from 'react-native';
+import { styles } from '../SignUp/styles';
+import PropTypes from 'prop-types';
 
-const SignUpName = ({ handleFirstName, handleLastName }) => {
+const SignUpName = ({
+  handleFirstName,
+  handleLastName,
+  navigation
+}) => {
   return (
     <View style={styles.backgroundContainer}>
       <View style={styles.container}>
@@ -21,8 +30,17 @@ const SignUpName = ({ handleFirstName, handleLastName }) => {
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={{ color: "white" }}> Next </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate(
+                'SignUpEmailAndPassword'
+              );
+            }}
+          >
+            <Text style={{ color: 'white' }}>
+              Next
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -32,7 +50,8 @@ const SignUpName = ({ handleFirstName, handleLastName }) => {
 
 SignUpName.propTypes = {
   handleFirstName: PropTypes.func.isRequired,
-  handleLastName: PropTypes.func.isRequired
+  handleLastName: PropTypes.func.isRequired,
+  navigation: PropTypes.object
 };
 
 export default SignUpName;
