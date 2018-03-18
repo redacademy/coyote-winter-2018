@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import firebase from 'firebase';
-import 'firebase/auth';
-import 'firebase/firestore';
-=======
 import firebase from "firebase";
 import "firebase/auth";
 import "firebase/firestore";
->>>>>>> Created sign up components and a redux name module
 import {
   API_KEY,
   AUTH_DOMAIN,
