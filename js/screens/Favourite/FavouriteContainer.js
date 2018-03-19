@@ -48,7 +48,6 @@ class FavouriteScreen extends Component {
   }
 
   render() {
-    console.log(firebaseAuth);
     return <Favourite faves={this.props.faves} />;
   }
 }
