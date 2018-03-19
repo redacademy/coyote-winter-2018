@@ -1,21 +1,10 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Favourite from './Favourite';
-import {
-  firebaseAuth,
-  firestoreDb
-} from '../../config/firebaseConfig';
-import {
-  fetchListings
-} from '../../redux/modules/listings';
-import {
-  fetchFaves
-} from '../../redux/modules/faves';
-import {
-  connect
-} from 'react-redux';
+import { firebaseAuth, firestoreDb } from '../../config/firebaseConfig';
+import { fetchListings } from '../../redux/modules/listings';
+import { fetchFaves } from '../../redux/modules/faves';
+import { connect } from 'react-redux';
 
 class FavouriteScreen extends Component {
   constructor() {
@@ -28,7 +17,7 @@ class FavouriteScreen extends Component {
       .get()
       .then(querySnapshot => {
         let data = [];
-        querySnapshot.forEach(function (doc) {
+        querySnapshot.forEach(function(doc) {
           data.push(doc.data());
         });
         this.props.dispatch(fetchListings(data));
@@ -39,10 +28,10 @@ class FavouriteScreen extends Component {
       .get()
       .then(querySnapshot => {
         let data = [];
-        querySnapshot.forEach(function (doc) {
-          doc.id === 'krurd1mdLUTgqLUGVGBcOtpUDYt1' ?
-            data.push(doc.data()) :
-            null;
+        querySnapshot.forEach(function(doc) {
+          doc.id === 'krurd1mdLUTgqLUGVGBcOtpUDYt1'
+            ? data.push(doc.data())
+            : null;
         });
         let faves = [];
         data.forEach(favourites => {
@@ -59,10 +48,8 @@ class FavouriteScreen extends Component {
   }
 
   render() {
-    return <Favourite faves = {
-      this.props.faves
-    }
-    />;
+    console.log(firebaseAuth);
+    return <Favourite faves={this.props.faves} />;
   }
 }
 
