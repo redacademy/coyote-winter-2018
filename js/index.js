@@ -1,11 +1,7 @@
-/**
- * Coyote React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import Login from './screens/Login';
+import { View } from 'react-native';
+
+import SignUpName from './screens/SignUpName';
 import { Provider } from 'react-redux';
 import Store from './redux/store';
 
@@ -13,7 +9,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={Store}>
-        <Login />
+        <View>
+          <SignUpName />
+        </View>
       </Provider>
     );
   }
