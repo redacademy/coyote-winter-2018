@@ -1,10 +1,12 @@
-import { combineReducers } from "redux";
-import authReducer from "./modules/auth";
-import signupReducer from "./modules/signup";
+import { combineReducers } from 'redux';
+import authReducer from './modules/auth';
+import listingsReducer from './modules/listings';
+import favesReducer from './modules/faves';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  signup: signupReducer
+  listings: listingsReducer,
+  faves: favesReducer
 });
 
 export default rootReducer;

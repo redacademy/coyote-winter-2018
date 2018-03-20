@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from '../../assets/images/logo_Coyote-02.png';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { styles } from './styles.js';
-import PropTypes from 'prop-types';
+import React from "react";
+import logo from "../../assets/images/orange_coyote.png";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { styles } from "./styles.js";
+import PropTypes from "prop-types";
 
 const LocationSearch = ({ onLocationSearchChange, onSearch }) => {
   return (

@@ -72,3 +72,11 @@ export const newUser = (email, password, firstName, lastName, errorFunc) => {
         });
     });
 };
+
+export const getListings = () => {
+  return firestoreDb.collection('listings').get();
+};
+
+export const getFaves = () => {
+  return firestoreDb.collection('favourites').get();
+};
