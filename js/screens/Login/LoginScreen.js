@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseAuth } from '../../config/firebaseConfig';
 import { AsyncStorage } from 'react-native';
+import { isValidEmailAndPassword } from '../../lib/authHelper';
 
 import Login from './Login';
 import PropTypes from 'prop-types';
@@ -18,9 +19,7 @@ class LoginContainer extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(
-      this
-    );
+    this.handlePassword = this.handlePassword.bind(this);
     this._signInAsync = this._signInAsync.bind(this);
   }
 
@@ -42,27 +41,22 @@ class LoginContainer extends Component {
   handleSubmit() {
     const { email, password } = this.props;
 
-    const validEmail = /^([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const errorMessage = {
       code: 'Invalid login',
       message: 'Please Enter a Valid Email Address'
     };
 
-    if (
-      validEmail.test(email) &&
-      password.length > 5
-    ) {
+    if (isValidEmailAndPassword(email, password)) {
       firebaseAuth
         .signInWithEmailAndPassword(email, password)
+        .then(this._signInAsync)
+
         .catch(err => {
           this.props.dispatch(displayLoginError(err));
         });
     } else {
-      this.props.dispatch(
-        displayLoginError(errorMessage)
-      );
+      this.props.dispatch(displayLoginError(errorMessage));
     }
-    this._signInAsync;
   }
 
   render() {
@@ -101,6 +95,4 @@ const mapStateToProps = state => ({
   password: state.login.password
 });
 
-export default connect(mapStateToProps)(
-  LoginContainer
-);
+export default connect(mapStateToProps)(LoginContainer);
