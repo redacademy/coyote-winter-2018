@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { firestoreDb, firebaseAuth } from './firebaseConfig';
-=======
-import { firestoreDb } from './firebaseConfig';
->>>>>>> Adjusted requests in faves container
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the users collection
@@ -75,8 +71,8 @@ export const newUser = (email, password, firstName, lastName, errorFunc) => {
           errorFunc(error);
         });
     });
-  }
-  
+};
+
 export const getListings = () => {
   return firestoreDb.collection('listings').get();
 };
