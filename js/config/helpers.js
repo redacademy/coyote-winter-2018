@@ -1,9 +1,9 @@
-import { firestoreDb } from "./firebaseConfig";
+import { firestoreDb, firebaseAuth } from './firebaseConfig';
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the users collection
 export const getUserProfile = userId => {
-  const db = firestoreDb.collection("users").doc(userId);
+  const db = firestoreDb.collection('users').doc(userId);
 
   return db.get();
 };
@@ -14,7 +14,7 @@ export const getUserProfile = userId => {
 //  updateUserProfile('20032OjyKweGTpikv65HoUeQCQr1', {location: 'Scranton, PA'});
 //
 export const updateUserProfile = (userId, userData) => {
-  const db = firestoreDb.collection("users").doc(userId);
+  const db = firestoreDb.collection('users').doc(userId);
   return db.update(userData);
 };
 
@@ -52,4 +52,23 @@ export const getListingsByLocation = location => {
 
 export const unMarshallResult = result => {
   return JSON.parse(result._document.data.toString());
+};
+
+export const newUser = (email, password, firstName, lastName, errorFunc) => {
+  firebaseAuth
+    .createUserWithEmailAndPassword(email, password)
+    .then(authUser => {
+      firestoreDb
+        .collection('users')
+        .doc(authUser.uid)
+
+        .set({
+          firstName: firstName,
+          lastName: lastName
+        })
+
+        .catch(function(error) {
+          errorFunc(error);
+        });
+    });
 };

@@ -1,8 +1,9 @@
-const GET_FIRST_NAME = "GET_FIRST_NAME";
-const GET_LAST_NAME = "GET_LAST_NAME";
+const GET_FIRST_NAME = 'GET_FIRST_NAME';
+const GET_LAST_NAME = 'GET_LAST_NAME';
 
-const GET_EMAIL = "GET_EMAIL";
-const GET_PASSWORD = "GET_PASSWORD";
+const GET_EMAIL = 'GET_EMAIL';
+const GET_PASSWORD = 'GET_PASSWORD';
+const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
 const getFirstName = firstName => ({
   type: GET_FIRST_NAME,
@@ -24,6 +25,11 @@ const getPassword = password => ({
   password: password
 });
 
+const signupError = error => ({
+  type: SIGNUP_ERROR,
+  payload: error
+});
+
 export const fetchFirstName = first => dispatch => {
   dispatch(getFirstName(first));
 };
@@ -40,12 +46,17 @@ export const fetchPassword = password => dispatch => {
   dispatch(getPassword(password));
 };
 
+export const newUserError = error => dispatch => {
+  dispatch(signupError(error));
+};
+
 export default (
   state = {
-    first: "",
-    last: "",
-    email: "",
-    password: ""
+    first: '',
+    last: '',
+    email: '',
+    password: '',
+    error: ''
   },
   action
 ) => {
@@ -74,6 +85,13 @@ export default (
         password: action.password
       };
     }
+    case SIGNUP_ERROR: {
+      return {
+        ...state,
+        error: action.payload
+      };
+    }
+
     default:
       return {
         state

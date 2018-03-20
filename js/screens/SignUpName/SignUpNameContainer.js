@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { connect } from "react-redux";
-import { fetchFirstName, fetchLastName } from "../../redux/modules/signup";
-import SignUpName from "./SignUpName";
-import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import { fetchFirstName, fetchLastName } from '../../redux/modules/signup';
+import SignUpName from './SignUpName';
+import PropTypes from 'prop-types';
 
 class SignUpNameContainer extends Component {
   constructor() {
@@ -24,7 +24,6 @@ class SignUpNameContainer extends Component {
   render() {
     return (
       <SignUpName
-        // handleSubmit={this.handleSubmit}
         handleFirstName={this.handleFirstName}
         handleLastName={this.handleLastName}
       />

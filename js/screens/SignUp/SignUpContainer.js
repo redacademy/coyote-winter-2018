@@ -1,11 +1,16 @@
-import React, { Component } from "react";
-import { firebaseAuth, firestoreDb } from "../../config/firebaseConfig";
-import { fetchEmail, fetchPassword } from "../../redux/modules/signup";
+import React, { Component } from 'react';
 
-import { connect } from "react-redux";
-import SignUp from "./SignUp";
+import {
+  fetchEmail,
+  fetchPassword,
+  newUserError
+} from '../../redux/modules/signup';
 
-import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import SignUp from './SignUp';
+import { newUser } from '../../config/helpers';
+
+import PropTypes from 'prop-types';
 
 class SignUpContainer extends Component {
   constructor() {
@@ -14,6 +19,7 @@ class SignUpContainer extends Component {
     this.addUser = this.addUser.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.userError = this.userError.bind(this);
   }
 
   handleEmail(text) {
@@ -24,30 +30,16 @@ class SignUpContainer extends Component {
     this.props.dispatch(fetchPassword(text));
   }
 
-  addUser() {
-    firebaseAuth
-      .createUserWithEmailAndPassword(this.props.email, this.props.password)
-      .then(authUser => {
-        console.log(authUser);
-        firestoreDb
-          .collection("users")
-          .doc(authUser.uid)
+  userError(error) {
+    this.props.dispatch(newUserError(error));
+  }
 
-          .set({
-            firstName: this.props.firstName,
-            lastName: this.props.lastName
-          })
-          .then(() => {
-            console.log("wooo");
-          })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
-      });
+  addUser() {
+    const { email, password, firstName, lastName, error } = this.props;
+    newUser(email, password, firstName, lastName, this.userError(error));
   }
 
   render() {
-    console.log(this.props.email);
     return (
       <SignUp
         handleEmail={this.handleEmail}
@@ -59,11 +51,11 @@ class SignUpContainer extends Component {
 }
 
 SignUpContainer.defaultProps = {
-  firstName: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired.isRequired
+  firstName: '',
+  email: '',
+  password: '',
+  lastName: '',
+  error: ''
 };
 
 SignUpContainer.propTypes = {
@@ -71,14 +63,16 @@ SignUpContainer.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
   lastName: PropTypes.string,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  error: PropTypes.string
 };
 
 const mapStateToProps = state => ({
   firstName: state.signup.first,
   lastName: state.signup.last,
   email: state.signup.email,
-  password: state.signup.password
+  password: state.signup.password,
+  error: state.signup.error
 });
 
 export default connect(mapStateToProps)(SignUpContainer);
