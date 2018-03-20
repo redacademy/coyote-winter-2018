@@ -16,8 +16,7 @@ const FavouriteItem = ({ item }) => {
           <Text style={styles.description}>{item.description}</Text>
         </View>
         <Text style={styles.lastUpdated}>
-          {' '}
-          Last Updated:{' '}
+          Last Updated:
           {moment.unix(item.listingCreatedDate).format('MM/DD/YYYY')}
         </Text>
         <Text style={styles.price}>${item.price}</Text>

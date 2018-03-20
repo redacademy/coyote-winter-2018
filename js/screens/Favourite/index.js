@@ -1,2 +1,2 @@
-import FavouriteScreen from "./FavouriteContainer";
+import FavouriteScreen from './FavouriteScreen';
 export default FavouriteScreen;
