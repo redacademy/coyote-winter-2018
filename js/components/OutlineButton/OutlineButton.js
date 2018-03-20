@@ -23,5 +23,7 @@ OutlineButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   disabled: PropTypes.bool
 };
-
+OutlineButton.defaultProps = {
+  disabled: false
+};
 export default OutlineButton;

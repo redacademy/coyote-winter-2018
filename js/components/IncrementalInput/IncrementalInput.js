@@ -11,12 +11,10 @@ const IncrementalInput = ({ label, value, incrementValue, decrementValue }) => {
       </View>
       <View style={styles.incrementContainer}>
         <TouchableOpacity onPress={() => decrementValue(true)}>
-          {' '}
           <Text style={styles.icon}>{'<'}</Text>
         </TouchableOpacity>
         <Text style={styles.value}>{value}</Text>
         <TouchableOpacity onPress={() => incrementValue(false)}>
-          {' '}
           <Text style={styles.icon}>{'>'}</Text>
         </TouchableOpacity>
       </View>
