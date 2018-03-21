@@ -8,7 +8,7 @@ import {
 import SignUpName from './SignUpName';
 import PropTypes from 'prop-types';
 
-class SignUpNameContainer extends Component {
+class SignUpNameScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,7 +34,7 @@ class SignUpNameContainer extends Component {
   }
 }
 
-SignUpNameContainer.propTypes = {
+SignUpNameScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object
 };
@@ -45,5 +45,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  SignUpNameContainer
+  SignUpNameScreen
 );

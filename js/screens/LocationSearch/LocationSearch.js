@@ -13,9 +13,7 @@ import logo from '../../assets/images/orange_coyote.png';
 
 const LocationSearch = ({
   onLocationSearchChange,
-  onSearch,
-  navigation,
-  searchLocation
+  onSearch
 }) => {
   return (
     <View style={styles.background}>
@@ -27,8 +25,7 @@ const LocationSearch = ({
       </View>
       <View>
         <Text style={styles.label}>
-          {' '}
-          Where do you want to live?{' '}
+          Where do you want to live?
         </Text>
         <TextInput
           style={styles.input}

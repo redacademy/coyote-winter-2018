@@ -10,8 +10,6 @@ import {
   unMarshallResult,
   sortListingsByDateDesc
 } from '../../config/helpers';
-// import ListingList from '../../components/ListingList/';
-// import FilterAndSearchBar from '../../components/FilterAndSearchBar/';
 
 import { colors } from '../../config/styles';
 
