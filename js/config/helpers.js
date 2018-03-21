@@ -8,6 +8,19 @@ export const getUserProfile = userId => {
   return db.get();
 };
 
+// returns a promise for the query for the given userId
+// used to retrieve data from the application collection
+const getApplications = userId => {
+  const db = firestoreDb.collection('applications').doc(userId);
+  return db.get();
+};
+
+// returns a promise for the query for a given listingId
+export const getListing = listingId => {
+  const db = firestoreDb.collection('listings').doc(listingId);
+  return db.get();
+};
+
 // userData should be an object of key/values pairs corresponding
 // to database fields that should be updated
 // - example of usage:
@@ -79,4 +92,28 @@ export const getListings = () => {
 
 export const getFaves = () => {
   return firestoreDb.collection('favourites').get();
+};
+
+// Get applications by querying applications and listings
+// and performing a manual inner-join
+export const getApplicationsByUser = async uid => {
+  const listingIds = {};
+  const listingOfApplications = [];
+
+  await getApplications(uid).then(applications => {
+    applications.data().applications.forEach(application => {
+      listingIds[application.listingId] = application;
+    });
+  });
+  const matches = Object.keys(listingIds);
+  await getListings().then(listings => {
+    listings.forEach(listing => {
+      if (matches.includes(listing.data().listingId)) {
+        listingOfApplications.push(
+          Object.assign(listingIds[listing.data().listingId], listing.data())
+        );
+      }
+    });
+  });
+  return listingOfApplications;
 };
