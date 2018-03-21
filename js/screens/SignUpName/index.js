@@ -1,2 +1,2 @@
-import SignUpNameContainer from "./SignUpNameContainer";
-export default SignUpNameContainer;
+import SignUpNameScreen from './SignUpNameScreen';
+export default SignUpNameScreen;

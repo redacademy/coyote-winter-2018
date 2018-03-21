@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  Button
+} from 'react-native';
 import { connect } from 'react-redux';
 import Filtering from './Filtering';
 import Card from '../../components/Card';
@@ -26,16 +30,28 @@ import {
   sortListingsByDateDesc,
   unMarshallResult
 } from '../../config/helpers';
+import { colors } from '../../config/styles';
 
 class FilteringScreen extends Component {
   constructor(props) {
     super(props);
   }
 
+  static navigationOptions = {
+    headerLeft: (
+      <Button
+        onPress={this.queryBasedOnFilters}
+        title="Filter"
+        color={colors.MAIN}
+      />
+    )
+  };
+
   componentDidMount() {
     // TODO: remove this - only a test function to simulate
     // getting data from searchResults
-    const location = 'Vancouver'; /*hard-coded value to remove upon routing*/
+    const location =
+      'Vancouver'; /*hard-coded value to remove upon routing*/
     // TODO: reset filters upon load
     // REMOVE WHEN SEARCH RESULTS IS CONNECTED
     // CURRENTLY WE RE-QUERY TO TEST BUT ONCE NAV
@@ -46,8 +62,12 @@ class FilteringScreen extends Component {
       doc.docs.forEach(querySnap => {
         listingArray.push(unMarshallResult(querySnap));
       });
-      const listingsSorted = listingArray.sort(sortListingsByDateDesc);
-      this.props.dispatch(updateListings(listingsSorted));
+      const listingsSorted = listingArray.sort(
+        sortListingsByDateDesc
+      );
+      this.props.dispatch(
+        updateListings(listingsSorted)
+      );
       this.props.dispatch(updateLoading(false));
     });
   }
@@ -71,14 +91,31 @@ class FilteringScreen extends Component {
     } = this.props;
     let results = listings;
     results = filterByPriceRange(listings, priceRange);
-    results = filterByTags(listings, propertyTags, 'propertyType');
+    results = filterByTags(
+      listings,
+      propertyTags,
+      'propertyType'
+    );
     results = filterByBoolean(results, laundryTags);
     results = filterByBoolean(results, occupantTags);
-    results = filterByTags(results, parkingTags, 'parking');
+    results = filterByTags(
+      results,
+      parkingTags,
+      'parking'
+    );
     results = filterByAnd(results, otherTags);
-    results = filterBySingleValue(results, 'numBathrooms', numBathrooms);
-    results = filterBySingleValue(results, 'numBedrooms', numBedrooms);
+    results = filterBySingleValue(
+      results,
+      'numBathrooms',
+      numBathrooms
+    );
+    results = filterBySingleValue(
+      results,
+      'numBedrooms',
+      numBedrooms
+    );
     dispatch(updateListings(results));
+    this.props.navigation.goBack();
   };
   tagAction = (tags, property, updateAction) => {
     const { dispatch } = this.props;
@@ -90,11 +127,15 @@ class FilteringScreen extends Component {
     const { numBathrooms, dispatch } = this.props;
     if (isDecrement) {
       numBathrooms > 1
-        ? dispatch(updateNumBathrooms(numBathrooms - 1))
+        ? dispatch(
+            updateNumBathrooms(numBathrooms - 1)
+          )
         : dispatch(updateNumBathrooms(numBathrooms));
     } else {
       numBathrooms < 10
-        ? dispatch(updateNumBathrooms(numBathrooms + 1))
+        ? dispatch(
+            updateNumBathrooms(numBathrooms + 1)
+          )
         : dispatch(updateNumBathrooms(numBathrooms));
     }
   };
@@ -133,15 +174,21 @@ class FilteringScreen extends Component {
               numBathrooms={numBathrooms}
               numBedrooms={numBedrooms}
               occupantTags={occupantTags}
-              onPriceRangeChange={this.onPriceRangeChange}
+              onPriceRangeChange={
+                this.onPriceRangeChange
+              }
               otherTags={otherTags}
               parkingTags={parkingTags}
               priceRange={priceRange}
               propertyTags={propertyTags}
               query={this.queryBasedOnFilters}
               tagAction={this.tagAction}
-              updateNumBathrooms={this.updateNumBathrooms}
-              updateNumBedrooms={this.updateNumBedrooms}
+              updateNumBathrooms={
+                this.updateNumBathrooms
+              }
+              updateNumBedrooms={
+                this.updateNumBedrooms
+              }
             />
           }
           separator={false}
@@ -166,6 +213,7 @@ FilteringScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   laundryTags: PropTypes.object.isRequired,
   listings: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
   numBathrooms: PropTypes.number.isRequired,
   numBedrooms: PropTypes.number.isRequired,
   occupantTags: PropTypes.object.isRequired,
@@ -174,4 +222,6 @@ FilteringScreen.propTypes = {
   priceRange: PropTypes.array.isRequired,
   propertyTags: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps)(FilteringScreen);
+export default connect(mapStateToProps)(
+  FilteringScreen
+);

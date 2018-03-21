@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Store from './redux/store';
+import store from './redux/store';
 import { Provider } from 'react-redux';
-import FilteringScreen from './screens/Filtering';
+
+import RootNavigation from './navigation/Tabs/TabNav';
 
 export default class App extends Component {
   render() {
     return (
-      <Provider store={Store}>
-        <FilteringScreen />
+      <Provider store={store}>
+        <RootNavigation />
       </Provider>
     );
   }
