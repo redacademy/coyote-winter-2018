@@ -4,19 +4,20 @@ import { View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { styles } from './styles';
 
-const ListingList = ({ header, content }) => {
+const CardList = ({ header, content, separator }) => {
   return (
     <Card containerStyle={styles.card}>
       {header}
-      <View style={styles.separator} />
-      {content}
+      {separator && <View style={styles.separator} />}
+      <View>{content}</View>
     </Card>
   );
 };
 
-ListingList.propTypes = {
+CardList.propTypes = {
   header: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired
+  content: PropTypes.object.isRequired,
+  separator: PropTypes.bool.isRequired
 };
 
-export default ListingList;
+export default CardList;

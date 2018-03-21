@@ -4,21 +4,21 @@ MAIN_ is the accent color
 MAIN_LIGHT is the primary color
 */
 export const colors = {
-  BACKGROUND: "#ffffff",
-  GREY: "#f1f1f1",
-  OFF_WHITE: "#f3e8bb",
-  MAIN_: "#fbb756",
-  MAIN_LIGHT: "#f18b01",
-  MAIN: "#ee896b",
-  lilac: "#ab627d",
-  night: "#323e54"
+  BACKGROUND: '#ffffff',
+  GREY: '#f1f1f1',
+  OFF_WHITE: '#f3e8bb',
+  MAIN_: '#fbb756',
+  MAIN_LIGHT: '#f18b01',
+  MAIN: '#ee896b',
+  lilac: '#ab627d',
+  night: '#323e54'
 };
 
 export const typography = {
-  M_BOLD: "Montserrat-Bold",
-  M_SEMIBOLD: "Montserrat-SemiBold",
-  M_MEDIUM: "Montserrat-Medium",
-  OS_REGULAR: "OpenSans-Regular"
+  M_BOLD: 'Montserrat-Bold',
+  M_SEMIBOLD: 'Montserrat-SemiBold',
+  M_MEDIUM: 'Montserrat-Medium',
+  OS_REGULAR: 'OpenSans-Regular'
 };
 
 export const textStyles = {

@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
-    shadowRadius: 2
+    shadowRadius: 2,
+    display: 'flex'
   },
   separator: {
     height: 1,
