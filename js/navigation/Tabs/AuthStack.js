@@ -7,8 +7,14 @@ const AuthStack = StackNavigator(
   {
     Login: LoginScreen
   },
-  { LocationSearch: LocationSearchScreen },
-  { navigationOptions: { header: null } }
+  {
+    LocationSearch: {
+      screen: LocationSearchScreen,
+      navigationOptions: {
+        header: null
+      }
+    }
+  }
 );
 
 export default AuthStack;

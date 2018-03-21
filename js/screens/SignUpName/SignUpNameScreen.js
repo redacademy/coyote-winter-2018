@@ -36,7 +36,7 @@ class SignUpNameScreen extends Component {
 
 SignUpNameScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  navigation: PropTypes.object
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -16,8 +16,6 @@ import {
 
 import { styles } from './styles';
 
-const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
-
 class ProfileHeader extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +29,7 @@ class ProfileHeader extends Component {
   }
 
   componentDidMount() {
-    getUserProfile(userId).then(doc => {
+    getUserProfile().then(doc => {
       if (doc.exists) {
         const userData = unMarshallResult(doc);
         this.setState({
@@ -49,7 +47,7 @@ class ProfileHeader extends Component {
   };
 
   saveEditable = () => {
-    updateUserProfile(userId, {
+    updateUserProfile({
       bio: this.state.bio,
       location: this.state.location,
       firstName: this.state.firstName,

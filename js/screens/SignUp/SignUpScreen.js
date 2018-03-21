@@ -85,7 +85,7 @@ SignUpScreen.propTypes = {
   lastName: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.string,
-  navigation: PropTypes.object
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

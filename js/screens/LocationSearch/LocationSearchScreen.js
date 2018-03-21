@@ -9,20 +9,15 @@ class LocationSearchScreen extends Component {
       searchLocation: ''
     };
   }
-  static propTypes = {
-    navigation: PropTypes.object
-  };
+
   onSearch = () => {
     const newLocation = this.state.searchLocation;
-    console.log(newLocation);
     this.props.navigation.navigate('App', {
-      location: this.state.searchLocation
+      location: newLocation
     });
-    console.log(this.props.navigation.state);
   };
   onLocationSearchChange = newLocation => {
     this.setState({ searchLocation: newLocation });
-    console.log(this.state.searchLocation);
   };
 
   render() {
@@ -38,5 +33,9 @@ class LocationSearchScreen extends Component {
     );
   }
 }
+
+LocationSearchScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
 export default LocationSearchScreen;

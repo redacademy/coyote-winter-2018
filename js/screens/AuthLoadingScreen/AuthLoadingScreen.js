@@ -34,7 +34,7 @@ class AuthLoadingScreen extends Component {
     let initialRouteName = userToken ? 'App' : 'Auth';
     this.props.navigation.navigate(initialRouteName);
   };
-  // Render any loading content that you like here
+
   render() {
     return (
       <View style={styles.container}>

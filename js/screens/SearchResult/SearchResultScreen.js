@@ -18,16 +18,12 @@ export default class SearchResultScreen extends Component {
     super(props);
     this.state = { listings: [], loading: true };
   }
-  static propTypes = {
-    navigation: PropTypes.object
-  };
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
         <Button
-          onPress={() =>
-            navigation.navigate('Listing')
-          }
+          onPress={() => navigation.navigate('Filter')}
           title="Filter"
           color={colors.MAIN}
         />
@@ -36,6 +32,7 @@ export default class SearchResultScreen extends Component {
       tabBarLabel: 'Search Result'
     };
   };
+
   componentDidMount() {
     // perform query based on location passed via route
     // TODO: get value from route
@@ -68,3 +65,7 @@ export default class SearchResultScreen extends Component {
     );
   }
 }
+
+SearchResultScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
