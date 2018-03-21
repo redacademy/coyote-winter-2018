@@ -1,3 +1,3 @@
-import LocationSearchContainer from './LocationSearchContainer';
+import LocationSearchScreen from "./LocationSearchScreen";
 
-export default LocationSearchContainer;
+export default LocationSearchScreen;
