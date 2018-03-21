@@ -4,7 +4,10 @@ import Favourite from './Favourite';
 import { fetchListings } from '../../redux/modules/listings';
 import { fetchFaves } from '../../redux/modules/faves';
 import { connect } from 'react-redux';
-import { getListings, getFaves } from '../../config/helpers';
+import {
+  getListings,
+  getFaves
+} from '../../config/helpers';
 
 class FavouriteScreen extends Component {
   constructor() {
@@ -34,9 +37,13 @@ class FavouriteScreen extends Component {
         });
       });
 
-      let favourites = this.props.listings.filter(listing => {
-        return faves.find(fav => fav === listing.listingId);
-      });
+      let favourites = this.props.listings.filter(
+        listing => {
+          return faves.find(
+            fav => fav === listing.listingId
+          );
+        }
+      );
       this.props.dispatch(fetchFaves(favourites));
     });
   }
@@ -57,4 +64,6 @@ const mapStateToProps = state => ({
   faves: state.faves.faves
 });
 
-export default connect(mapStateToProps)(FavouriteScreen);
+export default connect(mapStateToProps)(
+  FavouriteScreen
+);

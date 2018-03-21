@@ -8,7 +8,9 @@ class LocationSearchContainer extends Component {
     this.state = {
       searchLocation: ''
     };
-    this.onLocationSearchChange = this.onLocationSearchChange.bind(this);
+    this.onLocationSearchChange = this.onLocationSearchChange.bind(
+      this
+    );
     this.onSearch = this.onSearch.bind(this);
   }
   onSearch() {
@@ -17,16 +19,13 @@ class LocationSearchContainer extends Component {
   onLocationSearchChange(newLocation) {
     this.setState({ searchLocation: newLocation });
   }
-  static route = {
-    navigationBar: {
-      title: 'Location',
-      tintColor: 'black'
-    }
-  };
+
   render() {
     return (
       <LocationSearch
-        onLocationSearchChange={this.onLocationSearchChange}
+        onLocationSearchChange={
+          this.onLocationSearchChange
+        }
         onSearch={this.onSearch}
       />
     );

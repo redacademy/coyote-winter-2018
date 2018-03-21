@@ -1,15 +1,17 @@
-import React, { Component } from "react";
-import Profile from "./Profile";
+import React, { Component } from 'react';
+import Profile from './Profile';
 
 class ProfileContainer extends Component {
   static route = {
     navigationBar: {
-      title: "Profile"
+      title: 'Profile'
     }
   };
 
   render() {
-    return <Profile />;
+    return (
+      <Profile navigation={this.props.navigation} />
+    );
   }
 }
 

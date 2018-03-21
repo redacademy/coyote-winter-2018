@@ -1,38 +1,42 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { fetchFirstName, fetchLastName } from '../../redux/modules/signup';
+import {
+  fetchFirstName,
+  fetchLastName
+} from '../../redux/modules/signup';
 import SignUpName from './SignUpName';
 import PropTypes from 'prop-types';
 
 class SignUpNameContainer extends Component {
-  constructor() {
-    super();
-
-    this.handleFirstName = this.handleFirstName.bind(this);
-    this.handleLastName = this.handleLastName.bind(this);
+  constructor(props) {
+    super(props);
   }
 
-  handleFirstName(text) {
+  static navigationOptions = { header: null };
+
+  handleFirstName = text => {
     this.props.dispatch(fetchFirstName(text));
-  }
+  };
 
-  handleLastName(text) {
+  handleLastName = text => {
     this.props.dispatch(fetchLastName(text));
-  }
+  };
 
   render() {
     return (
       <SignUpName
         handleFirstName={this.handleFirstName}
         handleLastName={this.handleLastName}
+        navigation={this.props.navigation}
       />
     );
   }
 }
 
 SignUpNameContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -40,4 +44,6 @@ const mapStateToProps = state => ({
   lastName: state.signup.last
 });
 
-export default connect(mapStateToProps)(SignUpNameContainer);
+export default connect(mapStateToProps)(
+  SignUpNameContainer
+);
