@@ -5,6 +5,7 @@ import favesReducer from './modules/faves';
 import filterReducer from './modules/filter';
 import signupReducer from './modules/signup';
 import applicationReducer from './modules/application';
+import loginReducer from './modules/login';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   faves: favesReducer,
   filter: filterReducer,
   signup: signupReducer,
-  application: applicationReducer
+  application: applicationReducer,
+  login: loginReducer
 });
 export default rootReducer;

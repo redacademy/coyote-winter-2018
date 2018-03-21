@@ -1,15 +1,27 @@
-import React from "react";
-import { Text, TextInput, View, TouchableOpacity, Image } from "react-native";
-import { styles } from "./styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import {
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native';
+import { styles } from './styles';
+import PropTypes from 'prop-types';
 
-const Login = ({ handleEmail, handlePassword, handleSubmit }) => {
+const Login = ({ handleEmail, handlePassword, handleSubmit, error }) => {
   return (
     <View style={styles.background}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        keyboardVerticalOffset={100}
+        behavior={'position'}
+        contentContainerStyle={styles.keyboard}
+      >
         <View>
           <Image
-            source={require("../../assets/images/orange_coyote.png")}
+            source={require('../../assets/images/orange_coyote.png')}
             style={styles.coyote}
           />
         </View>
@@ -31,13 +43,15 @@ const Login = ({ handleEmail, handlePassword, handleSubmit }) => {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={{ color: "white" }}> Sign In </Text>
+            <Text style={{ color: 'white' }}>Sign In</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.button}>
-            <Text style={{ color: "white" }}>Sign Up</Text>
+            <Text style={{ color: 'white' }}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+        <Text style={styles.error}> {error.message}</Text>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -45,7 +59,8 @@ const Login = ({ handleEmail, handlePassword, handleSubmit }) => {
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleEmail: PropTypes.func.isRequired,
-  handlePassword: PropTypes.func.isRequired
+  handlePassword: PropTypes.func.isRequired,
+  error: PropTypes.object
 };
 
 export default Login;

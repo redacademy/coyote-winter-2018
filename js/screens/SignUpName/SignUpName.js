@@ -1,12 +1,29 @@
-import React from "react";
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
-import { styles } from "../SignUp/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView
+} from 'react-native';
+import { styles } from '../SignUp/styles';
+import PropTypes from 'prop-types';
 
 const SignUpName = ({ handleFirstName, handleLastName }) => {
   return (
     <View style={styles.backgroundContainer}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={'position'}
+        contentContainerStyle={{ marginBottom: 20 }}
+      >
+        <View>
+          <Image
+            source={require('../../assets/images/orange_coyote.png')}
+            style={styles.coyote}
+          />
+        </View>
         <TextInput
           placeholder="First Name"
           onChangeText={handleFirstName}
@@ -22,10 +39,10 @@ const SignUpName = ({ handleFirstName, handleLastName }) => {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button}>
-            <Text style={{ color: "white" }}> Next </Text>
+            <Text style={{ color: 'white' }}> Next </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
