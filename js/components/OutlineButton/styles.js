@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 2
+    margin: 2,
+    flexDirection: 'column'
   },
   pressedButton: {
     backgroundColor: colors.MAIN,

@@ -1,8 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {
-  colors,
-  typography
-} from '../../config/styles';
+import { colors, typography } from '../../config/styles';
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,8 +14,8 @@ export const styles = StyleSheet.create({
   },
   label: {
     marginTop: 10,
-    marginLeft: 5,
-    fontFamily: typography.OS_REGULAR
+    marginLeft: 50,
+    flex: 1
   },
   icon: {
     fontSize: 20,
