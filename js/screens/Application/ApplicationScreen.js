@@ -3,9 +3,6 @@ import { View, Text, Button } from 'react-native';
 import PropTypes from 'prop-types';
 
 class ApplicationScreen extends Component {
-  static propTypes = {
-    navigation: PropTypes.object
-  };
   static navigationOptions = {
     title: 'Application'
   };
@@ -29,5 +26,9 @@ class ApplicationScreen extends Component {
     );
   }
 }
+
+ApplicationScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
 export default ApplicationScreen;

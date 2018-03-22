@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import LocationSearch from './LocationSearch';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateLocation } from '../../redux/modules/filter';
 
 class LocationSearchScreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      searchLocation: ''
-    };
-  }
-
   onSearch = () => {
-    const newLocation = this.state.searchLocation;
+    const newLocation = this.props.searchLocation;
     this.props.navigation.navigate('App', {
       location: newLocation
     });
   };
   onLocationSearchChange = newLocation => {
-    this.setState({ searchLocation: newLocation });
+    this.props.dispatch(updateLocation(newLocation));
   };
 
   render() {
@@ -28,14 +23,22 @@ class LocationSearchScreen extends Component {
         }
         onSearch={this.onSearch}
         navigation={this.props.navigation}
-        searchLocation={this.state.searchLocation}
+        searchLocation={this.props.searchLocation}
       />
     );
   }
 }
 
 LocationSearchScreen.propTypes = {
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  searchLocation: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
-export default LocationSearchScreen;
+const mapStateToProps = state => ({
+  searchLocation: state.filter.location
+});
+
+export default connect(mapStateToProps)(
+  LocationSearchScreen
+);

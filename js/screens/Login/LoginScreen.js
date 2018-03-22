@@ -20,9 +20,6 @@ class LoginScreen extends Component {
   static navigationOptions = {
     header: null
   };
-  static propTypes = {
-    navigation: PropTypes.object
-  };
 
   handleEmail = text => {
     this.setState({
@@ -63,6 +60,11 @@ class LoginScreen extends Component {
     );
   }
 }
+
+LoginScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated
 });

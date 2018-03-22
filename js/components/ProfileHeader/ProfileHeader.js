@@ -29,7 +29,10 @@ class ProfileHeader extends Component {
   }
 
   componentDidMount() {
-    getUserProfile().then(doc => {
+    //TODO this is a stub, we will get from redux
+    const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
+
+    getUserProfile(userId).then(doc => {
       if (doc.exists) {
         const userData = unMarshallResult(doc);
         this.setState({

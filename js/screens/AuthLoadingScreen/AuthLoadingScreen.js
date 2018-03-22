@@ -14,10 +14,6 @@ class AuthLoadingScreen extends Component {
     super(props);
   }
 
-  static propTypes = {
-    navigation: PropTypes.object
-  };
-
   componentDidMount() {
     this._bootstrapAsync();
   }
@@ -44,5 +40,9 @@ class AuthLoadingScreen extends Component {
     );
   }
 }
+
+AuthLoadingScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
 export default AuthLoadingScreen;

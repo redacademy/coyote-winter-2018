@@ -7,9 +7,6 @@ import { colors } from '../../config/styles';
 import Profile from './Profile';
 
 class ProfileScreen extends Component {
-  static propTypes = {
-    navigation: PropTypes.object
-  };
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -40,5 +37,9 @@ class ProfileScreen extends Component {
     );
   }
 }
+
+ProfileScreen.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
 export default ProfileScreen;
