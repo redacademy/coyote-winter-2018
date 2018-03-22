@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, Text } from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -12,7 +12,7 @@ import {
   updatePropertyTags
 } from '../../redux/modules/filter';
 import SearchResult from './SearchResult';
-import NoListingText from '../../components/NoListingText/';
+import Loader from '../../components/Loader/';
 import NoFilterText from '../../components/NoFilterText/';
 import { getTrueParams, setParamToFalse } from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
@@ -26,7 +26,7 @@ class SearchResultScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `${navigation.state.params}`,
+      title: 'Search Results',
       headerLeft: (
         <Button
           onPress={() => navigation.navigate('Filter')}
@@ -101,9 +101,9 @@ class SearchResultScreen extends Component {
     queryBasedOnFilters();
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch } = this.props;
-    queryBasedOnFilters();
+    await queryBasedOnFilters();
     dispatch(updateLoading(false));
   }
 
@@ -111,7 +111,7 @@ class SearchResultScreen extends Component {
     const { listings, loading } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
-      <Text>loadings</Text>
+      <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
         {chips.length < 1 ? (
@@ -119,14 +119,7 @@ class SearchResultScreen extends Component {
         ) : (
           <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
         )}
-        {listings.length < 1 ? (
-          <NoListingText text={'No Results Found - Adjust Your Search'} />
-        ) : (
-          <SearchResult
-            listings={listings}
-            navigation={this.props.navigation}
-          />
-        )}
+        <SearchResult listings={listings} navigation={this.props.navigation} />
       </ScrollView>
     );
   }
@@ -142,7 +135,8 @@ const mapStateToProps = state => ({
   occupantTags: state.filter.occupantTags,
   otherTags: state.filter.otherTags,
   parkingTags: state.filter.parkingTags,
-  propertyTags: state.filter.propertyTags
+  propertyTags: state.filter.propertyTags,
+  listingId: state.listing.listingId
 });
 
 SearchResultScreen.propTypes = {

@@ -2,11 +2,17 @@ import { StackNavigator } from 'react-navigation';
 
 import FavouriteScreen from '../../screens/Favourite/FavouriteScreen';
 
-const SearchTab = StackNavigator({
+import { colors } from '../../config/styles';
+
+const FavouriteTab = StackNavigator({
   Favourite: {
     screen: FavouriteScreen,
-    path: '/'
+    path: '/',
+    navigationOptions: () => ({
+      title: 'Faves',
+      style: { color: colors.MAIN }
+    })
   }
 });
 
-export default SearchTab;
+export default FavouriteTab;

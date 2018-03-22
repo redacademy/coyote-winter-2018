@@ -8,19 +8,15 @@ import { colors } from '../../config/styles';
 import Profile from './Profile';
 
 class ProfileScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerLeft: (
-        <Button
-          onPress={() => navigation.navigate('Listing')}
-          title="Info"
-          color={colors.MAIN}
-        />
-      ),
-      title: 'Profile',
-      tabBarLabel: 'Profile'
-    };
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: (
+      <Button
+        onPress={() => navigation.navigate('Listing')}
+        title="Info"
+        color={colors.MAIN}
+      />
+    )
+  });
 
   componentDidMount() {
     const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';

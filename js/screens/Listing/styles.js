@@ -7,25 +7,22 @@ const { height, width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   featuredImage: {
-    marginTop: 60,
     width: width,
     height: height / 2
   },
   cardContainer: {
     backgroundColor: '#fff',
+    marginTop: -60,
     height: height,
     width: width - 20,
 
     alignSelf: 'center',
     marginRight: 10,
     marginLeft: 10,
-    position: 'absolute',
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    marginTop: 300,
-
     borderRadius: 5
   },
   morePicture: {

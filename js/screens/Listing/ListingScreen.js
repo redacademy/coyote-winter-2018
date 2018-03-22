@@ -2,22 +2,24 @@ import React, { Component } from 'react';
 import Listing from './Listing';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loader from '../../components/Loader/';
+
 import {
-  fetchListing,
   fetchImages,
   fetchFeaturedImage,
   fetchLandlord,
-  getAddress
+  getAddress,
+  updateLoading
 } from '../../redux/modules/listing';
 import {
   getFaves,
-  getSingleListing,
   addFavourite,
   updateFavourites,
-  constructMapUrl
+  constructMapUrl,
+  getListings
 } from '../../config/helpers';
-import { fetchFaves, favesError } from '../../redux/modules/faves';
-import { updateAuthState } from '../../redux/modules/auth';
+import { favesError, getFaveIds } from '../../redux/modules/faves';
+
 class ListingScreen extends Component {
   constructor() {
     super();
@@ -25,86 +27,87 @@ class ListingScreen extends Component {
     this.handleFeaturedImage = this.handleFeaturedImage.bind(this);
     this.addToFaves = this.addToFaves.bind(this);
   }
-  static navigationOptions = {
-    header: null
-  };
 
   async componentDidMount() {
-    //testing using redux to get an authenticated user until navigation is provided to this screen
-    await this.props.dispatch(updateAuthState('RitwUtfThcfO6SxapXCuKfZ15SR2'));
-    const { authenticated } = this.props;
+    const { authenticated, dispatch, listing } = this.props;
+    const images = Object.values(listing.pictures);
 
-    getSingleListing().then(querySnapshot => {
-      let data = [];
-      querySnapshot.forEach(doc => {
+    dispatch(fetchImages(images));
+    dispatch(fetchFeaturedImage(images[0]));
+    dispatch(fetchLandlord(listing.landlordId));
+
+    const address = constructMapUrl(listing.address);
+    dispatch(getAddress(address));
+
+    let data = [];
+    await getListings().then(querySnapshot => {
+      querySnapshot.forEach(function(doc) {
         data.push(doc.data());
       });
-
-      this.props.dispatch(fetchListing(data));
-      const images = Object.values(data[0].pictures);
-      const landlord = data[0].landlordId;
-      this.props.dispatch(fetchImages(images));
-      this.props.dispatch(fetchFeaturedImage(images[0]));
-      this.props.dispatch(fetchLandlord(landlord));
-
-      const address = constructMapUrl(data[0].address);
-      this.props.dispatch(getAddress(address));
     });
 
-    getFaves().then(querySnapshot => {
-      let data = [];
-      querySnapshot.forEach(doc => {
-        doc.id === authenticated ? data.push(doc.data()) : null;
+    await getFaves().then(querySnapshot => {
+      let faves = [];
+      querySnapshot.forEach(function(doc) {
+        if (doc.id === authenticated) faves.push(doc.data().favourites);
       });
-      this.props.dispatch(fetchFaves(data[0].favourites));
+      // write array of faveIds to redux state
+      dispatch(getFaveIds(faves[0]));
     });
+    dispatch(updateLoading(false));
   }
 
   handleFeaturedImage(image) {
     this.props.dispatch(fetchFeaturedImage(image));
   }
 
-  addToFaves() {
-    const { authenticated } = this.props;
-    const id = this.props.listing[0].listingId;
-    const { faves } = this.props;
+  async addToFaves() {
+    const { authenticated, dispatch, faveIds, listing } = this.props;
 
-    if (!faves.includes(id)) {
-      faves.push(id);
-
-      addFavourite(faves, authenticated).catch(error => {
-        this.props.dispatch(favesError(error));
-      });
+    const id = listing.listingId;
+    if (faveIds && !faveIds.includes(id)) {
+      const newFaves = faveIds;
+      newFaves.push(id);
+      await addFavourite(newFaves, authenticated)
+        .then(() => {
+          dispatch(getFaveIds([...newFaves]));
+        })
+        .catch(error => {
+          dispatch(favesError(error));
+        });
     } else {
-      faves.splice(faves.indexOf(id), 1);
-      updateFavourites(faves, authenticated).catch(error => {
-        this.props.dispatch(favesError(error));
-      });
+      const unFave = faveIds;
+      unFave.splice(unFave.indexOf(id), 1);
+      await updateFavourites(unFave, authenticated)
+        .then(() => dispatch(getFaveIds([...unFave])))
+        .catch(error => {
+          dispatch(favesError(error));
+        });
     }
-    this.props.dispatch(fetchFaves([...faves]));
   }
 
   render() {
     const {
       listing,
+      loading,
       images,
       featuredImage,
-      faves,
+      faveIds,
       landlordId,
       address
     } = this.props;
-    const listingId = listing[0] && listing[0].listingId;
 
-    return (
+    return loading ? (
+      <Loader />
+    ) : (
       <Listing
         listing={listing}
-        faves={faves}
+        faveIds={faveIds}
         images={images}
         imageUrl={this.imageUrl}
         featuredImage={featuredImage}
         handleFeaturedImage={this.handleFeaturedImage}
         addToFaves={this.addToFaves}
-        currentListing={listingId}
         landlord={landlordId}
         navigation={this.props.navigation}
         address={address}
@@ -115,21 +118,29 @@ class ListingScreen extends Component {
 
 ListingScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  listing: PropTypes.array.isRequired,
+  faveIds: PropTypes.array,
+  listing: PropTypes.object.isRequired,
+  listings: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   images: PropTypes.array.isRequired,
   featuredImage: PropTypes.string.isRequired,
-  faves: PropTypes.array.isRequired,
   landlordId: PropTypes.string.isRequired,
   navigation: PropTypes.object,
   authenticated: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired
 };
 
+ListingScreen.defaultProps = {
+  faveIds: []
+};
+
 const mapStateToProps = state => ({
+  faveIds: state.faves.faveIds,
   listing: state.listing.listing,
+  listings: state.listings.listings,
+  loading: state.listing.loading,
   images: state.listing.images,
   featuredImage: state.listing.featuredImage,
-  faves: state.faves.faves,
   landlordId: state.listing.landlordId,
   authenticated: state.auth.authenticated,
   address: state.listing.address

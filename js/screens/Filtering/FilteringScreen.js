@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  Button
+} from 'react-native';
 import { connect } from 'react-redux';
 import Filtering from './Filtering';
 import PropTypes from 'prop-types';
@@ -50,11 +55,15 @@ class FilteringScreen extends Component {
     const { numBathrooms, dispatch } = this.props;
     if (isDecrement) {
       numBathrooms > 1
-        ? dispatch(updateNumBathrooms(numBathrooms - 1))
+        ? dispatch(
+            updateNumBathrooms(numBathrooms - 1)
+          )
         : dispatch(updateNumBathrooms(numBathrooms));
     } else {
       numBathrooms < 10
-        ? dispatch(updateNumBathrooms(numBathrooms + 1))
+        ? dispatch(
+            updateNumBathrooms(numBathrooms + 1)
+          )
         : dispatch(updateNumBathrooms(numBathrooms));
     }
   };
@@ -75,6 +84,7 @@ class FilteringScreen extends Component {
   render() {
     const {
       laundryTags,
+      navigation,
       numBathrooms,
       numBedrooms,
       occupantTags,
@@ -94,8 +104,12 @@ class FilteringScreen extends Component {
           }}
         >
           <View style={{ flexDirection: 'column' }}>
-            <Text style={styles.locationLabel}>Location: </Text>
-            <Text style={styles.text}>{this.props.location}</Text>
+            <Text style={styles.locationLabel}>
+              Location:{' '}
+            </Text>
+            <Text style={styles.text}>
+              {this.props.location}
+            </Text>
           </View>
           <DropDown
             label={'Sort By'}
@@ -106,6 +120,7 @@ class FilteringScreen extends Component {
         </View>
         <Filtering
           laundryTags={laundryTags}
+          navigation={navigation}
           numBathrooms={numBathrooms}
           numBedrooms={numBedrooms}
           occupantTags={occupantTags}
@@ -155,4 +170,6 @@ FilteringScreen.propTypes = {
   propertyTags: PropTypes.object.isRequired,
   sortOptions: PropTypes.string.isRequired
 };
-export default connect(mapStateToProps)(FilteringScreen);
+export default connect(mapStateToProps)(
+  FilteringScreen
+);

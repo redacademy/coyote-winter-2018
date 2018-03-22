@@ -1,11 +1,14 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../../config/styles';
+import { colors, typography } from '../../config/styles';
 
 const { height, width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    height: height
+  },
   background: {
-    backgroundColor: colors.GREY,
     height: height
   },
   headerContainer: {
@@ -16,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 15,
     borderColor: colors.GREY,
     marginTop: 20,
     marginRight: 20,
@@ -28,13 +31,18 @@ export const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -1 },
     shadowOpacity: 0.8,
-    shadowRadius: 2
+    shadowRadius: 1
   },
   headerImage: { height: 150, width: 150 },
   label: {
     marginTop: 20,
-    marginLeft: 60,
-    marginBottom: 20
+    marginLeft: 50,
+    marginBottom: 20,
+    textAlign: 'center',
+    width: width / 1.5,
+    fontFamily: typography.M_SEMIBOLD,
+    color: colors.BACKGROUND,
+    fontSize: 18
   },
   buttonContainer: {
     marginTop: 15,
@@ -44,7 +52,7 @@ export const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.MAIN_,
+    backgroundColor: colors.MAIN,
     borderRadius: 25,
     minWidth: 100,
     minHeight: 30,
@@ -55,6 +63,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 2
   },
   text: {
-    color: colors.BACKGROUND
+    color: colors.BACKGROUND,
+    fontFamily: typography.OS_REGULAR
   }
 });

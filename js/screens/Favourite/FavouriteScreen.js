@@ -7,13 +7,10 @@ import { connect } from 'react-redux';
 import { getListings, getFaves } from '../../config/helpers';
 
 class FavouriteScreen extends Component {
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
+  async componentDidMount() {
     const { authenticated } = this.props;
-    getListings().then(querySnapshot => {
+    // TODO: REFACTOR THIS
+    await getListings().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
         data.push(doc.data());
@@ -21,7 +18,7 @@ class FavouriteScreen extends Component {
       this.props.dispatch(fetchListings(data));
     });
 
-    getFaves().then(querySnapshot => {
+    await getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
         doc.id === authenticated ? data.push(doc.data()) : null;
@@ -38,10 +35,13 @@ class FavouriteScreen extends Component {
       });
       this.props.dispatch(fetchFaves(favourites));
     });
+    // END REFACTOR
   }
 
   render() {
-    return <Favourite faves={this.props.faves} />;
+    return (
+      <Favourite faves={this.props.faves} navigation={this.props.navigation} />
+    );
   }
 }
 
@@ -49,7 +49,8 @@ FavouriteScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   listings: PropTypes.array.isRequired,
   faves: PropTypes.array.isRequired,
-  authenticated: PropTypes.string.isRequired
+  authenticated: PropTypes.string.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

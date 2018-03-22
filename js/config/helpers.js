@@ -3,9 +3,7 @@ const ZOOM_SIZE_MARKER =
   '&zoom=12&size=400x400&markers=color:blue%7Clabel:S%7C';
 
 import { MAP_API } from 'react-native-dotenv';
-
 import { firestoreDb, firebaseAuth } from './firebaseConfig';
-import { addIcon } from './iconType';
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the users collection
@@ -87,12 +85,6 @@ export const newUser = (email, password, firstName, lastName) => {
           firstName: firstName,
           lastName: lastName,
           email: email
-        })
-        .then(() => {
-          console.log('it worked');
-        })
-        .catch(error => {
-          console.log(error);
         });
     });
 };
@@ -121,10 +113,10 @@ export const getApplicationsByUser = async uid => {
   return listingOfApplications;
 };
 
-export const getSingleListing = () => {
+export const getSingleListing = listingId => {
   return firestoreDb
     .collection('listings')
-    .where('listingId', '==', 'd3LYPbjyvBccXJDVGuMbQZk81337')
+    .where('listingId', '==', listingId)
     .get();
 };
 
@@ -151,4 +143,11 @@ export const constructMapUrl = address => {
   return (
     ROOT_URL + addressUrl + ZOOM_SIZE_MARKER + addressUrl + '&key=' + MAP_API
   );
+}
+
+export const getCities = () => {
+  return firestoreDb
+    .collection('listings')
+    .orderBy('city')
+    .get();
 };

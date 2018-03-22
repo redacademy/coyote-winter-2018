@@ -3,10 +3,22 @@ const GET_IMAGES = 'GET_IMAGES';
 const FEATURED_IMAGE = 'FEATURED_IMAGE';
 const LANDLORD_ID = 'LANDLORD_ID';
 const GET_ADDRESS = 'GET_ADDRESS';
+const GET_LISTING_ID = 'GET_LISTING_ID';
+const UPDATE_LOADING = 'UPDATE_LOADING';
 
 const getListing = listing => ({
   type: GET_LISTING,
   payload: listing
+});
+
+export const updateLoading = loading => ({
+  type: UPDATE_LOADING,
+  payload: loading
+});
+
+export const getListingId = listingId => ({
+  type: GET_LISTING_ID,
+  payload: listingId
 });
 
 const getImages = images => ({
@@ -33,6 +45,10 @@ export const fetchListing = listing => dispatch => {
   dispatch(getListing(listing));
 };
 
+export const fetchListingId = listingId => dispatch => {
+  dispatch(getListingId(listingId));
+};
+
 export const fetchImages = images => dispatch => {
   dispatch(getImages(images));
 };
@@ -48,10 +64,13 @@ export const fetchLandlord = id => dispatch => {
 export default (
   state = {
     listing: [],
+    listingId: '',
     images: [],
     featuredImage: '',
     landlordId: '',
-    address: ''
+    address: '',
+    listingId: '',
+    loading: true
   },
   action
 ) => {
@@ -60,6 +79,18 @@ export default (
       return {
         ...state,
         listing: action.payload
+      };
+    }
+    case UPDATE_LOADING: {
+      return {
+        ...state,
+        loading: action.payload
+      };
+    }
+    case GET_LISTING_ID: {
+      return {
+        ...state,
+        listingId: action.payload
       };
     }
     case GET_IMAGES: {
