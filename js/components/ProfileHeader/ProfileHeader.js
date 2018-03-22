@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   ScrollView,
   View,
@@ -6,29 +6,45 @@ import {
   TextInput,
   Image,
   TouchableOpacity
-} from "react-native";
+} from 'react-native';
+
+import ImagePicker from 'react-native-image-crop-picker';
 
 import {
   getUserProfile,
   updateUserProfile,
   unMarshallResult
-} from "../../config/helpers";
+} from '../../config/helpers';
 
-import { styles } from "./styles";
+import { styles } from './styles';
 
-const userId = "QhP2yK3dx4P8BAB3AHJiLPAZgn93";
+const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
 
 class ProfileHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editable: false,
-      firstName: "",
-      lastName: "",
-      location: "",
-      bio: ""
+      photoURL: '',
+      firstName: '',
+      lastName: '',
+      location: '',
+      bio: ''
     };
   }
+
+  openPicker = () => {
+    ImagePicker.openPicker({
+      width: 200,
+      height: 200,
+      cropping: true,
+      includeBase64: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0
+    }).then(image => {
+      this.setState({ photoURL: image.data });
+    });
+  };
 
   componentDidMount() {
     getUserProfile(userId).then(doc => {
@@ -38,7 +54,8 @@ class ProfileHeader extends Component {
           firstName: userData.firstName,
           lastName: userData.lastName,
           location: userData.location,
-          bio: userData.bio
+          bio: userData.bio,
+          photoURL: userData.photoURL
         });
       }
     });
@@ -53,12 +70,25 @@ class ProfileHeader extends Component {
       bio: this.state.bio,
       location: this.state.location,
       firstName: this.state.firstName,
-      lastName: this.state.lastName
+      lastName: this.state.lastName,
+      photoURL: this.state.photoURL
     });
     this.setState({ editable: false });
   };
 
   render() {
+    const base64Image = `data:image/jpg;base64, ${this.state.photoURL}`;
+    const dpr =
+      this.state.photoURL && this.state.editable === false ? (
+        <Image style={styles.profileImage} source={{ url: base64Image }} />
+      ) : (
+        <TouchableOpacity onPress={() => this.openPicker()}>
+          <View>
+            <Image style={styles.profileImage} source={{ url: base64Image }} />
+            <Text style={styles.changeImage}>Change Image</Text>
+          </View>
+        </TouchableOpacity>
+      );
     return (
       <ScrollView>
         <View style={styles.profileContainer}>
@@ -68,15 +98,7 @@ class ProfileHeader extends Component {
             </View>
           </TouchableOpacity>
           <View style={styles.userWrapper}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.profileImage}
-                source={{
-                  uri:
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png/200px-Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png"
-                }}
-              />
-            </View>
+            <View style={styles.imageContainer}>{dpr}</View>
             <View style={styles.userInfo}>
               <TextInput
                 style={styles.userName}
