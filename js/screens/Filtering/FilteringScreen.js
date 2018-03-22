@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  Text,
-  Button
-} from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Filtering from './Filtering';
-import Card from '../../components/Card';
 import PropTypes from 'prop-types';
 import {
   updateNumBathrooms,
@@ -30,22 +25,11 @@ import {
   sortListingsByDateDesc,
   unMarshallResult
 } from '../../config/helpers';
-import { colors } from '../../config/styles';
 
 class FilteringScreen extends Component {
   constructor(props) {
     super(props);
   }
-
-  static navigationOptions = {
-    headerLeft: (
-      <Button
-        onPress={this.queryBasedOnFilters}
-        title="Filter"
-        color={colors.MAIN}
-      />
-    )
-  };
 
   componentDidMount() {
     // TODO: remove this - only a test function to simulate
@@ -162,36 +146,26 @@ class FilteringScreen extends Component {
       otherTags,
       parkingTags,
       priceRange,
-      propertyTags
+      propertyTags,
+      navigation
     } = this.props;
     return (
       <ScrollView style={{ marginTop: 25 }}>
-        <Card
-          header={<Text />}
-          content={
-            <Filtering
-              laundryTags={laundryTags}
-              numBathrooms={numBathrooms}
-              numBedrooms={numBedrooms}
-              occupantTags={occupantTags}
-              onPriceRangeChange={
-                this.onPriceRangeChange
-              }
-              otherTags={otherTags}
-              parkingTags={parkingTags}
-              priceRange={priceRange}
-              propertyTags={propertyTags}
-              query={this.queryBasedOnFilters}
-              tagAction={this.tagAction}
-              updateNumBathrooms={
-                this.updateNumBathrooms
-              }
-              updateNumBedrooms={
-                this.updateNumBedrooms
-              }
-            />
-          }
-          separator={false}
+        <Filtering
+          laundryTags={laundryTags}
+          numBathrooms={numBathrooms}
+          numBedrooms={numBedrooms}
+          occupantTags={occupantTags}
+          onPriceRangeChange={this.onPriceRangeChange}
+          otherTags={otherTags}
+          parkingTags={parkingTags}
+          priceRange={priceRange}
+          propertyTags={propertyTags}
+          query={this.queryBasedOnFilters}
+          tagAction={this.tagAction}
+          updateNumBathrooms={this.updateNumBathrooms}
+          updateNumBedrooms={this.updateNumBedrooms}
+          navigation={navigation}
         />
       </ScrollView>
     );

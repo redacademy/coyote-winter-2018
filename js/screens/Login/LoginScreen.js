@@ -16,32 +16,30 @@ import {
 class LoginContainer extends Component {
   constructor() {
     super();
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this._signInAsync = this._signInAsync.bind(this);
   }
 
   static navigationOptions = {
     header: null
   };
 
-  handleEmail(text) {
+  handleEmail = text => {
     this.props.dispatch(fetchEmail(text));
-  }
+  };
 
-  handlePassword(text) {
+  handlePassword = text => {
     this.props.dispatch(fetchPassword(text));
   }
   _signInAsync = async uid => {
     await AsyncStorage.setItem('userToken', uid);
     this.props.navigation.navigate('LocationSearch');
   };
-  handleSubmit() {
+  handleSubmit = () => {
     const { email, password } = this.props;
 
-    const signInSuccess = isValidEmailAndPassword(email, password);
+    const signInSuccess = isValidEmailAndPassword(
+      email,
+      password
+    );
 
     signInSuccess
       ? firebaseAuth
@@ -50,9 +48,13 @@ class LoginContainer extends Component {
           .then(user => this._signInAsync(user.uid))
 
           .catch(err => {
-            this.props.dispatch(displayLoginError(err));
+            this.props.dispatch(
+              displayLoginError(err)
+            );
           })
-      : this.props.dispatch(displayLoginError(signInSuccess));
+      : this.props.dispatch(
+          displayLoginError(signInSuccess)
+        );
   }
 
   render() {
@@ -91,4 +93,6 @@ const mapStateToProps = state => ({
   password: state.login.password
 });
 
-export default connect(mapStateToProps)(LoginContainer);
+export default connect(mapStateToProps)(
+  LoginContainer
+);

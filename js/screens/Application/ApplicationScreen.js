@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, Text } from 'react-native';
-import Card from '../../components/Card';
 import { connect } from 'react-redux';
 import Application from './Application';
 import PropTypes from 'prop-types';
@@ -31,12 +30,7 @@ class ApplicationScreen extends Component {
       <Text>Loading...</Text>
     ) : (
       <ScrollView style={styles.scroll}>
-        <Card
-          content={
-            <Application listings={applications} />
-          }
-          separator={false}
-        />
+        <Application listings={applications} />
       </ScrollView>
     );
   }

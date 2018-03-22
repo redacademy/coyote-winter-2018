@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import FavouriteItem from '../../components/FavouriteItem';
-import { List } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { styles } from '../SearchResult/styles';
 
@@ -12,18 +11,16 @@ const renderSeparator = () => {
 const Favourite = ({ faves }) => {
   return (
     <View style={styles.container}>
-      <List containerStyle={styles.listContainer}>
-        <FlatList
-          keyExtractor={item => item.listingId}
-          data={faves}
-          ItemSeparatorComponent={renderSeparator}
-          renderItem={({ item }) => (
-            <View>
-              <FavouriteItem item={item} />
-            </View>
-          )}
-        />
-      </List>
+      <FlatList
+        keyExtractor={item => item.listingId}
+        data={faves}
+        ItemSeparatorComponent={renderSeparator}
+        renderItem={({ item }) => (
+          <View>
+            <FavouriteItem item={item} />
+          </View>
+        )}
+      />
     </View>
   );
 };

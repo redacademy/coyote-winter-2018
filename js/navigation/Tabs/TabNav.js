@@ -53,8 +53,8 @@ const TabNav = TabNavigator(
     FavouriteTab: {
       screen: FavouriteTab,
       path: '/favourite',
-      tabBarLabel: 'Faves',
       navigationOptions: {
+        tabBarLabel: 'Faves',
         tabBarIcon: function favTab({
           // eslint-disable-next-line
           focused,
@@ -109,7 +109,6 @@ const TabNav = TabNavigator(
       inactiveBackgroundColor: night
     },
     tabBarPosition: 'bottom',
-    animationEnabled: false,
     swipeEnabled: false
   }
 );

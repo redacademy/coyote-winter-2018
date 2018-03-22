@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListingList from '../../components/ListingList/';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import ListItem from '../../components/ListItem/';
 
-const renderFunction = item => {
+const renderFunction = (item, navigation) => {
   return (
     <View>
-      <ListItem item={item} />
+      <TouchableOpacity
+        onPress={() => console.log(navigation.state)}
+      >
+        <ListItem item={item} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -22,7 +26,7 @@ const SearchResult = ({ listings }) => {
 
 SearchResult.propTypes = {
   listings: PropTypes.array.isRequired,
-  navigation: PropTypes.object
+  navigation: PropTypes.object.isRequired
 };
 
 export default SearchResult;

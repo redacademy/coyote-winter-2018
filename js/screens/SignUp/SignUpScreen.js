@@ -17,9 +17,9 @@ import PropTypes from 'prop-types';
 class SignUpScreen extends Component {
   constructor(props) {
     super(props);
-
-    this.userError = this.userError.bind(this);
   }
+
+  static navigationOptions = { header: null };
 
   componentDidMount() {
     getUsers().then(querySnapshot => {
