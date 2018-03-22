@@ -1,5 +1,9 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity
+} from 'react-native';
 import PropTypes from 'prop-types';
 import ListItem from '../../components/ListItem/';
 import { List } from 'react-native-elements';
@@ -9,7 +13,7 @@ const renderSeparator = () => {
   return <View style={styles.separator} />;
 };
 
-const SearchResult = ({ listings }) => {
+const SearchResult = ({ listings, navigation }) => {
   return (
     <View style={styles.container}>
       <List containerStyle={styles.listContainer}>
@@ -18,9 +22,15 @@ const SearchResult = ({ listings }) => {
           data={listings}
           ItemSeparatorComponent={renderSeparator}
           renderItem={({ item }) => (
-            <View>
-              <ListItem item={item} />
-            </View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Listing')
+              }
+            >
+              <View>
+                <ListItem item={item} />
+              </View>
+            </TouchableOpacity>
           )}
         />
       </List>
@@ -29,7 +39,8 @@ const SearchResult = ({ listings }) => {
 };
 
 SearchResult.propTypes = {
-  listings: PropTypes.array.isRequired
+  listings: PropTypes.array.isRequired,
+  navigation: PropTypes.object
 };
 
 export default SearchResult;

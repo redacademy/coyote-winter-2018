@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors /*typography*/ } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   button: {
@@ -25,11 +28,11 @@ export const styles = StyleSheet.create({
     margin: 2
   },
   text: {
-    color: colors.night
-    //fontFamily: typography.OS_REGULAR
+    color: colors.night,
+    fontFamily: typography.OS_REGULAR
   },
   pressedText: {
-    color: colors.BACKGROUND
-    //fontFamily: typography.OS_REGULAR
+    color: colors.BACKGROUND,
+    fontFamily: typography.OS_REGULAR
   }
 });

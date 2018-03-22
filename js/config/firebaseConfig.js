@@ -1,6 +1,6 @@
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
+import firebase from 'firebase';
+import 'firebase/auth';
+import 'firebase/firestore';
 import {
   API_KEY,
   AUTH_DOMAIN,
@@ -8,7 +8,7 @@ import {
   PROJECT_ID,
   STORAGE_BUCKET,
   MESSAGING_SENDING_ID
-} from "react-native-dotenv";
+} from 'react-native-dotenv';
 
 // Initialize firebase app
 const config = {

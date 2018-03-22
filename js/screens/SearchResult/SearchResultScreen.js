@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Text, ScrollView } from 'react-native';
+import {
+  Text,
+  ScrollView,
+  Button
+} from 'react-native';
 import { connect } from 'react-redux';
 import SearchResult from './SearchResult';
 import PropTypes from 'prop-types';
@@ -14,25 +18,46 @@ import {
   sortListingsByDateDesc
 } from '../../config/helpers';
 import Card from '../../components/Card/';
-import FilterAndSearchBar from '../../components/FilterAndSearchBar/';
 
-class SearchResultContainer extends Component {
-  constructor() {
-    super();
+import { colors } from '../../config/styles';
+
+class SearchResultScreen extends Component {
+  constructor(props) {
+    super(props);
     this.state = { loading: true };
   }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button
+          onPress={() => navigation.navigate('Filter')}
+          title="Filter"
+          color={colors.MAIN}
+        />
+      ),
+      title: 'Search',
+      tabBarLabel: 'Search Result'
+    };
+  };
+
   componentDidMount() {
     // perform query based on location passed via route
     // TODO: get value from route
-    const location = 'Vancouver'; /*hard-coded value to remove upon routing*/
+    const location =
+      'Vancouver'; /*hard-coded value to remove upon routing*/
     this.props.dispatch(updateLocation(location));
     getListingsByLocation(location).then(doc => {
       const listingArray = [];
       doc.docs.forEach(querySnap => {
         listingArray.push(unMarshallResult(querySnap));
       });
-      const listingsSorted = listingArray.sort(sortListingsByDateDesc);
-      this.props.dispatch(updateListings(listingsSorted));
+      const listingsSorted = listingArray.sort(
+        sortListingsByDateDesc
+      );
+      this.props.dispatch(
+        updateListings(listingsSorted)
+      );
       this.props.dispatch(updateLoading(false));
     });
   }
@@ -44,17 +69,12 @@ class SearchResultContainer extends Component {
     ) : (
       <ScrollView style={{ marginTop: 25 }}>
         <Card
-          header={
-            <FilterAndSearchBar
-              searchFunction={() => {
-                /*TODO: route to search modal*/
-              }}
-              filterFunction={() => {
-                /*TODO: route to filter screen*/
-              }}
+          content={
+            <SearchResult
+              listings={listings}
+              navigation={this.props.navigation}
             />
           }
-          content={<SearchResult listings={listings} />}
           separator={true}
         />
       </ScrollView>
@@ -68,10 +88,13 @@ const mapStateToProps = state => ({
   location: state.filter.location
 });
 
-SearchResultContainer.propTypes = {
+SearchResultScreen.propTypes = {
   listings: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   location: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps)(SearchResultContainer);
+export default connect(mapStateToProps)(
+  SearchResultScreen
+);
