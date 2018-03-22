@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, Button, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  Button,
+  TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Filtering from './Filtering';
@@ -70,38 +76,50 @@ class FilteringScreen extends Component {
         <ScrollView style={styles.scroll}>
           <View style={styles.locationContainer}>
             <View>
-              <Text style={location !== '' ? styles.locationText : null}>
+              <Text
+                style={
+                  location !== ''
+                    ? styles.locationText
+                    : null
+                }
+              >
                 {location}
               </Text>
             </View>
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('LocationSearch')}
+                onPress={() =>
+                  navigation.navigate('LocationSearch')
+                }
                 style={styles.button}
               >
                 <Text style={styles.buttonText}>
-                  {location === '' || location.length == 0
+                  {location === '' ||
+                  location.length == 0
                     ? 'Change Location'
                     : 'Change'}
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
-
           <Filtering
             laundryTags={laundryTags}
             navigation={navigation}
             numBathrooms={numBathrooms}
             numBedrooms={numBedrooms}
             occupantTags={occupantTags}
-            onPriceRangeChange={this.onPriceRangeChange}
+            onPriceRangeChange={
+              this.onPriceRangeChange
+            }
             otherTags={otherTags}
             parkingTags={parkingTags}
             priceRange={priceRange}
             propertyTags={propertyTags}
             sortOptions={sortOptions}
             tagAction={this.tagAction}
-            updateNumBathrooms={this.updateNumBathrooms}
+            updateNumBathrooms={
+              this.updateNumBathrooms
+            }
             updateNumBedrooms={this.updateNumBedrooms}
           />
         </ScrollView>
@@ -112,7 +130,9 @@ class FilteringScreen extends Component {
             navigation.goBack();
           }}
         >
-          <Text style={styles.buttonText}>Apply Filters</Text>
+          <Text style={styles.buttonText}>
+            Apply Filters
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -153,4 +173,6 @@ FilteringScreen.propTypes = {
   propertyTags: PropTypes.object.isRequired,
   sortOptions: PropTypes.string.isRequired
 };
-export default connect(mapStateToProps)(FilteringScreen);
+export default connect(mapStateToProps)(
+  FilteringScreen
+);

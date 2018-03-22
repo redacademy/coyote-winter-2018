@@ -21,9 +21,13 @@ const searchedCities = (
   onLocationSearchChange,
   cities
 ) => {
-  const searchedCities = findClosestString(cities, searchedText);
+  const searchedCities = findClosestString(
+    cities,
+    searchedText
+  );
   dispatch(updateAutoSelected(searchedCities));
-  if (searchedText.length > 3) onLocationSearchChange(searchedCities);
+  if (searchedText.length > 3)
+    onLocationSearchChange(searchedCities);
 };
 
 const LocationSearch = ({
@@ -35,23 +39,39 @@ const LocationSearch = ({
 }) => {
   return (
     <View style={styles.background}>
-      <ImageBackground source={backgroundPic} style={styles.backgroundImage}>
+      <ImageBackground
+        source={backgroundPic}
+        style={styles.backgroundImage}
+      >
         <View style={styles.headerContainer}>
-          <Image source={logo} style={styles.headerImage} />
+          <Image
+            source={logo}
+            style={styles.headerImage}
+          />
         </View>
         <View>
-          <Text style={styles.label}>Where do you want to live?</Text>
+          <Text style={styles.label}>
+            Where do you want to live?
+          </Text>
           <TextInput
             value={location}
             style={styles.input}
             onChangeText={text =>
-              searchedCities(text, dispatch, onLocationSearchChange, cities)
+              searchedCities(
+                text,
+                dispatch,
+                onLocationSearchChange,
+                cities
+              )
             }
             placeholder="Type city here"
           />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={onSearch}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={onSearch}
+          >
             <Text style={styles.text}> Search </Text>
           </TouchableOpacity>
         </View>
@@ -77,4 +97,6 @@ const mapStateToProps = state => ({
   cities: state.autocomplete.suggestions
 });
 
-export default connect(mapStateToProps)(LocationSearch);
+export default connect(mapStateToProps)(
+  LocationSearch
+);

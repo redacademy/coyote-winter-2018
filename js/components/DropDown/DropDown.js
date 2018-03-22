@@ -3,10 +3,18 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
 import { SORT_OPTIONS } from '../../redux/modules/filter';
-import { colors, typography } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 import { View, Text } from 'react-native';
 
-const DropDown = ({ label, options, selectFunction, sortOptions }) => {
+const DropDown = ({
+  label,
+  options,
+  selectFunction,
+  sortOptions
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.buttonText}>{label}</Text>

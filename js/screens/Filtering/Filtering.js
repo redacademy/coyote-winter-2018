@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, ScrollView, Text, Picker } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  Picker
+} from 'react-native';
 import PropTypes from 'prop-types';
 import ButtonGrid from '../../components/ButtonGrid';
 import Slider from '../../components/Slider';
@@ -42,18 +47,32 @@ const Filtering = ({
       <ButtonGrid
         heading="Property Type"
         tags={propertyTags}
-        action={name => tagAction(propertyTags, name, updatePropertyTags)}
+        action={name =>
+          tagAction(
+            propertyTags,
+            name,
+            updatePropertyTags
+          )
+        }
       />
       <ButtonGrid
         heading="I'm Looking for..."
         tags={occupantTags}
-        action={name => tagAction(occupantTags, name, updateOccupantTags)}
+        action={name =>
+          tagAction(
+            occupantTags,
+            name,
+            updateOccupantTags
+          )
+        }
       />
       <Text style={styles.heading}>I Need...</Text>
 
       <View style={styles.pickerContainer}>
         <View style={styles.pickerWrapper}>
-          <Text style={styles.pickerHeader}>Bedrooms</Text>
+          <Text style={styles.pickerHeader}>
+            Bedrooms
+          </Text>
           <Picker
             style={styles.picker}
             itemStyle={{ color: colors.MAIN }}
@@ -73,7 +92,9 @@ const Filtering = ({
           </Picker>
         </View>
         <View style={styles.pickerWrapper}>
-          <Text style={styles.pickerHeader}>Bathrooms</Text>
+          <Text style={styles.pickerHeader}>
+            Bathrooms
+          </Text>
           <Picker
             style={styles.picker}
             itemStyle={{ color: colors.MAIN }}
@@ -96,24 +117,32 @@ const Filtering = ({
       <ButtonGrid
         heading="Other"
         tags={otherTags}
-        action={name => tagAction(otherTags, name, updateOtherTags)}
+        action={name =>
+          tagAction(otherTags, name, updateOtherTags)
+        }
       />
       <ButtonGrid
         heading="Laundry"
         tags={laundryTags}
-        action={name => tagAction(laundryTags, name, updateLaundryTags)}
+        action={name =>
+          tagAction(
+            laundryTags,
+            name,
+            updateLaundryTags
+          )
+        }
       />
       <ButtonGrid
         heading="Parking"
         tags={parkingTags}
-        action={name => tagAction(parkingTags, name, updateParkingTags)}
+        action={name =>
+          tagAction(
+            parkingTags,
+            name,
+            updateParkingTags
+          )
+        }
       />
-      {/* <View style={styles.applyButton}>
-        <Button
-          label={'Apply Filters'}
-          onPress={() => queryBasedOnFilters()}
-        />
-      </View> */}
     </ScrollView>
   );
 };

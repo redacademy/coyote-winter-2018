@@ -24,14 +24,11 @@ import {
   sortFilter
 } from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
+
 import { colors } from '../../config/styles';
 import { styles } from './styles';
 
 class SearchResultScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Search Results',
@@ -123,7 +120,12 @@ class SearchResultScreen extends Component {
   }
 
   render() {
-    const { dispatch, listings, loading, sortOptions } = this.props;
+    const {
+      dispatch,
+      listings,
+      loading,
+      sortOptions
+    } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
       <Loader />
@@ -134,7 +136,10 @@ class SearchResultScreen extends Component {
           options={SORT_OPTIONS}
           selectFunction={option => {
             dispatch(updateSortOptions(option));
-            const sorted = sortFilter(listings, option);
+            const sorted = sortFilter(
+              listings,
+              option
+            );
             dispatch(updateListings([...sorted]));
           }}
           sortOptions={sortOptions}
@@ -142,9 +147,15 @@ class SearchResultScreen extends Component {
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
-          <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
+          <ChipGrid
+            tags={chips}
+            action={chip => this.closeChip(chip)}
+          />
         )}
-        <SearchResult listings={listings} navigation={this.props.navigation} />
+        <SearchResult
+          listings={listings}
+          navigation={this.props.navigation}
+        />
       </ScrollView>
     );
   }
@@ -190,4 +201,6 @@ SearchResultScreen.defaultPropTypes = {
   parkingTags: {},
   propertyTags: {}
 };
-export default connect(mapStateToProps)(SearchResultScreen);
+export default connect(mapStateToProps)(
+  SearchResultScreen
+);
