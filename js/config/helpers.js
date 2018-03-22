@@ -37,24 +37,14 @@ export const updateUserProfile = (userId, userData) => {
  * - sorts listings in descending order
  * */
 export const sortListingsByDateDesc = (result1, result2) => {
-  return sortListings(result1, result2, true, 'listingCreatedDate');
+  return result2.listingCreatedDate - result1.listingCreatedDate;
 };
 
 export const sortListingsByPriceAsc = (result1, result2) => {
-  return sortListings(result1, result2, false, 'price');
+  return result2.price - result1.price;
 };
 export const sortListingsByPriceDsc = (result1, result2) => {
-  return sortListings(result1, result2, true, 'price');
-};
-/**
- * Generic Sort Function
- * - result1 and result2 are objects from the query
- * - desc is true if we are sorting in descending order. if false, sort in ascending order
- * - fieldToSort is the name of object field we should sort on
- **/
-const sortListings = (result1, result2, desc, fieldToSort) => {
-  if (desc) return `result2.${fieldToSort}` - `result1.${fieldToSort}`;
-  return `result1.${fieldToSort}` - `result2.${fieldToSort}`;
+  return result1.price - result2.price;
 };
 
 export const getListingsByLocation = location => {
