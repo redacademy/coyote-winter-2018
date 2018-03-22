@@ -51,7 +51,6 @@ const LocationSearch = ({
 
 LocationSearch.propTypes = {
   onLocationSearchChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
   searchLocation: PropTypes.string.isRequired
 };

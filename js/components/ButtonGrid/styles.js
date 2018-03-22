@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors, typography } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   text: {
@@ -13,5 +16,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginBottom: 10
+  },
+  buttonGridContainer: {
+    borderBottomColor: '#CED0CE',
+    borderWidth: StyleSheet.hairlineWidth
   }
 });

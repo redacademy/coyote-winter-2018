@@ -20,15 +20,6 @@ import {
 } from '../../redux/modules/faves';
 import { updateAuthState } from '../../redux/modules/auth';
 class ListingScreen extends Component {
-  constructor() {
-    super();
-
-    this.handleFeaturedImage = this.handleFeaturedImage.bind(
-      this
-    );
-    this.addToFaves = this.addToFaves.bind(this);
-  }
-
   async componentDidMount() {
     //testing using redux to get an authenticated user until navigation is provided to this screen
     await this.props.dispatch(
@@ -53,7 +44,6 @@ class ListingScreen extends Component {
       );
       this.props.dispatch(fetchLandlord(landlord));
     });
-
     getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
@@ -67,11 +57,11 @@ class ListingScreen extends Component {
     });
   }
 
-  handleFeaturedImage(image) {
+  handleFeaturedImage = image => {
     this.props.dispatch(fetchFeaturedImage(image));
-  }
+  };
 
-  addToFaves() {
+  addToFaves = () => {
     const { authenticated } = this.props;
     const id = this.props.listing[0].listingId;
     const { faves } = this.props;
@@ -93,7 +83,7 @@ class ListingScreen extends Component {
       );
     }
     this.props.dispatch(fetchFaves([...faves]));
-  }
+  };
 
   render() {
     const {

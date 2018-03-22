@@ -17,13 +17,12 @@ export const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.MAIN,
-    marginRight: 28,
-    borderRadius: 25
+    borderRadius: 25,
+    marginTop: 25
   },
   buttonText: {
     color: colors.BACKGROUND,
     marginVertical: 5,
-    marginHorizontal: 20,
-    borderRadius: 30
+    marginHorizontal: 20
   }
 });
