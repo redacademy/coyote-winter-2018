@@ -1,50 +1,64 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-
 import { firebaseAuth } from '../../config/firebaseConfig';
-
 import { AsyncStorage } from 'react-native';
+
 import Login from './Login';
 import PropTypes from 'prop-types';
+import {
+  displayLoginError,
+  fetchEmail,
+  fetchPassword
+} from '../../redux/modules/login';
 
-class LoginScreen extends Component {
+class LoginContainer extends Component {
   constructor() {
     super();
-    this.state = {
-      emailInput: '',
-      passwordInput: '',
-      error: ''
-    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(
+      this
+    );
   }
 
-  handleEmail = text => {
-    this.setState({
-      emailInput: text
-    });
-  };
+  handleEmail(text) {
+    this.props.dispatch(fetchEmail(text));
+  }
 
-  handlePassword = text => {
-    this.setState({
-      passwordInput: text
-    });
-  };
-
+  handlePassword(text) {
+    this.props.dispatch(fetchPassword(text));
+  }
   _signInAsync = async () => {
     await AsyncStorage.setItem('userToken', 'abc');
     this.props.navigation.navigate('LocationSearch');
   };
+  handleSubmit() {
+    const { email, password } = this.props;
 
-  handleSubmit = () => {
-    const { emailInput, passwordInput } = this.state;
-    firebaseAuth
-      .signInWithEmailAndPassword(
-        emailInput,
-        passwordInput
-      )
-      .then(this._signInAsync)
-      .catch(err => this.setState({ error: err }));
-  };
+    const validEmail = /^([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const errorMessage = {
+      code: 'Invalid login',
+      message: 'Please Enter a Valid Email Address'
+    };
+
+    if (
+      validEmail.test(email) &&
+      password.length > 5
+    ) {
+      firebaseAuth
+        .signInWithEmailAndPassword(email, password)
+        .catch(err => {
+          this.props.dispatch(displayLoginError(err));
+        });
+    } else {
+      this.props.dispatch(
+        displayLoginError(errorMessage)
+      );
+    }
+    this._signInAsync;
+  }
 
   render() {
     return (
@@ -52,18 +66,35 @@ class LoginScreen extends Component {
         handleSubmit={this.handleSubmit}
         handleEmail={this.handleEmail}
         handlePassword={this.handlePassword}
-        navigation={this.props.navigation}
+        email={this.props.email}
+        password={this.props.password}
+        error={this.props.error}
       />
     );
   }
 }
 
-LoginScreen.propTypes = {
+LoginContainer.defaultProps = {
+  email: '',
+  password: '',
+  error: {}
+};
+
+LoginContainer.propTypes = {
+  email: PropTypes.string,
+  password: PropTypes.string,
+  error: PropTypes.object,
+  dispatch: PropTypes.func,
   navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  authenticated: state.auth.authenticated
+  authenticated: state.auth.authenticated,
+  error: state.login.error,
+  email: state.login.email,
+  password: state.login.password
 });
 
-export default connect(mapStateToProps)(LoginScreen);
+export default connect(mapStateToProps)(
+  LoginContainer
+);
