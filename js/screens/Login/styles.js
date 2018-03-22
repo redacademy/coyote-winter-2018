@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../config/styles";
+import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../config/styles';
 
-const { height } = Dimensions.get("window");
+const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   background: {
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     height: height
   },
   container: {
-    flexDirection: "column",
+    flexDirection: 'column',
     marginTop: height / 6
   },
   input: {
@@ -20,17 +20,17 @@ export const styles = StyleSheet.create({
     marginRight: 20,
     marginLeft: 10,
     height: 40,
-    backgroundColor: "white",
-    textAlign: "center"
+    backgroundColor: 'white',
+    textAlign: 'center'
   },
   buttonContainer: {
     marginTop: 15,
-    flexDirection: "column",
-    alignItems: "center"
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   button: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.MAIN,
     borderRadius: 25,
     minWidth: 100,
@@ -40,7 +40,15 @@ export const styles = StyleSheet.create({
   coyote: {
     height: 100,
     width: 100,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 50
+  },
+  error: {
+    color: colors.MAIN,
+    textAlign: 'center',
+    marginTop: 10
+  },
+  keyboard: {
+    marginBottom: -height / 8
   }
 });

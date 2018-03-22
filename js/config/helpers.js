@@ -67,23 +67,8 @@ export const unMarshallResult = result => {
   return JSON.parse(result._document.data.toString());
 };
 
-export const newUser = (email, password, firstName, lastName, errorFunc) => {
-  firebaseAuth
-    .createUserWithEmailAndPassword(email, password)
-    .then(authUser => {
-      firestoreDb
-        .collection('users')
-        .doc(authUser.uid)
-
-        .set({
-          firstName: firstName,
-          lastName: lastName
-        })
-
-        .catch(function(error) {
-          errorFunc(error);
-        });
-    });
+export const getUsers = () => {
+  return firestoreDb.collection('users').get();
 };
 
 export const getListings = () => {
@@ -92,6 +77,26 @@ export const getListings = () => {
 
 export const getFaves = () => {
   return firestoreDb.collection('favourites').get();
+};
+
+export const newUser = (email, password, firstName, lastName) => {
+  return firebaseAuth
+    .createUserWithEmailAndPassword(email, password)
+    .then(authUser => {
+      firestoreDb
+        .collection('users')
+        .doc(authUser.uid)
+        .set({
+          firstName: firstName,
+          lastName: lastName
+        })
+        .then(() => {
+          console.log('it worked');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
 };
 
 // Get applications by querying applications and listings
