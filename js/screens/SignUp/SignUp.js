@@ -46,6 +46,10 @@ const SignUp = ({ addUser, handleEmail, handlePassword, error }) => {
   );
 };
 
+SignUp.defaultProps = {
+  error: {}
+};
+
 SignUp.propTypes = {
   addUser: PropTypes.func.isRequired,
   handleEmail: PropTypes.func.isRequired,

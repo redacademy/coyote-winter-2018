@@ -59,6 +59,12 @@ class LoginContainer extends Component {
   }
 }
 
+LoginContainer.defaultProps = {
+  email: '',
+  password: '',
+  error: {}
+};
+
 LoginContainer.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,

@@ -56,6 +56,10 @@ const Login = ({ handleEmail, handlePassword, handleSubmit, error }) => {
   );
 };
 
+Login.defaultProps = {
+  error: {}
+};
+
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleEmail: PropTypes.func.isRequired,
