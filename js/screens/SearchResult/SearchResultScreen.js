@@ -7,13 +7,15 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  SORT_OPTIONS,
   queryBasedOnFilters,
   updateLaundryTags,
   updateLoading,
   updateOccupantTags,
   updateOtherTags,
   updateParkingTags,
-  updatePropertyTags
+  updatePropertyTags,
+  updateSortOptions
 } from '../../redux/modules/filter';
 import SearchResult from './SearchResult';
 import NoListingText from '../../components/NoListingText/';
@@ -23,15 +25,16 @@ import {
   setParamToFalse
 } from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
+import DropDown from '../../components/DropDown/';
+
 import { colors } from '../../config/styles';
 import { styles } from './styles';
 
 class SearchResultScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({
+    sortListings,
+    navigation
+  }) => {
     return {
       title: 'Search Results',
       headerLeft: (
@@ -40,8 +43,21 @@ class SearchResultScreen extends Component {
           title="Filter"
           color={colors.MAIN}
         />
+      ),
+      headerRight: (
+        <DropDown
+          options={SORT_OPTIONS}
+          defaultValue={'Change'}
+          selectFunction={sortListings}
+          currentValue={SORT_OPTIONS[0]}
+        />
       )
     };
+  };
+
+  sortListings = sortOrder => {
+    const { dispatch } = this.props;
+    dispatch(updateSortOptions(sortOrder));
   };
 
   getChipLabels = () => {
@@ -157,7 +173,8 @@ const mapStateToProps = state => ({
   otherTags: state.filter.otherTags,
   parkingTags: state.filter.parkingTags,
   propertyTags: state.filter.propertyTags,
-  listingId: state.listing.listingId
+  listingId: state.listing.listingId,
+  sortOptions: state.filter.sortOptions
 });
 
 SearchResultScreen.propTypes = {
@@ -172,7 +189,8 @@ SearchResultScreen.propTypes = {
   occupantTags: PropTypes.object,
   otherTags: PropTypes.object,
   parkingTags: PropTypes.object,
-  propertyTags: PropTypes.object
+  propertyTags: PropTypes.object,
+  sortOptions: PropTypes.string.isRequired
 };
 
 SearchResultScreen.defaultPropTypes = {

@@ -1,4 +1,8 @@
-export const SORT_OPTIONS = ['Newest', 'Highest Price', 'Lowest Price'];
+export const SORT_OPTIONS = [
+  'Newest',
+  'Highest Price',
+  'Lowest Price'
+];
 import {
   filterByAnd,
   filterByBoolean,
@@ -40,18 +44,36 @@ export const queryBasedOnFilters = async () => {
   } = store.getState().filter;
 
   const listingArray = await getNewListings(location);
-  let results = listingArray.docs.map(result => unMarshallResult(result));
+  let results = listingArray.docs.map(result =>
+    unMarshallResult(result)
+  );
 
   results = filterByPriceRange(results, priceRange);
-  results = filterByTags(results, propertyTags, 'propertyType');
+  results = filterByTags(
+    results,
+    propertyTags,
+    'propertyType'
+  );
   results = filterByBoolean(results, laundryTags);
   results = filterByBoolean(results, occupantTags);
-  results = filterByTags(results, parkingTags, 'parking');
+  results = filterByTags(
+    results,
+    parkingTags,
+    'parking'
+  );
   results = filterByAnd(results, otherTags);
   // if number of bed and bath are both 0, then not incld in query
   if (numBathrooms !== 0 && numBedrooms !== 0) {
-    results = filterBySingleValue(results, 'numBathrooms', numBathrooms);
-    results = filterBySingleValue(results, 'numBedrooms', numBedrooms);
+    results = filterBySingleValue(
+      results,
+      'numBathrooms',
+      numBathrooms
+    );
+    results = filterBySingleValue(
+      results,
+      'numBedrooms',
+      numBedrooms
+    );
   }
   results = sortFilter(results, sortOptions);
 
@@ -176,11 +198,17 @@ export default function(
     case UPDATE_LOCATION:
       return { ...state, location: action.payload };
     case UPDATE_NUM_BATHROOMS:
-      return { ...state, numBathrooms: action.payload };
+      return {
+        ...state,
+        numBathrooms: action.payload
+      };
     case UPDATE_NUM_BEDROOMS:
       return { ...state, numBedrooms: action.payload };
     case UPDATE_OCCUPANT_TAGS:
-      return { ...state, occupantTags: action.payload };
+      return {
+        ...state,
+        occupantTags: action.payload
+      };
     case UPDATE_OTHER_TAGS:
       return { ...state, otherTags: action.payload };
     case UPDATE_PARKING_TAGS:
@@ -188,7 +216,10 @@ export default function(
     case UPDATE_PRICE_RANGE:
       return { ...state, priceRange: action.payload };
     case UPDATE_PROPERTY_TAGS:
-      return { ...state, propertyTags: action.payload };
+      return {
+        ...state,
+        propertyTags: action.payload
+      };
     case UPDATE_SORT_OPTIONS:
       return { ...state, sortOptions: action.payload };
     default:

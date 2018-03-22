@@ -1,31 +1,46 @@
 import React from 'react';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { View, Text } from 'react-native';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
-const DropDown = ({ label, options, defaultValue, selectFunction }) => {
+const DropDown = ({
+  options,
+  defaultValue,
+  selectFunction,
+  currentValue
+}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{label}</Text>
-      <View>
-        <ModalDropdown
-          textStyle={{ fontSize: 14 }}
-          dropdownStyle={{ height: 100 }}
-          options={options}
-          defaultValue={defaultValue}
-          onSelect={selectFunction}
-        />
-      </View>
-    </View>
+    <ModalDropdown
+      textStyle={styles.buttonText}
+      dropdownTextStyle={{
+        height: 130,
+        alignSelf: 'center',
+        fontSize: 26,
+        fontFamily: typography.OS_REGULAR,
+        paddingTop: 55,
+        color: colors.MAIN
+      }}
+      dropdownStyle={{
+        height: '100%',
+        width: '100%'
+      }}
+      options={options}
+      defaultValue={defaultValue}
+      onSelect={selectFunction}
+      currentValue={currentValue}
+    />
   );
 };
 
 DropDown.propTypes = {
-  label: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
-  selectFunction: PropTypes.func.isRequired
+  selectFunction: PropTypes.func.isRequired,
+  currentValue: PropTypes.string.isRequired
 };
 
 export default DropDown;

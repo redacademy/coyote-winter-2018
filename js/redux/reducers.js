@@ -8,6 +8,7 @@ import applicationReducer from './modules/application';
 import loginReducer from './modules/login';
 import listingsReducer from './modules/listings';
 import userReducer from './modules/user';
+import landlordReducer from './modules/landlord';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   application: applicationReducer,
   login: loginReducer,
-  user: userReducer
+  user: userReducer,
+  landlord: landlordReducer
 });
 export default rootReducer;

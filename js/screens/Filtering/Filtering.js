@@ -1,12 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  Picker
+} from 'react-native';
 import PropTypes from 'prop-types';
 import ButtonGrid from '../../components/ButtonGrid';
-import Button from '../../components/Button';
-import IncrementalInput from '../../components/IncrementalInput/';
 import Slider from '../../components/Slider';
 import {
-  queryBasedOnFilters,
   updateLaundryTags,
   updateOccupantTags,
   updateOtherTags,
@@ -14,10 +16,10 @@ import {
   updatePropertyTags
 } from '../../redux/modules/filter';
 import { styles } from './styles';
+import { colors } from '../../config/styles';
 
 const Filtering = ({
   laundryTags,
-  navigation,
   numBathrooms,
   numBedrooms,
   occupantTags,
@@ -31,10 +33,10 @@ const Filtering = ({
   updateNumBedrooms
 }) => {
   return (
-    <View>
+    <ScrollView>
+      <Text style={styles.heading}>Price</Text>
       <View style={styles.price}>
         <Slider
-          label={'Prices'}
           priceRange={priceRange}
           onPriceRangeChange={onPriceRangeChange}
           min={100}
@@ -45,58 +47,110 @@ const Filtering = ({
       <ButtonGrid
         heading="Property Type"
         tags={propertyTags}
-        action={name => tagAction(propertyTags, name, updatePropertyTags)}
+        action={name =>
+          tagAction(
+            propertyTags,
+            name,
+            updatePropertyTags
+          )
+        }
       />
       <ButtonGrid
         heading="I'm Looking for..."
         tags={occupantTags}
-        action={name => tagAction(occupantTags, name, updateOccupantTags)}
+        action={name =>
+          tagAction(
+            occupantTags,
+            name,
+            updateOccupantTags
+          )
+        }
       />
-      <View style={styles.rooms}>
-        <IncrementalInput
-          label={'Bedrooms'}
-          value={numBedrooms}
-          incrementValue={updateNumBedrooms}
-          decrementValue={updateNumBedrooms}
-        />
-        <IncrementalInput
-          label={'Bathrooms'}
-          value={numBathrooms}
-          incrementValue={updateNumBathrooms}
-          decrementValue={updateNumBathrooms}
-        />
+      <Text style={styles.heading}>I Need...</Text>
+
+      <View style={styles.pickerContainer}>
+        <View style={styles.pickerWrapper}>
+          <Text style={styles.pickerHeader}>
+            Bedrooms
+          </Text>
+          <Picker
+            style={styles.picker}
+            itemStyle={{ color: colors.MAIN }}
+            selectedValue={numBedrooms}
+            onValueChange={updateNumBedrooms}
+          >
+            <Picker.Item label="1" value={1} />
+            <Picker.Item label="2" value={2} />
+            <Picker.Item label="3" value={3} />
+            <Picker.Item label="4" value={4} />
+            <Picker.Item label="5" value={5} />
+            <Picker.Item label="6" value={6} />
+            <Picker.Item label="7" value={7} />
+            <Picker.Item label="8" value={8} />
+          </Picker>
+        </View>
+        <View style={styles.pickerWrapper}>
+          <Text style={styles.pickerHeader}>
+            Bathrooms
+          </Text>
+          <Picker
+            style={styles.picker}
+            itemStyle={{ color: colors.MAIN }}
+            selectedValue={numBathrooms}
+            onValueChange={updateNumBathrooms}
+          >
+            <Picker.Item label="1" value={1} />
+            <Picker.Item label="2" value={2} />
+            <Picker.Item label="3" value={3} />
+            <Picker.Item label="4" value={4} />
+            <Picker.Item label="5" value={5} />
+            <Picker.Item label="6" value={6} />
+            <Picker.Item label="7" value={7} />
+            <Picker.Item label="8" value={8} />
+          </Picker>
+        </View>
       </View>
       <ButtonGrid
         heading="Other"
         tags={otherTags}
-        action={name => tagAction(otherTags, name, updateOtherTags)}
+        action={name =>
+          tagAction(otherTags, name, updateOtherTags)
+        }
       />
       <ButtonGrid
         heading="Laundry"
         tags={laundryTags}
-        action={name => tagAction(laundryTags, name, updateLaundryTags)}
+        action={name =>
+          tagAction(
+            laundryTags,
+            name,
+            updateLaundryTags
+          )
+        }
       />
       <ButtonGrid
         heading="Parking"
         tags={parkingTags}
-        action={name => tagAction(parkingTags, name, updateParkingTags)}
+        action={name =>
+          tagAction(
+            parkingTags,
+            name,
+            updateParkingTags
+          )
+        }
       />
-      <View style={styles.applyButton}>
+      {/* <View style={styles.applyButton}>
         <Button
           label={'Apply Filters'}
-          onPress={() => {
-            queryBasedOnFilters();
-            navigation.goBack();
-          }}
+          onPress={() => queryBasedOnFilters()}
         />
-      </View>
-    </View>
+      </View> */}
+    </ScrollView>
   );
 };
 
 Filtering.propTypes = {
   laundryTags: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
   numBathrooms: PropTypes.number.isRequired,
   numBedrooms: PropTypes.number.isRequired,
   occupantTags: PropTypes.object.isRequired,

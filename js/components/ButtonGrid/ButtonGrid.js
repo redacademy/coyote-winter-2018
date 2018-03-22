@@ -7,7 +7,7 @@ import { styles } from './styles';
 const ButtonGrid = ({ heading, tags, action }) => {
   const tagNames = Object.keys(tags);
   return (
-    <View>
+    <View style={styles.buttonGridContainer}>
       <Text style={styles.heading}>{heading}</Text>
       <View style={styles.body}>
         {tagNames.map(name => (

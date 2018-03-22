@@ -9,6 +9,8 @@ import {
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { withNavigation } from 'react-navigation';
+
 import { styles } from './styles';
 
 const Listing = ({
@@ -18,7 +20,9 @@ const Listing = ({
   featuredImage,
   handleFeaturedImage,
   addToFaves,
-  currentListing
+  currentListing,
+  landlord,
+  navigation
 }) => {
   return (
     <ScrollView>
@@ -57,7 +61,14 @@ const Listing = ({
             Apply To This Property
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonTwo}>
+        <TouchableOpacity
+          style={styles.buttonTwo}
+          onPress={() =>
+            navigation.navigate('Landlord', {
+              landlord: landlord
+            })
+          }
+        >
           <Text style={styles.buttonTextTwo}>
             View Landlords Profile
           </Text>
@@ -82,7 +93,7 @@ const Listing = ({
               ) : (
                 <Icon
                   name="ios-heart"
-                  color="gray"
+                  color="red"
                   style={styles.heartSize}
                 />
               )
@@ -118,7 +129,8 @@ Listing.propTypes = {
   faves: PropTypes.array.isRequired,
   addToFaves: PropTypes.func.isRequired,
   currentListing: PropTypes.string,
-  landlord: PropTypes.string.isRequired
+  landlord: PropTypes.string.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
-export default Listing;
+export default withNavigation(Listing);

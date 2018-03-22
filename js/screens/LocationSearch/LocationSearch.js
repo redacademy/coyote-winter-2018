@@ -36,11 +36,7 @@ const LocationSearch = ({
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() =>
-            navigation.navigate('Search', {
-              newLocation: 'whatever'
-            })
-          }
+          onPress={() => navigation.navigate('Search')}
         >
           <Text style={styles.text}> Search </Text>
         </TouchableOpacity>
@@ -51,7 +47,6 @@ const LocationSearch = ({
 
 LocationSearch.propTypes = {
   onLocationSearchChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
   searchLocation: PropTypes.string.isRequired
 };
