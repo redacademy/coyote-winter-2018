@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { styles } from './styles';
 
-const ListItem = ({ item }) => {
+const ApplicationItem = ({ item }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -16,18 +16,18 @@ const ListItem = ({ item }) => {
           <Text style={styles.description}>{item.description}</Text>
         </View>
         <Text style={styles.lastUpdated}>
-          Last Updated:
-          {moment.unix(item.listingCreatedDate).format('MM/DD/YYYY')}
+          Applied On:
+          {moment.unix(item.createdOnDate).format('MM/DD/YYYY')}
         </Text>
-        <Text style={styles.price}>${item.price}</Text>
+        <Text style={styles.price}>{item.applicationStatus}</Text>
         <View />
       </View>
     </View>
   );
 };
 
-ListItem.propTypes = {
+ApplicationItem.propTypes = {
   item: PropTypes.object.isRequired
 };
 
-export default ListItem;
+export default ApplicationItem;

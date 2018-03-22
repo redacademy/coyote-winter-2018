@@ -15,9 +15,13 @@ const CardList = ({ header, content, separator }) => {
 };
 
 CardList.propTypes = {
-  header: PropTypes.object.isRequired,
+  header: PropTypes.object,
   content: PropTypes.object.isRequired,
   separator: PropTypes.bool.isRequired
+};
+
+CardList.defaultProps = {
+  header: null
 };
 
 export default CardList;
