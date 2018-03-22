@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, Text } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  Text
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -14,7 +18,10 @@ import {
 import SearchResult from './SearchResult';
 import NoListingText from '../../components/NoListingText/';
 import NoFilterText from '../../components/NoFilterText/';
-import { getTrueParams, setParamToFalse } from '../../lib/filterHelpers';
+import {
+  getTrueParams,
+  setParamToFalse
+} from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
 import { colors } from '../../config/styles';
 import { styles } from './styles';
@@ -24,18 +31,19 @@ class SearchResultScreen extends Component {
     super(props);
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: `${navigation.state.params}`,
-      headerLeft: (
-        <Button
-          onPress={() => navigation.navigate('Filter')}
-          title="Filter"
-          color={colors.MAIN}
-        />
-      )
-    };
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: (
+      <Button
+        onPress={() =>
+          navigation.navigate('Filter', {
+            title: `asdf`
+          })
+        }
+        title="Filter"
+        color={colors.MAIN}
+      />
+    )
+  });
 
   getChipLabels = () => {
     const {
@@ -117,10 +125,17 @@ class SearchResultScreen extends Component {
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
-          <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
+          <ChipGrid
+            tags={chips}
+            action={chip => this.closeChip(chip)}
+          />
         )}
         {listings.length < 1 ? (
-          <NoListingText text={'No Results Found - Adjust Your Search'} />
+          <NoListingText
+            text={
+              'No Results Found - Adjust Your Search'
+            }
+          />
         ) : (
           <SearchResult
             listings={listings}
@@ -142,7 +157,8 @@ const mapStateToProps = state => ({
   occupantTags: state.filter.occupantTags,
   otherTags: state.filter.otherTags,
   parkingTags: state.filter.parkingTags,
-  propertyTags: state.filter.propertyTags
+  propertyTags: state.filter.propertyTags,
+  listingId: state.listing.listingId
 });
 
 SearchResultScreen.propTypes = {
@@ -169,4 +185,6 @@ SearchResultScreen.defaultPropTypes = {
   parkingTags: {},
   propertyTags: {}
 };
-export default connect(mapStateToProps)(SearchResultScreen);
+export default connect(mapStateToProps)(
+  SearchResultScreen
+);

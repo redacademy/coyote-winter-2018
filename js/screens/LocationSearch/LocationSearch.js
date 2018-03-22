@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   View,
   Text,
@@ -13,7 +12,7 @@ import logo from '../../assets/images/orange_coyote.png';
 
 const LocationSearch = ({
   onLocationSearchChange,
-  onSearch
+  navigation
 }) => {
   return (
     <View style={styles.background}>
@@ -37,7 +36,11 @@ const LocationSearch = ({
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={onSearch}
+          onPress={() =>
+            navigation.navigate('Search', {
+              newLocation: 'whatever'
+            })
+          }
         >
           <Text style={styles.text}> Search </Text>
         </TouchableOpacity>

@@ -30,6 +30,7 @@ const TabNav = TabNavigator(
       screen: SearchTab,
       path: '/',
       navigationOptions: {
+        tabBarLabel: 'Search',
         tabBarIcon: function tabSearchIcon({
           // eslint-disable-next-line
           focused,

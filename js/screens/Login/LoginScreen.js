@@ -14,10 +14,6 @@ import {
 import { updateAuthState } from '../../redux/modules/auth';
 
 class LoginContainer extends Component {
-  constructor() {
-    super();
-  }
-
   static navigationOptions = {
     header: null
   };
@@ -83,4 +79,6 @@ const mapStateToProps = state => ({
   password: state.login.password
 });
 
-export default connect(mapStateToProps)(LoginContainer);
+export default connect(mapStateToProps)(
+  LoginContainer
+);
