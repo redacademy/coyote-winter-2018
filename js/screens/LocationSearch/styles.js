@@ -56,5 +56,8 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: colors.BACKGROUND
+  },
+  keyboard: {
+    marginTop: height / 12
   }
 });
