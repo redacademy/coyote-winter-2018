@@ -10,10 +10,18 @@ import {
 import { styles } from './styles';
 import PropTypes from 'prop-types';
 
-const SignUp = ({ addUser, handleEmail, handlePassword, error }) => {
+const SignUp = ({
+  addUser,
+  handleEmail,
+  handlePassword,
+  error
+}) => {
   return (
     <View style={styles.backgroundContainer}>
-      <KeyboardAvoidingView style={styles.container} behavior={'position'}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={'position'}
+      >
         <View>
           <Image
             source={require('../../assets/images/orange_coyote.png')}
@@ -36,10 +44,20 @@ const SignUp = ({ addUser, handleEmail, handlePassword, error }) => {
           autoCapitalize="none"
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={addUser}>
-            <Text style={{ color: 'white' }}> Sign Up </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={addUser}
+          >
+            <Text style={{ color: 'white' }}>
+              {' '}
+              Sign Up{' '}
+            </Text>
           </TouchableOpacity>
-          {error ? <Text style={styles.error}>{error.message}</Text> : null}
+          {error ? (
+            <Text style={styles.error}>
+              {error.message}
+            </Text>
+          ) : null}
         </View>
       </KeyboardAvoidingView>
     </View>

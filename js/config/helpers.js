@@ -1,9 +1,14 @@
-import { firestoreDb, firebaseAuth } from './firebaseConfig';
+import {
+  firestoreDb,
+  firebaseAuth
+} from './firebaseConfig';
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the users collection
 export const getUserProfile = userId => {
-  const db = firestoreDb.collection('users').doc(userId);
+  const db = firestoreDb
+    .collection('users')
+    .doc(userId);
 
   return db.get();
 };
@@ -11,13 +16,17 @@ export const getUserProfile = userId => {
 // returns a promise for the query for the given userId
 // used to retrieve data from the application collection
 const getApplications = userId => {
-  const db = firestoreDb.collection('applications').doc(userId);
+  const db = firestoreDb
+    .collection('applications')
+    .doc(userId);
   return db.get();
 };
 
 // returns a promise for the query for a given listingId
 export const getListing = listingId => {
-  const db = firestoreDb.collection('listings').doc(listingId);
+  const db = firestoreDb
+    .collection('listings')
+    .doc(listingId);
   return db.get();
 };
 
@@ -26,8 +35,13 @@ export const getListing = listingId => {
 // - example of usage:
 //  updateUserProfile('20032OjyKweGTpikv65HoUeQCQr1', {location: 'Scranton, PA'});
 //
-export const updateUserProfile = (userId, userData) => {
-  const db = firestoreDb.collection('users').doc(userId);
+export const updateUserProfile = (
+  userId,
+  userData
+) => {
+  const db = firestoreDb
+    .collection('users')
+    .doc(userId);
   return db.update(userData);
 };
 
@@ -36,14 +50,33 @@ export const updateUserProfile = (userId, userData) => {
  * we must write our own sort functions:
  * - sorts listings in descending order
  * */
-export const sortListingsByDateDesc = (result1, result2) => {
-  return sortListings(result1, result2, true, 'listingCreatedDate');
+export const sortListingsByDateDesc = (
+  result1,
+  result2
+) => {
+  return sortListings(
+    result1,
+    result2,
+    true,
+    'listingCreatedDate'
+  );
 };
 
-export const sortListingsByPriceAsc = (result1, result2) => {
-  return sortListings(result1, result2, false, 'price');
+export const sortListingsByPriceAsc = (
+  result1,
+  result2
+) => {
+  return sortListings(
+    result1,
+    result2,
+    false,
+    'price'
+  );
 };
-export const sortListingsByPriceDsc = (result1, result2) => {
+export const sortListingsByPriceDsc = (
+  result1,
+  result2
+) => {
   return sortListings(result1, result2, true, 'price');
 };
 /**
@@ -52,13 +85,26 @@ export const sortListingsByPriceDsc = (result1, result2) => {
  * - desc is true if we are sorting in descending order. if false, sort in ascending order
  * - fieldToSort is the name of object field we should sort on
  **/
-const sortListings = (result1, result2, desc, fieldToSort) => {
-  if (desc) return `result2.${fieldToSort}` - `result1.${fieldToSort}`;
-  return `result1.${fieldToSort}` - `result2.${fieldToSort}`;
+const sortListings = (
+  result1,
+  result2,
+  desc,
+  fieldToSort
+) => {
+  if (desc)
+    return (
+      `result2.${fieldToSort}` -
+      `result1.${fieldToSort}`
+    );
+  return (
+    `result1.${fieldToSort}` - `result2.${fieldToSort}`
+  );
 };
 
 export const getListingsByLocation = location => {
-  const db = firestoreDb.collection('listings').where('city', '==', location);
+  const db = firestoreDb
+    .collection('listings')
+    .where('city', '==', location);
 
   return db.get();
 };
@@ -79,7 +125,12 @@ export const getFaves = () => {
   return firestoreDb.collection('favourites').get();
 };
 
-export const newUser = (email, password, firstName, lastName) => {
+export const newUser = (
+  email,
+  password,
+  firstName,
+  lastName
+) => {
   return firebaseAuth
     .createUserWithEmailAndPassword(email, password)
     .then(authUser => {
@@ -106,16 +157,23 @@ export const getApplicationsByUser = async uid => {
   const listingOfApplications = [];
 
   await getApplications(uid).then(applications => {
-    applications.data().applications.forEach(application => {
-      listingIds[application.listingId] = application;
-    });
+    applications
+      .data()
+      .applications.forEach(application => {
+        listingIds[
+          application.listingId
+        ] = application;
+      });
   });
   const matches = Object.keys(listingIds);
   await getListings().then(listings => {
     listings.forEach(listing => {
       if (matches.includes(listing.data().listingId)) {
         listingOfApplications.push(
-          Object.assign(listingIds[listing.data().listingId], listing.data())
+          Object.assign(
+            listingIds[listing.data().listingId],
+            listing.data()
+          )
         );
       }
     });

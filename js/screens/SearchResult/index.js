@@ -1,3 +1,3 @@
-import SearchResultContainer from './SearchResultContainer';
+import SearchResultScreen from "./SearchResultScreen";
 
-export default SearchResultContainer;
+export default SearchResultScreen;
