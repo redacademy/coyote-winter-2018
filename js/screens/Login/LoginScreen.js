@@ -34,29 +34,24 @@ class LoginContainer extends Component {
   handlePassword(text) {
     this.props.dispatch(fetchPassword(text));
   }
-  _signInAsync = async () => {
-    await AsyncStorage.setItem('userToken', 'abc');
+  _signInAsync = async email => {
+    await AsyncStorage.setItem('userToken', email);
     this.props.navigation.navigate('LocationSearch');
   };
   handleSubmit() {
     const { email, password } = this.props;
 
-    const errorMessage = {
-      code: 'Invalid login',
-      message: 'Please Enter a Valid Email Address'
-    };
+    const signInSuccess = isValidEmailAndPassword(email, password);
 
-    if (isValidEmailAndPassword(email, password)) {
-      firebaseAuth
-        .signInWithEmailAndPassword(email, password)
-        .then(this._signInAsync)
+    signInSuccess
+      ? firebaseAuth
+          .signInWithEmailAndPassword(email, password)
+          .then(this._signInAsync(email))
 
-        .catch(err => {
-          this.props.dispatch(displayLoginError(err));
-        });
-    } else {
-      this.props.dispatch(displayLoginError(errorMessage));
-    }
+          .catch(err => {
+            this.props.dispatch(displayLoginError(err));
+          })
+      : this.props.dispatch(displayLoginError(signInSuccess));
   }
 
   render() {
