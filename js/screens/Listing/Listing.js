@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import Map from '../../components/Map';
-
 import { styles } from './styles';
 
 const Listing = ({
@@ -72,7 +70,6 @@ const Listing = ({
         <Text style={styles.description}>
           {listing[0] && listing[0].description}
         </Text>
-        <Map />
       </View>
     </ScrollView>
   );
