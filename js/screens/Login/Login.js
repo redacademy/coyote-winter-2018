@@ -10,7 +10,13 @@ import {
 import { styles } from './styles';
 import PropTypes from 'prop-types';
 
-const Login = ({ handleEmail, handlePassword, handleSubmit, error }) => {
+const Login = ({
+  handleEmail,
+  handlePassword,
+  handleSubmit,
+  error,
+  navigation
+}) => {
   return (
     <View style={styles.background}>
       <KeyboardAvoidingView
@@ -42,15 +48,28 @@ const Login = ({ handleEmail, handlePassword, handleSubmit, error }) => {
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={{ color: 'white' }}>Sign In</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSubmit}
+          >
+            <Text style={{ color: 'white' }}>
+              Sign In
+            </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={{ color: 'white' }}>Sign Up</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate('SignUpName')
+            }
+          >
+            <Text style={{ color: 'white' }}>
+              Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.error}> {error.message}</Text>
+        <Text style={styles.error}>
+          {error.message}
+        </Text>
       </KeyboardAvoidingView>
     </View>
   );
@@ -64,7 +83,8 @@ Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleEmail: PropTypes.func.isRequired,
   handlePassword: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
+  navigation: PropTypes.object.isRequired
 };
 
 export default Login;

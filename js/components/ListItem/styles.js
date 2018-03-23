@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors /*typography*/ } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,7 +22,7 @@ export const styles = StyleSheet.create({
   listing: { marginTop: 5 },
   title: {
     marginBottom: 5,
-    //fontFamily: typography.M_BOLD,
+    fontFamily: typography.M_BOLD,
     color: colors.MAIN
   },
   descriptionContainer: { flexDirection: 'row' },
@@ -27,13 +30,17 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     fontSize: 12,
-    marginBottom: 5 /*fontFamily: typography.OS_REGULAR*/
+    marginBottom: 5,
+    fontFamily: typography.OS_REGULAR
   },
   lastUpdated: {
     fontSize: 10,
     marginBottom: 5,
-    color: 'grey'
-    //fontFamily: typography.OS_REGULAR
+    color: 'grey',
+    fontFamily: typography.OS_REGULAR
   },
-  price: { color: '#CD5C5C' /*fontFamily: typography.M_SEMIBOLD*/ }
+  price: {
+    color: '#CD5C5C',
+    fontFamily: typography.M_SEMIBOLD
+  }
 });

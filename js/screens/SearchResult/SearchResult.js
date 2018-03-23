@@ -12,11 +12,17 @@ const renderFunction = item => {
   );
 };
 const SearchResult = ({ listings }) => {
-  return <ListingList listings={listings} renderFunction={renderFunction} />;
+  return (
+    <ListingList
+      listings={listings}
+      renderFunction={renderFunction}
+    />
+  );
 };
 
 SearchResult.propTypes = {
-  listings: PropTypes.array.isRequired
+  listings: PropTypes.array.isRequired,
+  navigation: PropTypes.object
 };
 
 export default SearchResult;

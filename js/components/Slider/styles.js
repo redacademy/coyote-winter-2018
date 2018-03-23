@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { colors /*typography*/ } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   label: {
-    marginBottom: 20
-    //fontFamily: typography.OS_REGULAR
+    marginBottom: 20,
+    fontFamily: typography.OS_REGULAR
   },
   slider: {
     backgroundColor: colors.MAIN
