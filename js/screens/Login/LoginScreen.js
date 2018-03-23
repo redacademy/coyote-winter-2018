@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { firebaseAuth } from '../../config/firebaseConfig';
+import { AsyncStorage } from 'react-native';
+
 import Login from './Login';
 import PropTypes from 'prop-types';
 import {
@@ -16,8 +18,15 @@ class LoginContainer extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+    this.handlePassword = this.handlePassword.bind(
+      this
+    );
+    this._signInAsync = this._signInAsync.bind(this);
   }
+
+  static navigationOptions = {
+    header: null
+  };
 
   handleEmail(text) {
     this.props.dispatch(fetchEmail(text));
@@ -26,7 +35,10 @@ class LoginContainer extends Component {
   handlePassword(text) {
     this.props.dispatch(fetchPassword(text));
   }
-
+  _signInAsync = async () => {
+    await AsyncStorage.setItem('userToken', 'abc');
+    this.props.navigation.navigate('LocationSearch');
+  };
   handleSubmit() {
     const { email, password } = this.props;
 
@@ -36,13 +48,21 @@ class LoginContainer extends Component {
       message: 'Please Enter a Valid Email Address'
     };
 
-    if (validEmail.test(email) && password.length > 5) {
-      firebaseAuth.signInWithEmailAndPassword(email, password).catch(err => {
-        this.props.dispatch(displayLoginError(err));
-      });
+    if (
+      validEmail.test(email) &&
+      password.length > 5
+    ) {
+      firebaseAuth
+        .signInWithEmailAndPassword(email, password)
+        .catch(err => {
+          this.props.dispatch(displayLoginError(err));
+        });
     } else {
-      this.props.dispatch(displayLoginError(errorMessage));
+      this.props.dispatch(
+        displayLoginError(errorMessage)
+      );
     }
+    this._signInAsync;
   }
 
   render() {
@@ -54,6 +74,7 @@ class LoginContainer extends Component {
         email={this.props.email}
         password={this.props.password}
         error={this.props.error}
+        navigation={this.props.navigation}
       />
     );
   }
@@ -69,7 +90,8 @@ LoginContainer.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
   error: PropTypes.object,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -79,4 +101,6 @@ const mapStateToProps = state => ({
   password: state.login.password
 });
 
-export default connect(mapStateToProps)(LoginContainer);
+export default connect(mapStateToProps)(
+  LoginContainer
+);

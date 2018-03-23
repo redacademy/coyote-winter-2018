@@ -18,7 +18,9 @@ class ApplicationScreen extends Component {
     // TODO: get uid from authenticated object in redux
     const uid = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
 
-    const listingIds = await getApplicationsByUser(uid);
+    const listingIds = await getApplicationsByUser(
+      uid
+    );
 
     dispatch(updateApplicationState(listingIds));
     dispatch(updateLoadingState(false));
@@ -30,7 +32,9 @@ class ApplicationScreen extends Component {
     ) : (
       <ScrollView style={styles.scroll}>
         <Card
-          content={<Application listings={applications} />}
+          content={
+            <Application listings={applications} />
+          }
           separator={false}
         />
       </ScrollView>
@@ -46,7 +50,10 @@ const mapStateToProps = state => ({
 ApplicationScreen.propTypes = {
   applications: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(ApplicationScreen);
+export default connect(mapStateToProps)(
+  ApplicationScreen
+);
