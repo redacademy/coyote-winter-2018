@@ -26,7 +26,7 @@ class FavouriteScreen extends Component {
     getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === 'krurd1mdLUTgqLUGVGBcOtpUDYt1'
+        doc.id === 'RitwUtfThcfO6SxapXCuKfZ15SR2'
           ? data.push(doc.data())
           : null;
       });

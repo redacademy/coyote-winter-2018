@@ -6,13 +6,11 @@ import {
   newUserError,
   fetchUsers
 } from '../../redux/modules/signup';
+import { isValidEmailAndPassword } from '../../lib/authHelper';
 
 import { connect, AsyncStorage } from 'react-redux';
 import SignUp from './SignUp';
-import {
-  newUser,
-  getUsers
-} from '../../config/helpers';
+import { newUser, getUsers } from '../../config/helpers';
 
 import PropTypes from 'prop-types';
 
@@ -27,9 +25,7 @@ class SignUpScreen extends Component {
     getUsers().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
-        doc.data().email
-          ? data.push(doc.data().email)
-          : null;
+        doc.data().email ? data.push(doc.data().email) : null;
       });
       this.props.dispatch(fetchUsers(data));
     });
@@ -48,7 +44,6 @@ class SignUpScreen extends Component {
   };
 
   addUser() {
-    const validEmail = /^([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const errorMessage = {
       code: 'Invalid email or password',
       message:
@@ -56,30 +51,19 @@ class SignUpScreen extends Component {
     };
     const userMessage = {
       code: 'User already exists',
-      message:
-        'It looks like you already have an account!'
+      message: 'It looks like you already have an account!'
     };
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      users
-    } = this.props;
+    const { email, password, firstName, lastName, users } = this.props;
 
-    if (
-      validEmail.test(email) &&
-      password.length > 5
-    ) {
+    if (isValidEmailAndPassword(email, password)) {
       if (!users.includes(email)) {
-        newUser(email, password, firstName, lastName);
+        newUser(email, password, firstName, lastName).then(this._signInAsync);
       } else {
         this.props.dispatch(newUserError(userMessage));
       }
     } else {
       this.props.dispatch(newUserError(errorMessage));
     }
-    this._signInAsync;
   }
   _signInAsync = async ({ newUser }) => {
     await AsyncStorage.setItem('userToken', {
@@ -89,20 +73,8 @@ class SignUpScreen extends Component {
   };
 
   addUser = () => {
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      error
-    } = this.props;
-    newUser(
-      email,
-      password,
-      firstName,
-      lastName,
-      this.userError(error)
-    );
+    const { email, password, firstName, lastName, error } = this.props;
+    newUser(email, password, firstName, lastName, this.userError(error));
     this.props.navigation.navigate('Profile');
   };
 

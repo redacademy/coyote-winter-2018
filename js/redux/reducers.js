@@ -1,18 +1,20 @@
 import { combineReducers } from 'redux';
 import authReducer from './modules/auth';
-import listingsReducer from './modules/listings';
+import signupReducer from './modules/signup';
+import listingReducer from './modules/listing';
 import favesReducer from './modules/faves';
 import filterReducer from './modules/filter';
-import signupReducer from './modules/signup';
 import applicationReducer from './modules/application';
 import loginReducer from './modules/login';
+import listingsReducer from './modules/listings';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  listing: listingReducer,
+  signup: signupReducer,
   listings: listingsReducer,
   faves: favesReducer,
   filter: filterReducer,
-  signup: signupReducer,
   application: applicationReducer,
   login: loginReducer
 });
