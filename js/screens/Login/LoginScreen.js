@@ -46,7 +46,7 @@ class LoginContainer extends Component {
     signInSuccess
       ? firebaseAuth
           .signInWithEmailAndPassword(email, password)
-          // .then(user => this._signInAsync(user))
+
           .then(user => this._signInAsync(user.uid))
 
           .catch(err => {
