@@ -34,8 +34,8 @@ class LoginContainer extends Component {
   handlePassword(text) {
     this.props.dispatch(fetchPassword(text));
   }
-  _signInAsync = async email => {
-    await AsyncStorage.setItem('userToken', email);
+  _signInAsync = async uid => {
+    await AsyncStorage.setItem('userToken', uid);
     this.props.navigation.navigate('LocationSearch');
   };
   handleSubmit() {
@@ -46,7 +46,8 @@ class LoginContainer extends Component {
     signInSuccess
       ? firebaseAuth
           .signInWithEmailAndPassword(email, password)
-          .then(this._signInAsync(email))
+          // .then(user => this._signInAsync(user))
+          .then(user => this._signInAsync(user.uid))
 
           .catch(err => {
             this.props.dispatch(displayLoginError(err));
