@@ -52,7 +52,7 @@ const mapStateToProps = state => ({
 ProfileScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  userData: PropTypes.object
+  userData: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(ProfileScreen);

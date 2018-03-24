@@ -66,10 +66,20 @@ const mapStateToProps = state => ({
   userAuth: state.auth.updateAuthState
 });
 
+ProfileHeaderContainer.defaultProps = {
+  firstName: '',
+  lastName: '',
+  location: '',
+  bio: '',
+  image: {},
+  userData: {},
+  updateUserData: {}
+};
+
 ProfileHeaderContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   updateUserData: PropTypes.object,
-  userData: PropTypes.object,
+  userData: PropTypes.object.isRequired,
   editable: PropTypes.bool.isRequired
 };
 

@@ -24,8 +24,8 @@ const Profile = ({ navigation, signOut, userData }) => {
 };
 
 Profile.propTypes = {
-  navigation: PropTypes.object
-  // signOut: PropTypes.func
+  navigation: PropTypes.object,
+  signOut: PropTypes.func
 };
 
 export default Profile;
