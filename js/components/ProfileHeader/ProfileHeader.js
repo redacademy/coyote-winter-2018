@@ -101,7 +101,7 @@ ProfileHeader.propTypes = {
   handleLocation: PropTypes.func.isRequired,
   handleToggleEditable: PropTypes.func.isRequired,
   openPicker: PropTypes.func.isRequired,
-  userData: PropTypes.object
+  userData: PropTypes.object.isRequired
 };
 
 export default ProfileHeader;
