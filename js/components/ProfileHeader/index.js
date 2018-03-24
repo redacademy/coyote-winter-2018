@@ -1,3 +1,3 @@
-import ProfileHeader from "./ProfileHeader";
+import ProfileHeaderContainer from './ProfileHeaderContainer';
 
-export default ProfileHeader;
+export default ProfileHeaderContainer;
