@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   fetchFirstName,
-  fetchLastName
+  fetchLastName,
+  newUserError
 } from '../../redux/modules/signup';
 import SignUpName from './SignUpName';
 import PropTypes from 'prop-types';
@@ -23,27 +24,48 @@ class SignUpNameScreen extends Component {
     this.props.dispatch(fetchLastName(text));
   };
 
+  handleNextScreen = () => {
+    const { navigation, firstName, lastName } = this.props;
+    const nameError = {
+      code: 'Missing Name',
+      message: 'Please submit a first and last name'
+    };
+
+    firstName !== '' && lastName !== ''
+      ? navigation.navigate('SignUpEmailAndPassword')
+      : this.props.dispatch(newUserError(nameError));
+  };
+
   render() {
     return (
       <SignUpName
         handleFirstName={this.handleFirstName}
         handleLastName={this.handleLastName}
-        navigation={this.props.navigation}
+        handleNextScreen={this.handleNextScreen}
+        error={this.props.error}
       />
     );
   }
 }
 
+SignUpNameScreen.defaultProps = {
+  firstName: '',
+  lastName: '',
+  error: {}
+};
+
 SignUpNameScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  error: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   firstName: state.signup.first,
-  lastName: state.signup.last
+  lastName: state.signup.last,
+  error: state.signup.error
 });
 
-export default connect(mapStateToProps)(
-  SignUpNameScreen
-);
+export default connect(mapStateToProps)(SignUpNameScreen);

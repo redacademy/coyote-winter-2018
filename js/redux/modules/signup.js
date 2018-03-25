@@ -4,6 +4,7 @@ const GET_USERS = 'GET_USERS';
 const GET_EMAIL = 'GET_EMAIL';
 const GET_PASSWORD = 'GET_PASSWORD';
 const SIGNUP_ERROR = 'SIGNUP_ERROR';
+const ERROR_RESET = 'ERROR_RESET';
 
 const getFirstName = firstName => ({
   type: GET_FIRST_NAME,
@@ -35,6 +36,11 @@ const signupError = error => ({
   payload: error
 });
 
+const errorReset = error => ({
+  type: ERROR_RESET,
+  payload: error
+});
+
 export const fetchFirstName = first => dispatch => {
   dispatch(getFirstName(first));
 };
@@ -57,6 +63,10 @@ export const fetchUsers = users => dispatch => {
 
 export const newUserError = error => dispatch => {
   dispatch(signupError(error));
+};
+
+export const fetchErrorReset = error => dispatch => {
+  dispatch(errorReset(error));
 };
 
 export default (
@@ -102,6 +112,12 @@ export default (
       };
     }
     case SIGNUP_ERROR: {
+      return {
+        ...state,
+        error: action.payload
+      };
+    }
+    case ERROR_RESET: {
       return {
         ...state,
         error: action.payload

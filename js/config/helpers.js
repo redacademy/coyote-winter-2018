@@ -88,7 +88,8 @@ export const newUser = (email, password, firstName, lastName) => {
         .doc(authUser.uid)
         .set({
           firstName: firstName,
-          lastName: lastName
+          lastName: lastName,
+          email: email
         })
         .then(() => {
           console.log('it worked');

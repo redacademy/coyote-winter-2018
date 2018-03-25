@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseAuth } from '../../config/firebaseConfig';
 import { AsyncStorage } from 'react-native';
-import { isValidEmailAndPassword } from '../../lib/authHelper';
 
 import Login from './Login';
 import PropTypes from 'prop-types';
@@ -12,6 +11,7 @@ import {
   fetchEmail,
   fetchPassword
 } from '../../redux/modules/login';
+import { updateAuthState } from '../../redux/modules/auth';
 
 class LoginContainer extends Component {
   constructor() {
@@ -28,7 +28,7 @@ class LoginContainer extends Component {
 
   handlePassword = text => {
     this.props.dispatch(fetchPassword(text));
-  }
+  };
   _signInAsync = async uid => {
     await AsyncStorage.setItem('userToken', uid);
     this.props.navigation.navigate('LocationSearch');
@@ -36,26 +36,16 @@ class LoginContainer extends Component {
   handleSubmit = () => {
     const { email, password } = this.props;
 
-    const signInSuccess = isValidEmailAndPassword(
-      email,
-      password
-    );
-
-    signInSuccess
-      ? firebaseAuth
-          .signInWithEmailAndPassword(email, password)
-          // .then(user => this._signInAsync(user))
-          .then(user => this._signInAsync(user.uid))
-
-          .catch(err => {
-            this.props.dispatch(
-              displayLoginError(err)
-            );
-          })
-      : this.props.dispatch(
-          displayLoginError(signInSuccess)
-        );
-  }
+    firebaseAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        this._signInAsync(user.uid);
+        this.props.dispatch(updateAuthState(user.uid));
+      })
+      .catch(err => {
+        this.props.dispatch(displayLoginError(err));
+      });
+  };
 
   render() {
     return (
@@ -93,6 +83,4 @@ const mapStateToProps = state => ({
   password: state.login.password
 });
 
-export default connect(mapStateToProps)(
-  LoginContainer
-);
+export default connect(mapStateToProps)(LoginContainer);
