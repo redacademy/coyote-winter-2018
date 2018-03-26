@@ -14,7 +14,7 @@ import SignUp from './SignUp';
 import { newUser, getUsers } from '../../config/helpers';
 
 import PropTypes from 'prop-types';
-import { errorMessage, userMessage } from '../../lib/authHelper';
+import errorMessages from '../../lib/errorMessages';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -51,10 +51,10 @@ class SignUpScreen extends Component {
         newUser(email, password, firstName, lastName).then(() => signOut());
         this.props.navigation.navigate('Login');
       } else {
-        this.props.dispatch(newUserError(userMessage));
+        this.props.dispatch(newUserError(errorMessages.USER_EXISTS));
       }
     } else {
-      this.props.dispatch(newUserError(errorMessage));
+      this.props.dispatch(newUserError(errorMessages.INVALID_LOGIN));
     }
   };
 

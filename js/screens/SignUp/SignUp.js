@@ -39,7 +39,7 @@ const SignUp = ({ addUser, handleEmail, handlePassword, error }) => {
           <TouchableOpacity style={styles.button} onPress={addUser}>
             <Text style={{ color: 'white' }}> Sign Up </Text>
           </TouchableOpacity>
-          {error ? <Text style={styles.error}>{error.message}</Text> : null}
+          {error && <Text style={styles.error}>{error.message}</Text>}
         </View>
       </KeyboardAvoidingView>
     </View>

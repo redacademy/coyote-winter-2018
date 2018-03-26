@@ -8,6 +8,7 @@ import {
 } from '../../redux/modules/signup';
 import SignUpName from './SignUpName';
 import PropTypes from 'prop-types';
+import errorMessages from '../../lib/errorMessages';
 
 class SignUpNameScreen extends Component {
   constructor(props) {
@@ -26,14 +27,14 @@ class SignUpNameScreen extends Component {
 
   handleNextScreen = () => {
     const { navigation, firstName, lastName } = this.props;
-    const nameError = {
-      code: 'Missing Name',
-      message: 'Please submit a first and last name'
-    };
+    // const nameError = {
+    //   code: 'Missing Name',
+    //   message: 'Please submit a first and last name'
+    // };
 
     firstName !== '' && lastName !== ''
       ? navigation.navigate('SignUpEmailAndPassword')
-      : this.props.dispatch(newUserError(nameError));
+      : this.props.dispatch(newUserError(errorMessages.NAME_ERROR));
   };
 
   render() {

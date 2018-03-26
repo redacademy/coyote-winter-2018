@@ -46,7 +46,7 @@ const SignUpName = ({
           <TouchableOpacity style={styles.button} onPress={handleNextScreen}>
             <Text style={{ color: 'white' }}>Next</Text>
           </TouchableOpacity>
-          <Text>{error ? error.message : null}</Text>
+          <Text>{error && error.message}</Text>
         </View>
       </KeyboardAvoidingView>
     </View>

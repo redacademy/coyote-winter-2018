@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, Text, List } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import FavouriteItem from '../../components/FavouriteItem';
 import PropTypes from 'prop-types';
 import { styles } from '../SearchResult/styles';
@@ -12,20 +12,19 @@ const Favourite = ({ faves }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.faveText}>
-        {faves.length === 0 ? "You haven't added any favourites yet!" : null}
+        {faves.length === 0 && "You haven't added any favourites yet!"}
       </Text>
-      <List containerStyle={styles.listContainer}>
-        <FlatList
-          keyExtractor={item => item.listingId}
-          data={faves}
-          ItemSeparatorComponent={renderSeparator}
-          renderItem={({ item }) => (
-            <View>
-              <FavouriteItem item={item} />
-            </View>
-          )}
-        />
-      </List>
+
+      <FlatList
+        keyExtractor={item => item.listingId}
+        data={faves}
+        ItemSeparatorComponent={renderSeparator}
+        renderItem={({ item }) => (
+          <View>
+            <FavouriteItem item={item} />
+          </View>
+        )}
+      />
     </View>
   );
 };
