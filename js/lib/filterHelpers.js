@@ -1,3 +1,11 @@
+import {
+  getListings,
+  getListingsByLocation,
+  sortListingsByDateDesc,
+  sortListingsByPriceAsc,
+  sortListingsByPriceDsc
+} from '../config/helpers';
+
 /**
  * This function filters a given array of listings
  * for tags that match fields in the listings
@@ -86,7 +94,7 @@ export const filterByPriceRange = (listings, priceRange) => {
  * This is a local helper function to return all the
  * tags are true as an array of tag names.
  */
-const getTrueParams = tags => {
+export const getTrueParams = tags => {
   const propArray = Object.entries(tags);
   // get all the properties that are true:
   const propQueries = propArray.reduce((query, property) => {
@@ -94,4 +102,49 @@ const getTrueParams = tags => {
     return query;
   }, []);
   return propQueries;
+};
+
+/**
+ * Sets the value of the given tag to false
+ */
+export const setParamToFalse = (tag, array) => {
+  let foundTagSet = {};
+
+  array.forEach(tagSet => {
+    const tagSetValues = Object.values(tagSet)[0];
+    const tagSetKey = Object.keys(tagSet)[0];
+    if (tagSetValues[tag]) {
+      tagSetValues[tag] = false;
+      foundTagSet[tagSetKey] = tagSetValues;
+    }
+  });
+  return foundTagSet;
+};
+
+/**
+ * Sort listings in 0 (descending date), 1 (ascending price),
+ * 2 (descending price)
+ */
+export const sortFilter = (listings, sortOrder) => {
+  switch (sortOrder) {
+    case '0':
+      return listings.sort(sortListingsByDateDesc);
+    case '1':
+      return listings.sort(sortListingsByPriceAsc);
+    case '2': {
+      return listings.sort(sortListingsByPriceDsc);
+    }
+    default:
+      return listings;
+  }
+};
+
+/**
+ * Returns a promise for listings depending on whether location
+ * has been provided or not
+ */
+export const getNewListings = location => {
+  return location.length !== 0
+    ? getListingsByLocation(location)
+    : getListings();
 };

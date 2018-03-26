@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { ScrollView, Button, Text } from 'react-native';
+import { Button, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  updateListings,
+  queryBasedOnFilters,
+  updateLaundryTags,
   updateLoading,
-  updateLocation
+  updateOccupantTags,
+  updateOtherTags,
+  updateParkingTags,
+  updatePropertyTags
 } from '../../redux/modules/filter';
-import {
-  getListingsByLocation,
-  unMarshallResult,
-  sortListingsByDateDesc
-} from '../../config/helpers';
 import SearchResult from './SearchResult';
+import NoListingText from '../../components/NoListingText/';
+import NoFilterText from '../../components/NoFilterText/';
+import { getTrueParams, setParamToFalse } from '../../lib/filterHelpers';
+import ChipGrid from '../../components/ChipGrid';
 import { colors } from '../../config/styles';
+import { styles } from './styles';
 
 class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -34,45 +37,136 @@ class SearchResultScreen extends Component {
     };
   };
 
+  getChipLabels = () => {
+    const {
+      laundryTags,
+      occupantTags,
+      otherTags,
+      parkingTags,
+      propertyTags
+    } = this.props;
+
+    // get all the tags and merge them
+    const allTags = Object.assign(
+      JSON.parse(JSON.stringify(laundryTags)),
+      JSON.parse(JSON.stringify(occupantTags)),
+      JSON.parse(JSON.stringify(otherTags)),
+      JSON.parse(JSON.stringify(parkingTags)),
+      JSON.parse(JSON.stringify(propertyTags))
+    );
+
+    const trueTags = getTrueParams(allTags);
+    return trueTags;
+  };
+
+  closeChip = tagName => {
+    const {
+      dispatch,
+      laundryTags,
+      occupantTags,
+      otherTags,
+      parkingTags,
+      propertyTags
+    } = this.props;
+
+    const tagSet = setParamToFalse(tagName, [
+      { updateLaundryTags: laundryTags },
+      { updateOccupantTags: occupantTags },
+      { updateOtherTags: otherTags },
+      { updateParkingTags: parkingTags },
+      { updatePropertyTags: propertyTags }
+    ]);
+
+    // set the tagSet to false in redux
+    const functionName = Object.keys(tagSet)[0];
+    const tags = Object.values(tagSet)[0];
+
+    switch (functionName) {
+      case 'updateLaundryTags':
+        dispatch(updateLaundryTags({ ...tags }));
+        break;
+      case 'updateOccupantTags':
+        dispatch(updateOccupantTags({ ...tags }));
+        break;
+      case 'updateOtherTags':
+        dispatch(updateOtherTags({ ...tags }));
+        break;
+      case 'updateParkingTags':
+        dispatch(updateParkingTags({ ...tags }));
+        break;
+      case 'updatePropertyTags':
+        dispatch(updatePropertyTags({ ...tags }));
+        break;
+    }
+    queryBasedOnFilters();
+  };
+
   componentDidMount() {
-    // perform query based on location passed via route
-    // TODO: get value from route
-    const location = 'Vancouver'; /*hard-coded value to remove upon routing*/
-    this.props.dispatch(updateLocation(location));
-    getListingsByLocation(location).then(doc => {
-      const listingArray = [];
-      doc.docs.forEach(querySnap => {
-        listingArray.push(unMarshallResult(querySnap));
-      });
-      const listingsSorted = listingArray.sort(sortListingsByDateDesc);
-      this.props.dispatch(updateListings(listingsSorted));
-      this.props.dispatch(updateLoading(false));
-    });
+    const { dispatch } = this.props;
+    queryBasedOnFilters();
+    dispatch(updateLoading(false));
   }
 
   render() {
     const { listings, loading } = this.props;
+    const chips = this.getChipLabels();
     return loading ? (
       <Text>loadings</Text>
     ) : (
-      <ScrollView>
-        <SearchResult listings={listings} navigation={this.props.navigation} />
+      <ScrollView style={styles.scroll}>
+        {chips.length < 1 ? (
+          <NoFilterText text={'No Filters Applied'} />
+        ) : (
+          <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
+        )}
+        {listings.length < 1 ? (
+          <NoListingText text={'No Results Found - Adjust Your Search'} />
+        ) : (
+          <SearchResult
+            listings={listings}
+            navigation={this.props.navigation}
+          />
+        )}
       </ScrollView>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  laundryTags: state.filter.laundryTags,
   listings: state.filter.listings,
   loading: state.filter.loading,
-  location: state.filter.location
+  location: state.filter.location,
+  numBathrooms: state.filter.numBathrooms,
+  numBedrooms: state.filter.numBedrooms,
+  occupantTags: state.filter.occupantTags,
+  otherTags: state.filter.otherTags,
+  parkingTags: state.filter.parkingTags,
+  propertyTags: state.filter.propertyTags
 });
 
 SearchResultScreen.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  laundryTags: PropTypes.object,
   listings: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   location: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  numBathrooms: PropTypes.number,
+  numBedrooms: PropTypes.number,
+  occupantTags: PropTypes.object,
+  otherTags: PropTypes.object,
+  parkingTags: PropTypes.object,
+  propertyTags: PropTypes.object
+};
+
+SearchResultScreen.defaultPropTypes = {
+  laundryTags: {},
+  numBathrooms: 0,
+  numBedrooms: 0,
+  occupantTags: {},
+  otherTags: {},
+  parkingTags: {},
+  propertyTags: {}
 };
 export default connect(mapStateToProps)(SearchResultScreen);

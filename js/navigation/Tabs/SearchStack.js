@@ -1,7 +1,7 @@
 import { StackNavigator } from 'react-navigation';
 
 import SearchResultScreen from '../../screens/SearchResult/SearchResultScreen';
-
+import LocationSearchScreen from '../../screens/LocationSearch/';
 import FilteringScreen from '../../screens/Filtering/FilteringScreen';
 
 import ListingScreen from '../../screens/Listing/ListingScreen';

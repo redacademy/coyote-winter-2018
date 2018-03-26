@@ -15,5 +15,6 @@ export const styles = StyleSheet.create({
     fontFamily: typography.M_BOLD
   },
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  listContainer: { borderTopWidth: 0, borderBottomWidth: 0 }
+  listContainer: { borderTopWidth: 0, borderBottomWidth: 0 },
+  scroll: { marginTop: 25 }
 });
