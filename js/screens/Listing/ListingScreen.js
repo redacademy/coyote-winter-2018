@@ -14,15 +14,13 @@ import {
   addFavourite,
   updateFavourites
 } from '../../config/helpers';
-import { fetchFaves } from '../../redux/modules/faves';
+import { fetchFaves, favesError } from '../../redux/modules/faves';
 import { updateAuthState } from '../../redux/modules/auth';
 class ListingScreen extends Component {
   constructor() {
     super();
 
-    this.handleFeaturedImage = this.handleFeaturedImage.bind(
-      this
-    );
+    this.handleFeaturedImage = this.handleFeaturedImage.bind(this);
     this.addToFaves = this.addToFaves.bind(this);
   }
   static navigationOptions = {
@@ -44,9 +42,7 @@ class ListingScreen extends Component {
       const images = Object.values(data[0].pictures);
       const landlord = data[0].landlordId;
       this.props.dispatch(fetchImages(images));
-      this.props.dispatch(
-        fetchFeaturedImage(images[0])
-      );
+      this.props.dispatch(fetchFeaturedImage(images[0]));
       this.props.dispatch(fetchLandlord(landlord));
     });
 
@@ -55,9 +51,7 @@ class ListingScreen extends Component {
       querySnapshot.forEach(doc => {
         doc.id === authenticated ? data.push(doc.data()) : null;
       });
-      this.props.dispatch(
-        fetchFaves(data[0].favourites)
-      );
+      this.props.dispatch(fetchFaves(data[0].favourites));
     });
   }
 
@@ -73,24 +67,21 @@ class ListingScreen extends Component {
     if (!faves.includes(id)) {
       faves.push(id);
 
-      addFavourite(faves, authenticated);
+      addFavourite(faves, authenticated).catch(error => {
+        this.props.dispatch(favesError(error));
+      });
     } else {
       faves.splice(faves.indexOf(id), 1);
-      updateFavourites(faves, authenticated);
+      updateFavourites(faves, authenticated).catch(error => {
+        this.props.dispatch(favesError(error));
+      });
     }
     this.props.dispatch(fetchFaves([...faves]));
   }
 
   render() {
-    const {
-      listing,
-      images,
-      featuredImage,
-      faves,
-      landlordId
-    } = this.props;
-    const listingId =
-      listing[0] && listing[0].listingId;
+    const { listing, images, featuredImage, faves, landlordId } = this.props;
+    const listingId = listing[0] && listing[0].listingId;
 
     return (
       <Listing

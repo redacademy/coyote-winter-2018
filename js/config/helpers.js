@@ -136,9 +136,6 @@ export const addFavourite = (faves, id) => {
     .doc(id)
     .set({
       favourites: faves
-    })
-    .catch(function(error) {
-      console.log(error);
     });
 };
 
@@ -148,8 +145,5 @@ export const updateFavourites = (faves, id) => {
     .doc(id)
     .update({
       favourites: faves
-    })
-    .catch(function(error) {
-      console.log(error);
     });
 };

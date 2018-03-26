@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  Button,
-  Text
-} from 'react-native';
+import { ScrollView, Button, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -27,7 +23,7 @@ class SearchResultScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `${navigation.state.params.location}`,
+      title: `${navigation.state.params}`,
       headerLeft: (
         <Button
           onPress={() => navigation.navigate('Filter')}
@@ -41,20 +37,15 @@ class SearchResultScreen extends Component {
   componentDidMount() {
     // perform query based on location passed via route
     // TODO: get value from route
-    const location =
-      'Vancouver'; /*hard-coded value to remove upon routing*/
+    const location = 'Vancouver'; /*hard-coded value to remove upon routing*/
     this.props.dispatch(updateLocation(location));
     getListingsByLocation(location).then(doc => {
       const listingArray = [];
       doc.docs.forEach(querySnap => {
         listingArray.push(unMarshallResult(querySnap));
       });
-      const listingsSorted = listingArray.sort(
-        sortListingsByDateDesc
-      );
-      this.props.dispatch(
-        updateListings(listingsSorted)
-      );
+      const listingsSorted = listingArray.sort(sortListingsByDateDesc);
+      this.props.dispatch(updateListings(listingsSorted));
       this.props.dispatch(updateLoading(false));
     });
   }
@@ -65,10 +56,7 @@ class SearchResultScreen extends Component {
       <Text>loadings</Text>
     ) : (
       <ScrollView>
-        <SearchResult
-          listings={listings}
-          navigation={this.props.navigation}
-        />
+        <SearchResult listings={listings} navigation={this.props.navigation} />
       </ScrollView>
     );
   }
@@ -87,6 +75,4 @@ SearchResultScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps)(
-  SearchResultScreen
-);
+export default connect(mapStateToProps)(SearchResultScreen);
