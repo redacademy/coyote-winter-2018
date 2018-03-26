@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 import { colors } from '../../config/styles';
+import { typography } from '../../config/styles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -23,7 +24,8 @@ export const styles = StyleSheet.create({
   morePicture: {
     marginTop: 7,
     marginBottom: 7,
-    marginLeft: 10
+    marginLeft: 10,
+    fontFamily: typography.M_MEDIUM
   },
   imageContainer: {
     flexDirection: 'row',
@@ -51,14 +53,16 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     color: '#fff',
-    fontSize: 10
+    fontSize: 10,
+    fontFamily: typography.M_MEDIUM
   },
   buttonTextTwo: {
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
     color: colors.MAIN,
-    fontSize: 10
+    fontSize: 10,
+    fontFamily: typography.M_MEDIUM
   },
   buttonOne: {
     backgroundColor: colors.MAIN,
@@ -81,21 +85,32 @@ export const styles = StyleSheet.create({
     borderWidth: 1
   },
   location: {
-    marginTop: 3
+    marginTop: 3,
+    fontFamily: typography.M_MEDIUM
   },
   listingTitle: {
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: typography.M_MEDIUM
   },
   price: {
     color: colors.MAIN,
-    marginTop: 8
+    marginTop: 8,
+    fontFamily: typography.M_MEDIUM
   },
   description: {
     marginTop: 10,
-    fontSize: 13
+    fontSize: 13,
+    fontFamily: typography.M_MEDIUM
   },
-  fave: {
-    alignSelf: 'center',
-    marginTop: 5
+  heart: {
+    marginTop: 5,
+    marginRight: 20
+  },
+  faveContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  heartSize: {
+    fontSize: 30
   }
 });

@@ -1,8 +1,14 @@
-const GET_FAVES = "GET_FAVES";
+const GET_FAVES = 'GET_FAVES';
+const FAVES_ERROR = 'FAVES_ERROR';
 
 const getFaves = faves => ({
   type: GET_FAVES,
   payload: faves
+});
+
+export const favesError = error => ({
+  type: FAVES_ERROR,
+  payload: error
 });
 
 export const fetchFaves = faves => dispatch => {
@@ -11,7 +17,8 @@ export const fetchFaves = faves => dispatch => {
 
 export default (
   state = {
-    faves: []
+    faves: [],
+    error: ''
   },
   action
 ) => {
@@ -20,6 +27,12 @@ export default (
       return {
         ...state,
         faves: action.payload
+      };
+    }
+    case FAVES_ERROR: {
+      return {
+        ...state,
+        error: action.payload
       };
     }
     default:

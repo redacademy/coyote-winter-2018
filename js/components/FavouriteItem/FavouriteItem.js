@@ -2,7 +2,8 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { styles } from '../ListItem/styles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { styles } from './styles';
 
 const FavouriteItem = ({ item }) => {
   return (
@@ -20,6 +21,7 @@ const FavouriteItem = ({ item }) => {
           {moment.unix(item.listingCreatedDate).format('MM/DD/YYYY')}
         </Text>
         <Text style={styles.price}>${item.price}</Text>
+        <Icon style={styles.heart} name="ios-heart" />
         <View />
       </View>
     </View>
