@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
     marginTop: 5
   },
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  listContainer: { borderTopWidth: 0, borderBottomWidth: 0 }
+  listContainer: { borderTopWidth: 0, borderBottomWidth: 0 },
+  scroll: { marginTop: 25 }
 });

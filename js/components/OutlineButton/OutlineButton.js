@@ -1,13 +1,26 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
 
 const button = (label, buttonStyle, textStyle, onPress, disabled) => {
   return (
-    <TouchableOpacity style={buttonStyle} onPress={onPress} disabled={disabled}>
-      <Text style={textStyle}>{label}</Text>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity
+        style={buttonStyle}
+        onPress={onPress}
+        disabled={disabled}
+      >
+        <Text
+          style={textStyle}
+          adjustsFontSizeToFit={true}
+          minimumFontScale={0.75}
+          numberOfLines={2}
+        >
+          {label}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

@@ -2,19 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import OutlineButton from '../OutlineButton/';
+import { styles } from './styles';
 
 const ButtonGrid = ({ heading, tags, action }) => {
   const tagNames = Object.keys(tags);
   return (
     <View>
-      <Text style={{ marginBottom: 10 }}>{heading}</Text>
-      <View
-        style={{
-          justifyContent: 'center',
-          flexDirection: 'row',
-          flexWrap: 'wrap'
-        }}
-      >
+      <Text style={styles.heading}>{heading}</Text>
+      <View style={styles.body}>
         {tagNames.map(name => (
           <OutlineButton
             key={name}
