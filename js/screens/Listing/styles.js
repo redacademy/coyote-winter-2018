@@ -112,5 +112,10 @@ export const styles = StyleSheet.create({
   },
   heartSize: {
     fontSize: 30
+  },
+  confirmed: {
+    textAlign: 'center',
+    fontFamily: typography.M_MEDIUM,
+    color: colors.MAIN
   }
 });
