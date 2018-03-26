@@ -4,15 +4,17 @@ import {
   fetchEmail,
   fetchPassword,
   newUserError,
-  fetchUsers
+  fetchUsers,
+  fetchErrorReset
 } from '../../redux/modules/signup';
-import { isValidEmailAndPassword } from '../../lib/authHelper';
+import { isValidEmailAndPassword, signOut } from '../../lib/authHelper';
 
-import { connect, AsyncStorage } from 'react-redux';
+import { connect } from 'react-redux';
 import SignUp from './SignUp';
 import { newUser, getUsers } from '../../config/helpers';
 
 import PropTypes from 'prop-types';
+import errorMessages from '../../lib/errorMessages';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -29,6 +31,7 @@ class SignUpScreen extends Component {
       });
       this.props.dispatch(fetchUsers(data));
     });
+    this.props.dispatch(fetchErrorReset({}));
   }
 
   handleEmail = text => {
@@ -39,43 +42,20 @@ class SignUpScreen extends Component {
     this.props.dispatch(fetchPassword(text));
   };
 
-  userError = error => {
-    this.props.dispatch(newUserError(error));
-  };
-
-  addUser() {
-    const errorMessage = {
-      code: 'Invalid email or password',
-      message:
-        'Please Enter a valid email and password of at least 6 characters'
-    };
-    const userMessage = {
-      code: 'User already exists',
-      message: 'It looks like you already have an account!'
-    };
+  addUser = () => {
     const { email, password, firstName, lastName, users } = this.props;
+    const signInSuccess = isValidEmailAndPassword(email, password);
 
-    if (isValidEmailAndPassword(email, password)) {
+    if (signInSuccess) {
       if (!users.includes(email)) {
-        newUser(email, password, firstName, lastName).then(this._signInAsync);
+        newUser(email, password, firstName, lastName).then(() => signOut());
+        this.props.navigation.navigate('Login');
       } else {
-        this.props.dispatch(newUserError(userMessage));
+        this.props.dispatch(newUserError(errorMessages.USER_EXISTS));
       }
     } else {
-      this.props.dispatch(newUserError(errorMessage));
+      this.props.dispatch(newUserError(errorMessages.INVALID_LOGIN));
     }
-  }
-  _signInAsync = async ({ newUser }) => {
-    await AsyncStorage.setItem('userToken', {
-      newUser
-    });
-    this.props.navigation.navigate('Profile');
-  };
-
-  addUser = () => {
-    const { email, password, firstName, lastName, error } = this.props;
-    newUser(email, password, firstName, lastName, this.userError(error));
-    this.props.navigation.navigate('Profile');
   };
 
   render() {

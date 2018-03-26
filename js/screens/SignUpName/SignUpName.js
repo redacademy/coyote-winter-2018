@@ -13,7 +13,8 @@ import PropTypes from 'prop-types';
 const SignUpName = ({
   handleFirstName,
   handleLastName,
-  navigation
+  handleNextScreen,
+  error
 }) => {
   return (
     <View style={styles.backgroundContainer}>
@@ -42,28 +43,25 @@ const SignUpName = ({
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate(
-                'SignUpEmailAndPassword'
-              );
-            }}
-          >
-            <Text style={{ color: 'white' }}>
-              Next
-            </Text>
+          <TouchableOpacity style={styles.button} onPress={handleNextScreen}>
+            <Text style={{ color: 'white' }}>Next</Text>
           </TouchableOpacity>
+          <Text>{error && error.message}</Text>
         </View>
       </KeyboardAvoidingView>
     </View>
   );
 };
 
+SignUpName.defaultProps = {
+  error: {}
+};
+
 SignUpName.propTypes = {
   handleFirstName: PropTypes.func.isRequired,
   handleLastName: PropTypes.func.isRequired,
-  navigation: PropTypes.object
+  handleNextScreen: PropTypes.func.isRequired,
+  error: PropTypes.object
 };
 
 export default SignUpName;

@@ -12,6 +12,7 @@ class FavouriteScreen extends Component {
   }
 
   componentDidMount() {
+    const { authenticated } = this.props;
     getListings().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
@@ -23,9 +24,7 @@ class FavouriteScreen extends Component {
     getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === 'RitwUtfThcfO6SxapXCuKfZ15SR2'
-          ? data.push(doc.data())
-          : null;
+        doc.id === authenticated ? data.push(doc.data()) : null;
       });
       let faves = [];
       data.forEach(favourites => {
@@ -49,12 +48,14 @@ class FavouriteScreen extends Component {
 FavouriteScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   listings: PropTypes.array.isRequired,
-  faves: PropTypes.array.isRequired
+  faves: PropTypes.array.isRequired,
+  authenticated: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   listings: state.listings.listings,
-  faves: state.faves.faves
+  faves: state.faves.faves,
+  authenticated: state.auth.authenticated
 });
 
 export default connect(mapStateToProps)(FavouriteScreen);
