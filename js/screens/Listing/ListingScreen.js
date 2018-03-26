@@ -15,7 +15,7 @@ import {
   updateFavourites
 } from '../../config/helpers';
 import { fetchFaves } from '../../redux/modules/faves';
-
+import { updateAuthState } from '../../redux/modules/auth';
 class ListingScreen extends Component {
   constructor() {
     super();
@@ -29,7 +29,11 @@ class ListingScreen extends Component {
     header: null
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    //testing using redux to get an authenticated user until navigation is provided to this screen
+    await this.props.dispatch(updateAuthState('RitwUtfThcfO6SxapXCuKfZ15SR2'));
+    const { authenticated } = this.props;
+
     getSingleListing().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
@@ -49,9 +53,7 @@ class ListingScreen extends Component {
     getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(doc => {
-        doc.id === 'RitwUtfThcfO6SxapXCuKfZ15SR2'
-          ? data.push(doc.data())
-          : null;
+        doc.id === authenticated ? data.push(doc.data()) : null;
       });
       this.props.dispatch(
         fetchFaves(data[0].favourites)
@@ -64,16 +66,17 @@ class ListingScreen extends Component {
   }
 
   addToFaves() {
+    const { authenticated } = this.props;
     const id = this.props.listing[0].listingId;
     const { faves } = this.props;
 
     if (!faves.includes(id)) {
       faves.push(id);
 
-      addFavourite(faves);
+      addFavourite(faves, authenticated);
     } else {
       faves.splice(faves.indexOf(id), 1);
-      updateFavourites(faves);
+      updateFavourites(faves, authenticated);
     }
     this.props.dispatch(fetchFaves([...faves]));
   }
@@ -113,7 +116,8 @@ ListingScreen.propTypes = {
   featuredImage: PropTypes.string.isRequired,
   faves: PropTypes.array.isRequired,
   landlordId: PropTypes.string.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object,
+  authenticated: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -121,7 +125,8 @@ const mapStateToProps = state => ({
   images: state.listing.images,
   featuredImage: state.listing.featuredImage,
   faves: state.faves.faves,
-  landlordId: state.listing.landlordId
+  landlordId: state.listing.landlordId,
+  authenticated: state.auth.authenticated
 });
 
 export default connect(mapStateToProps)(ListingScreen);

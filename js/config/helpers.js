@@ -130,10 +130,10 @@ export const getSingleListing = () => {
     .get();
 };
 
-export const addFavourite = faves => {
+export const addFavourite = (faves, id) => {
   return firestoreDb
     .collection('favourites')
-    .doc(firebaseAuth.currentUser && firebaseAuth.currentUser.uid)
+    .doc(id)
     .set({
       favourites: faves
     })
@@ -142,10 +142,10 @@ export const addFavourite = faves => {
     });
 };
 
-export const updateFavourites = faves => {
+export const updateFavourites = (faves, id) => {
   return firestoreDb
     .collection('favourites')
-    .doc(firebaseAuth.currentUser && firebaseAuth.currentUser.uid)
+    .doc(id)
     .update({
       favourites: faves
     })
