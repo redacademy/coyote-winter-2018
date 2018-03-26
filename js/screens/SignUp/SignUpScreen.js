@@ -14,6 +14,7 @@ import SignUp from './SignUp';
 import { newUser, getUsers } from '../../config/helpers';
 
 import PropTypes from 'prop-types';
+import { errorMessage, userMessage } from '../../lib/authHelper';
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -41,26 +42,9 @@ class SignUpScreen extends Component {
     this.props.dispatch(fetchPassword(text));
   };
 
-  _signInAsync = async ({ newUser }) => {
-    await AsyncStorage.setItem('userToken', {
-      newUser
-    });
-    this.props.navigation.navigate('Profile');
-  };
-
   addUser = () => {
     const { email, password, firstName, lastName, users } = this.props;
     const signInSuccess = isValidEmailAndPassword(email, password);
-
-    const errorMessage = {
-      code: 'Invalid login',
-      message: 'Please Enter a Valid Email Address'
-    };
-
-    const userMessage = {
-      code: 'User Already Exists',
-      message: 'You Already Have an Account!'
-    };
 
     if (signInSuccess) {
       if (!users.includes(email)) {

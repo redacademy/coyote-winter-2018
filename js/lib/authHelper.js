@@ -13,3 +13,13 @@ export const isValidEmailAndPassword = (email, password) => {
 
   return validEmail.test(email) && password.length > 5;
 };
+
+export const errorMessage = {
+  code: 'Invalid login',
+  message: 'Please Enter a Valid Email Address'
+};
+
+export const userMessage = {
+  code: 'User Already Exists',
+  message: 'You Already Have an Account!'
+};
