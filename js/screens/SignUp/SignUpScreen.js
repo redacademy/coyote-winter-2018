@@ -9,7 +9,7 @@ import {
 } from '../../redux/modules/signup';
 import { isValidEmailAndPassword, signOut } from '../../lib/authHelper';
 
-import { connect, AsyncStorage } from 'react-redux';
+import { connect } from 'react-redux';
 import SignUp from './SignUp';
 import { newUser, getUsers } from '../../config/helpers';
 
