@@ -27,10 +27,6 @@ class SignUpNameScreen extends Component {
 
   handleNextScreen = () => {
     const { navigation, firstName, lastName } = this.props;
-    // const nameError = {
-    //   code: 'Missing Name',
-    //   message: 'Please submit a first and last name'
-    // };
 
     firstName !== '' && lastName !== ''
       ? navigation.navigate('SignUpEmailAndPassword')
