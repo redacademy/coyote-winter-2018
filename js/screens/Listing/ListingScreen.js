@@ -20,7 +20,9 @@ class ListingScreen extends Component {
   constructor() {
     super();
 
-    this.handleFeaturedImage = this.handleFeaturedImage.bind(this);
+    this.handleFeaturedImage = this.handleFeaturedImage.bind(
+      this
+    );
     this.addToFaves = this.addToFaves.bind(this);
   }
   static navigationOptions = {
@@ -38,7 +40,9 @@ class ListingScreen extends Component {
       const images = Object.values(data[0].pictures);
       const landlord = data[0].landlordId;
       this.props.dispatch(fetchImages(images));
-      this.props.dispatch(fetchFeaturedImage(images[0]));
+      this.props.dispatch(
+        fetchFeaturedImage(images[0])
+      );
       this.props.dispatch(fetchLandlord(landlord));
     });
 
@@ -49,7 +53,9 @@ class ListingScreen extends Component {
           ? data.push(doc.data())
           : null;
       });
-      this.props.dispatch(fetchFaves(data[0].favourites));
+      this.props.dispatch(
+        fetchFaves(data[0].favourites)
+      );
     });
   }
 
@@ -73,8 +79,15 @@ class ListingScreen extends Component {
   }
 
   render() {
-    const { listing, images, featuredImage, faves, landlordId } = this.props;
-    const listingId = listing[0] && listing[0].listingId;
+    const {
+      listing,
+      images,
+      featuredImage,
+      faves,
+      landlordId
+    } = this.props;
+    const listingId =
+      listing[0] && listing[0].listingId;
 
     return (
       <Listing

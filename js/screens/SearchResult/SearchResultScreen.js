@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Text,
   ScrollView,
-  Button
+  Button,
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
-import SearchResult from './SearchResult';
 import PropTypes from 'prop-types';
 import {
   updateListings,
@@ -17,8 +16,7 @@ import {
   unMarshallResult,
   sortListingsByDateDesc
 } from '../../config/helpers';
-import Card from '../../components/Card/';
-
+import SearchResult from './SearchResult';
 import { colors } from '../../config/styles';
 
 class SearchResultScreen extends Component {
@@ -29,15 +27,14 @@ class SearchResultScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
+      title: `${navigation.state.params.location}`,
       headerLeft: (
         <Button
           onPress={() => navigation.navigate('Filter')}
           title="Filter"
           color={colors.MAIN}
         />
-      ),
-      title: 'Search',
-      tabBarLabel: 'Search Result'
+      )
     };
   };
 
@@ -65,17 +62,12 @@ class SearchResultScreen extends Component {
   render() {
     const { listings, loading } = this.props;
     return loading ? (
-      <Text>Loading</Text>
+      <Text>loadings</Text>
     ) : (
-      <ScrollView style={{ marginTop: 25 }}>
-        <Card
-          content={
-            <SearchResult
-              listings={listings}
-              navigation={this.props.navigation}
-            />
-          }
-          separator={true}
+      <ScrollView>
+        <SearchResult
+          listings={listings}
+          navigation={this.props.navigation}
         />
       </ScrollView>
     );

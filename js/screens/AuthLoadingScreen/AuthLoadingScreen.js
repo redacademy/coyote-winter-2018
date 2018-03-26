@@ -14,6 +14,10 @@ class AuthLoadingScreen extends Component {
     super(props);
   }
 
+  static navigationOptions = {
+    header: null
+  };
+
   componentDidMount() {
     this._bootstrapAsync();
   }
@@ -35,7 +39,10 @@ class AuthLoadingScreen extends Component {
     return (
       <View style={styles.container}>
         <ActivityIndicator />
-        <StatusBar barStyle="default" />
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+        />
       </View>
     );
   }
