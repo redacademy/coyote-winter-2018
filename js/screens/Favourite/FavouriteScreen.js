@@ -4,13 +4,12 @@ import Favourite from './Favourite';
 import { fetchListings } from '../../redux/modules/listings';
 import { fetchFaves } from '../../redux/modules/faves';
 import { connect } from 'react-redux';
-import { getListings, getFaves } from '../../config/helpers';
+import {
+  getListings,
+  getFaves
+} from '../../config/helpers';
 
 class FavouriteScreen extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const { authenticated } = this.props;
     getListings().then(querySnapshot => {
@@ -24,7 +23,9 @@ class FavouriteScreen extends Component {
     getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === authenticated ? data.push(doc.data()) : null;
+        doc.id === authenticated
+          ? data.push(doc.data())
+          : null;
       });
       let faves = [];
       data.forEach(favourites => {
@@ -33,15 +34,24 @@ class FavouriteScreen extends Component {
         });
       });
 
-      let favourites = this.props.listings.filter(listing => {
-        return faves.find(fav => fav === listing.listingId);
-      });
+      let favourites = this.props.listings.filter(
+        listing => {
+          return faves.find(
+            fav => fav === listing.listingId
+          );
+        }
+      );
       this.props.dispatch(fetchFaves(favourites));
     });
   }
 
   render() {
-    return <Favourite faves={this.props.faves} />;
+    return (
+      <Favourite
+        faves={this.props.faves}
+        navigation={this.props.navigation}
+      />
+    );
   }
 }
 
@@ -49,7 +59,8 @@ FavouriteScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   listings: PropTypes.array.isRequired,
   faves: PropTypes.array.isRequired,
-  authenticated: PropTypes.string.isRequired
+  authenticated: PropTypes.string.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -58,4 +69,6 @@ const mapStateToProps = state => ({
   authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(FavouriteScreen);
+export default connect(mapStateToProps)(
+  FavouriteScreen
+);
