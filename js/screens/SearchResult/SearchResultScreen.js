@@ -30,20 +30,19 @@ class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
   }
-
-  static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <Button
-        onPress={() =>
-          navigation.navigate('Filter', {
-            title: `asdf`
-          })
-        }
-        title="Filter"
-        color={colors.MAIN}
-      />
-    )
-  });
+  
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Search Results',
+      headerLeft: (
+        <Button
+          onPress={() => navigation.navigate('Filter')}
+          title="Filter"
+          color={colors.MAIN}
+        />
+      )
+    };
+  };
 
   getChipLabels = () => {
     const {

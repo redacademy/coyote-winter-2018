@@ -17,6 +17,7 @@ import { styles } from './styles';
 
 const Filtering = ({
   laundryTags,
+  navigation,
   numBathrooms,
   numBedrooms,
   occupantTags,
@@ -81,7 +82,13 @@ const Filtering = ({
         action={name => tagAction(parkingTags, name, updateParkingTags)}
       />
       <View style={styles.applyButton}>
-        <Button label={'Apply Filters'} onPress={() => queryBasedOnFilters()} />
+        <Button
+          label={'Apply Filters'}
+          onPress={() => {
+            queryBasedOnFilters();
+            navigation.goBack();
+          }}
+        />
       </View>
     </View>
   );
@@ -89,6 +96,7 @@ const Filtering = ({
 
 Filtering.propTypes = {
   laundryTags: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
   numBathrooms: PropTypes.number.isRequired,
   numBedrooms: PropTypes.number.isRequired,
   occupantTags: PropTypes.object.isRequired,
