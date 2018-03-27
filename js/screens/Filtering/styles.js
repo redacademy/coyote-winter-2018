@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors, typography } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   locationLabel: {
@@ -20,7 +23,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   price: {
-    marginTop: 10
+    marginTop: 10,
+    borderBottomColor: '#CED0CE',
+    borderWidth: StyleSheet.hairlineWidth
   },
   scroll: {
     marginTop: 25

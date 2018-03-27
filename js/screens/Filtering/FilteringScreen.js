@@ -6,11 +6,10 @@ import {
   Button
 } from 'react-native';
 import { connect } from 'react-redux';
-import Filtering from './Filtering';
 import PropTypes from 'prop-types';
+import Filtering from './Filtering';
 import {
   SORT_OPTIONS,
-  queryBasedOnFilters,
   updateNumBathrooms,
   updateNumBedrooms,
   updatePriceRange,
@@ -21,19 +20,16 @@ import DropDown from '../../components/DropDown/';
 import { styles } from './styles';
 
 class FilteringScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerLeft: (
       <Button
-        onPress={queryBasedOnFilters}
-        title="Filter"
+        onPress={() => navigation.goBack()}
+        title="Cancel"
         color={colors.MAIN}
       />
-    )
-  };
+    ),
+    tabBarVisible: false
+  });
 
   onPriceRangeChange = values => {
     const { dispatch } = this.props;
@@ -105,7 +101,7 @@ class FilteringScreen extends Component {
         >
           <View style={{ flexDirection: 'column' }}>
             <Text style={styles.locationLabel}>
-              Location:{' '}
+              Location:
             </Text>
             <Text style={styles.text}>
               {this.props.location}
@@ -129,7 +125,6 @@ class FilteringScreen extends Component {
           parkingTags={parkingTags}
           priceRange={priceRange}
           propertyTags={propertyTags}
-          query={queryBasedOnFilters}
           sortOptions={sortOptions}
           tagAction={this.tagAction}
           updateNumBathrooms={this.updateNumBathrooms}
@@ -153,6 +148,10 @@ const mapStateToProps = state => ({
   propertyTags: state.filter.propertyTags,
   sortOptions: state.filter.sortOptions
 });
+
+FilteringScreen.defaultProps = {
+  onPress: {}
+};
 
 FilteringScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,

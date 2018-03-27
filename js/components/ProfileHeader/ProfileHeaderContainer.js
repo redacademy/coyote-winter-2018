@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import ProfileHeader from './ProfileHeader';
-import { updateUserData, updateToggleEditable } from '../../redux/modules/user';
+import {
+  updateUserData,
+  updateToggleEditable
+} from '../../redux/modules/user';
 
 const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
 
@@ -24,19 +27,29 @@ class ProfileHeaderContainer extends Component {
   };
 
   handleImage = image => {
-    this.props.dispatch(updateUserData(userId, { image }));
+    this.props.dispatch(
+      updateUserData(userId, { image })
+    );
   };
   handleBio = userData => {
-    this.props.dispatch(updateUserData(userId, { bio: userData }));
+    this.props.dispatch(
+      updateUserData(userId, { bio: userData })
+    );
   };
   handleFirstName = userData => {
-    this.props.dispatch(updateUserData(userId, { firstName: userData }));
+    this.props.dispatch(
+      updateUserData(userId, { firstName: userData })
+    );
   };
   handleLastName = userData => {
-    this.props.dispatch(updateUserData(userId, { lastName: userData }));
+    this.props.dispatch(
+      updateUserData(userId, { lastName: userData })
+    );
   };
   handleLocation = userData => {
-    this.props.dispatch(updateUserData(userId, { location: userData }));
+    this.props.dispatch(
+      updateUserData(userId, { location: userData })
+    );
   };
   handleToggleEditable = () => {
     this.props.dispatch(updateToggleEditable());
@@ -52,7 +65,9 @@ class ProfileHeaderContainer extends Component {
         handleFirstName={this.handleFirstName}
         handleLastName={this.handleLastName}
         handleLocation={this.handleLocation}
-        handleToggleEditable={this.handleToggleEditable}
+        handleToggleEditable={
+          this.handleToggleEditable
+        }
         userData={userData.userData}
       />
     );
@@ -83,4 +98,6 @@ ProfileHeaderContainer.propTypes = {
   editable: PropTypes.bool.isRequired
 };
 
-export default connect(mapStateToProps)(ProfileHeaderContainer);
+export default connect(mapStateToProps)(
+  ProfileHeaderContainer
+);
