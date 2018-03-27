@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 import { styles } from './styles';
 
@@ -12,7 +13,10 @@ const Listing = ({
   featuredImage,
   handleFeaturedImage,
   addToFaves,
-  currentListing
+  currentListing,
+  landlord,
+  application,
+  applications
 }) => {
   return (
     <ScrollView>
@@ -39,9 +43,26 @@ const Listing = ({
             );
           })}
         </View>
-        <TouchableOpacity style={styles.buttonOne}>
-          <Text style={styles.buttonTextOne}>Apply To This Property</Text>
-        </TouchableOpacity>
+
+        {!applications.find(app => app[0] === currentListing) ? (
+          <TouchableOpacity style={styles.buttonOne}>
+            <Text style={styles.buttonTextOne} onPress={application}>
+              Apply To This Property
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          applications.map((app, i) => {
+            return (
+              app[0] === currentListing && (
+                <Text style={styles.confirmed} key={i}>
+                  You applied to this on
+                  {' ' + moment.unix(app[1]).format('MM/DD/YYYY')}
+                </Text>
+              )
+            );
+          })
+        )}
+
         <TouchableOpacity style={styles.buttonTwo}>
           <Text style={styles.buttonTextTwo}>View Landlords Profile</Text>
         </TouchableOpacity>
@@ -88,7 +109,9 @@ Listing.propTypes = {
   faves: PropTypes.array.isRequired,
   addToFaves: PropTypes.func.isRequired,
   currentListing: PropTypes.string,
-  landlord: PropTypes.string.isRequired
+  landlord: PropTypes.string.isRequired,
+  application: PropTypes.func.isRequired,
+  applications: PropTypes.array.isRequired
 };
 
 export default Listing;

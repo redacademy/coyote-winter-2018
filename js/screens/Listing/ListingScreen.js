@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Listing from './Listing';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { sha256 } from 'js-sha256';
 import {
   fetchListing,
   fetchImages,
@@ -12,10 +13,15 @@ import {
   getFaves,
   getSingleListing,
   addFavourite,
-  updateFavourites
+  updateFavourites,
+  addApplication,
+  applicationsYo
 } from '../../config/helpers';
 import { fetchFaves, favesError } from '../../redux/modules/faves';
 import { updateAuthState } from '../../redux/modules/auth';
+import { updateApplicationState } from '../../redux/modules/application';
+import moment from 'moment';
+
 class ListingScreen extends Component {
   constructor() {
     super();
@@ -53,6 +59,16 @@ class ListingScreen extends Component {
       });
       this.props.dispatch(fetchFaves(data[0].favourites));
     });
+
+    const userId = 'co38EO820KZfSJEEx24xKyuJibh2';
+
+    applicationsYo().then(querySnapshot => {
+      let data = [];
+      querySnapshot.forEach(doc => {
+        doc.id === userId ? data.push(doc.data()) : null;
+      });
+      this.props.dispatch(updateApplicationState(data[0].applications));
+    });
   }
 
   handleFeaturedImage(image) {
@@ -79,9 +95,32 @@ class ListingScreen extends Component {
     this.props.dispatch(fetchFaves([...faves]));
   }
 
+  addToApplications = () => {
+    const userId = 'co38EO820KZfSJEEx24xKyuJibh2';
+    const listingId = this.props.listing[0].listingId;
+    const created = moment().unix();
+    let id = sha256(created.toString());
+
+    let { applications } = this.props;
+
+    applications.push({
+      applicationStatus: 'Pending',
+      createdOn: created,
+      listingId: listingId,
+      applicationId: id
+    });
+
+    addApplication(userId, applications);
+    this.props.dispatch(updateApplicationState([...applications]));
+  };
+
   render() {
     const { listing, images, featuredImage, faves, landlordId } = this.props;
     const listingId = listing[0] && listing[0].listingId;
+    let applications = [];
+    this.props.applications.forEach(app => {
+      applications.push([app.listingId, app.createdOn]);
+    });
 
     return (
       <Listing
@@ -95,10 +134,16 @@ class ListingScreen extends Component {
         currentListing={listingId}
         landlord={landlordId}
         navigation={this.props.navigation}
+        application={this.addToApplications}
+        applications={applications}
       />
     );
   }
 }
+
+ListingScreen.defaultProps = {
+  applications: []
+};
 
 ListingScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -108,7 +153,8 @@ ListingScreen.propTypes = {
   faves: PropTypes.array.isRequired,
   landlordId: PropTypes.string.isRequired,
   navigation: PropTypes.object,
-  authenticated: PropTypes.string.isRequired
+  authenticated: PropTypes.string.isRequired,
+  applications: PropTypes.array
 };
 
 const mapStateToProps = state => ({
@@ -117,7 +163,8 @@ const mapStateToProps = state => ({
   featuredImage: state.listing.featuredImage,
   faves: state.faves.faves,
   landlordId: state.listing.landlordId,
-  authenticated: state.auth.authenticated
+  authenticated: state.auth.authenticated,
+  applications: state.application.applications
 });
 
 export default connect(mapStateToProps)(ListingScreen);
