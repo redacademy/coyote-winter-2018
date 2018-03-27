@@ -2,6 +2,7 @@ const GET_LISTING = 'GET_LISTING';
 const GET_IMAGES = 'GET_IMAGES';
 const FEATURED_IMAGE = 'FEATURED_IMAGE';
 const LANDLORD_ID = 'LANDLORD_ID';
+const GET_ADDRESS = 'GET_ADDRESS';
 
 const getListing = listing => ({
   type: GET_LISTING,
@@ -21,6 +22,11 @@ const featuredImage = featuredImage => ({
 const landlordId = id => ({
   type: LANDLORD_ID,
   payload: id
+});
+
+export const getAddress = address => ({
+  type: GET_ADDRESS,
+  payload: address
 });
 
 export const fetchListing = listing => dispatch => {
@@ -44,7 +50,8 @@ export default (
     listing: [],
     images: [],
     featuredImage: '',
-    landlordId: ''
+    landlordId: '',
+    address: ''
   },
   action
 ) => {
@@ -71,6 +78,12 @@ export default (
       return {
         ...state,
         landlordId: action.payload
+      };
+    }
+    case GET_ADDRESS: {
+      return {
+        ...state,
+        address: action.payload
       };
     }
     default:
