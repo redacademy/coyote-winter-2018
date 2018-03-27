@@ -6,13 +6,15 @@ import {
   fetchListing,
   fetchImages,
   fetchFeaturedImage,
-  fetchLandlord
+  fetchLandlord,
+  getAddress
 } from '../../redux/modules/listing';
 import {
   getFaves,
   getSingleListing,
   addFavourite,
-  updateFavourites
+  updateFavourites,
+  constructMapUrl
 } from '../../config/helpers';
 import { fetchFaves, favesError } from '../../redux/modules/faves';
 import { updateAuthState } from '../../redux/modules/auth';
@@ -44,6 +46,9 @@ class ListingScreen extends Component {
       this.props.dispatch(fetchImages(images));
       this.props.dispatch(fetchFeaturedImage(images[0]));
       this.props.dispatch(fetchLandlord(landlord));
+
+      const address = constructMapUrl(data[0].address);
+      this.props.dispatch(getAddress(address));
     });
 
     getFaves().then(querySnapshot => {
@@ -80,7 +85,14 @@ class ListingScreen extends Component {
   }
 
   render() {
-    const { listing, images, featuredImage, faves, landlordId } = this.props;
+    const {
+      listing,
+      images,
+      featuredImage,
+      faves,
+      landlordId,
+      address
+    } = this.props;
     const listingId = listing[0] && listing[0].listingId;
 
     return (
@@ -95,6 +107,7 @@ class ListingScreen extends Component {
         currentListing={listingId}
         landlord={landlordId}
         navigation={this.props.navigation}
+        address={address}
       />
     );
   }
@@ -108,7 +121,8 @@ ListingScreen.propTypes = {
   faves: PropTypes.array.isRequired,
   landlordId: PropTypes.string.isRequired,
   navigation: PropTypes.object,
-  authenticated: PropTypes.string.isRequired
+  authenticated: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -117,7 +131,8 @@ const mapStateToProps = state => ({
   featuredImage: state.listing.featuredImage,
   faves: state.faves.faves,
   landlordId: state.listing.landlordId,
-  authenticated: state.auth.authenticated
+  authenticated: state.auth.authenticated,
+  address: state.listing.address
 });
 
 export default connect(mapStateToProps)(ListingScreen);
