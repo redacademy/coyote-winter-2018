@@ -26,7 +26,7 @@ class SearchResultScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: `${navigation.state.params}`,
+      title: 'Search Results',
       headerLeft: (
         <Button
           onPress={() => navigation.navigate('Filter')}

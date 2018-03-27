@@ -7,9 +7,11 @@ import { styles } from './styles';
 const ChipGrid = ({ tags, action }) => {
   return (
     <View style={styles.body}>
-      <View>
+      <View style={styles.cell}>
         {tags.map(name => (
-          <Chip key={name} label={name} close={() => action(name)} />
+          <View key={name} style={styles.chip}>
+            <Chip key={name} label={name} close={() => action(name)} />
+          </View>
         ))}
       </View>
     </View>
