@@ -8,6 +8,7 @@ import applicationReducer from './modules/application';
 import loginReducer from './modules/login';
 import listingsReducer from './modules/listings';
 import userReducer from './modules/user';
+import autocompleteReducer from './modules/autocomplete';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   application: applicationReducer,
   login: loginReducer,
-  user: userReducer
+  user: userReducer,
+  autocomplete: autocompleteReducer
 });
 export default rootReducer;

@@ -80,12 +80,6 @@ export const newUser = (email, password, firstName, lastName) => {
           firstName: firstName,
           lastName: lastName,
           email: email
-        })
-        .then(() => {
-          console.log('it worked');
-        })
-        .catch(error => {
-          console.log(error);
         });
     });
 };
@@ -137,4 +131,11 @@ export const updateFavourites = (faves, id) => {
     .update({
       favourites: faves
     });
+};
+
+export const getCities = () => {
+  return firestoreDb
+    .collection('listings')
+    .orderBy('city')
+    .get();
 };

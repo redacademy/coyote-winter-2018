@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 import ListingList from '../../components/ListingList/';
 import { View, TouchableOpacity } from 'react-native';
 import ListItem from '../../components/ListItem/';
+import NoListingText from '../../components/NoListingText/';
 
-const renderFunction = (item, navigation) => {
+const renderFunction = item => {
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => console.log(navigation.state)}
-      >
+      <TouchableOpacity>
         <ListItem item={item} />
       </TouchableOpacity>
     </View>
   );
 };
 const SearchResult = ({ listings }) => {
-  return (
-    <ListingList
-      listings={listings}
-      renderFunction={renderFunction}
-    />
+  return listings.length < 1 ? (
+    <NoListingText text={'No Results Found - Adjust Your Search'} />
+  ) : (
+    <ListingList listings={listings} renderFunction={renderFunction} />
   );
 };
 

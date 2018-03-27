@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import LocationSearch from './LocationSearch';
 import PropTypes from 'prop-types';
+import { getCities } from '../../config/helpers';
 import { connect } from 'react-redux';
 import { updateLocation } from '../../redux/modules/filter';
+import { updateSuggestions } from '../../redux//modules/autocomplete';
 
 class LocationSearchScreen extends Component {
+  async componentWillMount() {
+    const { dispatch } = this.props;
+
+    const suggestions = new Set();
+    // get autocomplete possibilities from the database
+    await getCities().then(data =>
+      data.forEach(d => suggestions.add(d.data().city))
+    );
+
+    dispatch(updateSuggestions(Array.from(suggestions)));
+  }
+
   onSearch = () => {
     const newLocation = this.props.searchLocation;
     this.props.navigation.navigate('App', {
@@ -18,9 +32,7 @@ class LocationSearchScreen extends Component {
   render() {
     return (
       <LocationSearch
-        onLocationSearchChange={
-          this.onLocationSearchChange
-        }
+        onLocationSearchChange={this.onLocationSearchChange}
         onSearch={this.onSearch}
         navigation={this.props.navigation}
         searchLocation={this.props.searchLocation}
@@ -39,6 +51,4 @@ const mapStateToProps = state => ({
   searchLocation: state.filter.location
 });
 
-export default connect(mapStateToProps)(
-  LocationSearchScreen
-);
+export default connect(mapStateToProps)(LocationSearchScreen);
