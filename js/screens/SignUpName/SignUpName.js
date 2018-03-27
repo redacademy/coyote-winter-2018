@@ -7,7 +7,8 @@ import {
   Image,
   KeyboardAvoidingView
 } from 'react-native';
-import { styles } from '../SignUp/styles';
+
+import { styles } from '../../config/loginStyle';
 import PropTypes from 'prop-types';
 
 const SignUpName = ({
@@ -17,11 +18,11 @@ const SignUpName = ({
   error
 }) => {
   return (
-    <View style={styles.backgroundContainer}>
+    <View style={styles.background}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior={'position'}
-        contentContainerStyle={{ marginBottom: 20 }}
+        contentContainerStyle={{ marginBottom: 78 }}
       >
         <View>
           <Image
@@ -44,9 +45,9 @@ const SignUpName = ({
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleNextScreen}>
-            <Text style={{ color: 'white' }}>Next</Text>
+            <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
-          <Text>{error && error.message}</Text>
+          <Text style={styles.error}>{error && error.message}</Text>
         </View>
       </KeyboardAvoidingView>
     </View>

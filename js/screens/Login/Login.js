@@ -7,7 +7,8 @@ import {
   Image,
   KeyboardAvoidingView
 } from 'react-native';
-import { styles } from './styles';
+
+import { styles } from '../../config/loginStyle';
 import PropTypes from 'prop-types';
 
 const Login = ({
@@ -48,28 +49,21 @@ const Login = ({
         />
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleSubmit}
-          >
-            <Text style={{ color: 'white' }}>
-              Sign In
-            </Text>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
+
+          <Text style={styles.noAccountText}>
+            {"Don't have an account? Sign Up Here!"}
+          </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() =>
-              navigation.navigate('SignUpName')
-            }
+            onPress={() => navigation.navigate('SignUpName')}
           >
-            <Text style={{ color: 'white' }}>
-              Sign Up
-            </Text>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.error}>
-          {error.message}
-        </Text>
+        <Text style={styles.error}>{error.message}</Text>
       </KeyboardAvoidingView>
     </View>
   );
