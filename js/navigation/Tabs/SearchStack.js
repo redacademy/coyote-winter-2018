@@ -9,13 +9,17 @@ import ListingScreen from '../../screens/Listing/ListingScreen';
 const SearchTab = StackNavigator({
   Search: {
     screen: SearchResultScreen,
-    path: '/'
+    path: '/',
+    navigationOptions: () => ({
+      title: 'Search'
+    })
   },
   Filter: {
     screen: FilteringScreen
   },
   Listing: {
-    screen: ListingScreen
+    screen: ListingScreen,
+    path: '/listings/:listing'
   }
 });
 

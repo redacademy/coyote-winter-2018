@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -17,17 +23,24 @@ const Listing = ({
   return (
     <ScrollView>
       {featuredImage !== '' ? (
-        <Image source={{ uri: featuredImage }} style={styles.featuredImage} />
+        <Image
+          source={{ uri: featuredImage }}
+          style={styles.featuredImage}
+        />
       ) : null}
 
       <View style={styles.cardContainer}>
-        <Text style={styles.morePicture}>More Pictures</Text>
+        <Text style={styles.morePicture}>
+          More Pictures
+        </Text>
         <View style={styles.imageContainer}>
           {images.map((image, index) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => handleFeaturedImage(image)}
+                onPress={() =>
+                  handleFeaturedImage(image)
+                }
               >
                 <Image
                   source={{
@@ -40,10 +53,14 @@ const Listing = ({
           })}
         </View>
         <TouchableOpacity style={styles.buttonOne}>
-          <Text style={styles.buttonTextOne}>Apply To This Property</Text>
+          <Text style={styles.buttonTextOne}>
+            Apply To This Property
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonTwo}>
-          <Text style={styles.buttonTextTwo}>View Landlords Profile</Text>
+          <Text style={styles.buttonTextTwo}>
+            View Landlords Profile
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.faveContainer}>
@@ -51,17 +68,30 @@ const Listing = ({
             {listing[0] && listing[0].listingTitle}
           </Text>
 
-          <TouchableOpacity style={styles.heart} onPress={addToFaves}>
+          <TouchableOpacity
+            style={styles.heart}
+            onPress={addToFaves}
+          >
             {currentListing ? (
               faves.includes(currentListing) ? (
-                <Icon name="ios-heart" color="red" style={styles.heartSize} />
+                <Icon
+                  name="ios-heart-outline"
+                  color="red"
+                  style={styles.heartSize}
+                />
               ) : (
-                <Icon name="ios-heart" color="gray" style={styles.heartSize} />
+                <Icon
+                  name="ios-heart"
+                  color="gray"
+                  style={styles.heartSize}
+                />
               )
             ) : null}
           </TouchableOpacity>
         </View>
-        <Text style={styles.location}>{listing[0] && listing[0].city}</Text>
+        <Text style={styles.location}>
+          {listing[0] && listing[0].city}
+        </Text>
         <Text style={styles.price}>
           {listing[0] && `$${listing[0].price}/month`}
         </Text>

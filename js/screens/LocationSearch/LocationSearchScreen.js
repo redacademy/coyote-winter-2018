@@ -5,12 +5,6 @@ import { connect } from 'react-redux';
 import { updateLocation } from '../../redux/modules/filter';
 
 class LocationSearchScreen extends Component {
-  onSearch = () => {
-    const newLocation = this.props.searchLocation;
-    this.props.navigation.navigate('App', {
-      location: newLocation
-    });
-  };
   onLocationSearchChange = newLocation => {
     this.props.dispatch(updateLocation(newLocation));
   };

@@ -1,11 +1,19 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity
+} from 'react-native';
+
+import { withNavigation } from 'react-navigation';
+
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { styles } from './styles';
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, navigation }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -29,15 +37,31 @@ const ListItem = ({ item }) => {
             .unix(item.listingCreatedDate)
             .format('MM/DD/YYYY')}
         </Text>
-        <Text style={styles.price}>${item.price}</Text>
         <View />
+        <View style={styles.priceAndButton}>
+          <Text style={styles.price}>
+            ${item.price}
+          </Text>
+          <TouchableOpacity
+            style={styles.button}
+            title="View"
+            onPress={() =>
+              navigation.navigate('Listing', {
+                listingId: item.listingId
+              })
+            }
+          >
+            <Text style={styles.buttonText}>View</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
 ListItem.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
-export default ListItem;
+export default withNavigation(ListItem);
