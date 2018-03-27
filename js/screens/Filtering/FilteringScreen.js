@@ -75,6 +75,7 @@ class FilteringScreen extends Component {
   render() {
     const {
       laundryTags,
+      navigation,
       numBathrooms,
       numBedrooms,
       occupantTags,
@@ -106,6 +107,7 @@ class FilteringScreen extends Component {
         </View>
         <Filtering
           laundryTags={laundryTags}
+          navigation={navigation}
           numBathrooms={numBathrooms}
           numBedrooms={numBedrooms}
           occupantTags={occupantTags}
