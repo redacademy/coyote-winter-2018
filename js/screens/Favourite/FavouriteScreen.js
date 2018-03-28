@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Favourite from './Favourite';
+import Loader from '../../components/Loader/';
 import { fetchListings } from '../../redux/modules/listings';
-import { fetchFaves } from '../../redux/modules/faves';
-import { connect } from 'react-redux';
 import {
-  getListings,
-  getFaves
-} from '../../config/helpers';
+  fetchFaves,
+  updateLoading,
+  getFaveIds
+} from '../../redux/modules/faves';
+import { connect } from 'react-redux';
+import { getListings, getFaves } from '../../config/helpers';
 
 class FavouriteScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { authenticated } = this.props;
-    getListings().then(querySnapshot => {
+    this.props.dispatch(updateLoading(true));
+
+    await getListings().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
         data.push(doc.data());
@@ -20,37 +24,43 @@ class FavouriteScreen extends Component {
       this.props.dispatch(fetchListings(data));
     });
 
-    getFaves().then(querySnapshot => {
+    await getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === authenticated
-          ? data.push(doc.data())
-          : null;
+        doc.id === authenticated ? data.push(doc.data().favourites) : null;
       });
-      let faves = [];
-      data.forEach(favourites => {
-        favourites.favourites.forEach(fav => {
-          faves.push(fav);
-        });
-      });
+      // if this is the first time we go to the faves, we may
+      // need to set faveIds
+      if (data[0] !== this.props.faveIds)
+        this.props.dispatch(getFaveIds(data[0]));
 
-      let favourites = this.props.listings.filter(
-        listing => {
-          return faves.find(
-            fav => fav === listing.listingId
-          );
-        }
-      );
-      this.props.dispatch(fetchFaves(favourites));
+      this.setFaves(data[0], this.props.listings);
     });
+    this.props.dispatch(updateLoading(false));
+  }
+
+  setFaves = (faveIds, listings) => {
+    let favourites = [];
+    if (faveIds && faveIds.length > 0) {
+      favourites = listings.filter(listing => {
+        return faveIds.find(fav => fav === listing.listingId);
+      });
+    }
+    this.props.dispatch(fetchFaves(favourites));
+  };
+
+  componentWillReceiveProps(props) {
+    if (props.faveIds && props.faveIds.length !== props.faves.length) {
+      this.setFaves(props.faveIds, props.listings);
+    }
   }
 
   render() {
-    return (
-      <Favourite
-        faves={this.props.faves}
-        navigation={this.props.navigation}
-      />
+    const { loading } = this.props;
+    return loading ? (
+      <Loader />
+    ) : (
+      <Favourite faves={this.props.faves} navigation={this.props.navigation} />
     );
   }
 }
@@ -58,17 +68,23 @@ class FavouriteScreen extends Component {
 FavouriteScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   listings: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   faves: PropTypes.array.isRequired,
+  faveIds: PropTypes.array,
   authenticated: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired
 };
 
+FavouriteScreen.defaultProps = {
+  faveIds: []
+};
+
 const mapStateToProps = state => ({
   listings: state.listings.listings,
+  loading: state.faves.loading,
+  faveIds: state.faves.faveIds,
   faves: state.faves.faves,
   authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(
-  FavouriteScreen
-);
+export default connect(mapStateToProps)(FavouriteScreen);

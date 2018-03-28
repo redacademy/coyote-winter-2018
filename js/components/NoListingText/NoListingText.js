@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const NoListingText = ({ text }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.text}>{text}</Text>
     </View>
   );

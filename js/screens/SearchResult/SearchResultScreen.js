@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  ScrollView,
-  Text
-} from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  SORT_OPTIONS,
   queryBasedOnFilters,
   updateLaundryTags,
   updateLoading,
   updateOccupantTags,
   updateOtherTags,
   updateParkingTags,
-  updatePropertyTags
+  updatePropertyTags,
+  updateSortOptions,
+  updateListings
 } from '../../redux/modules/filter';
 import SearchResult from './SearchResult';
-import NoListingText from '../../components/NoListingText/';
+import DropDown from '../../components/DropDown/';
+import Loader from '../../components/Loader/';
 import NoFilterText from '../../components/NoFilterText/';
 import {
   getTrueParams,
-  setParamToFalse
+  setParamToFalse,
+  sortFilter
 } from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
 import { colors } from '../../config/styles';
@@ -30,7 +31,7 @@ class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Search Results',
@@ -42,6 +43,11 @@ class SearchResultScreen extends Component {
         />
       )
     };
+  };
+
+  sortListings = sortOrder => {
+    const { dispatch } = this.props;
+    dispatch(updateSortOptions(sortOrder));
   };
 
   getChipLabels = () => {
@@ -108,39 +114,37 @@ class SearchResultScreen extends Component {
     queryBasedOnFilters();
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch } = this.props;
-    queryBasedOnFilters();
+    dispatch(updateLoading(true));
+
+    await queryBasedOnFilters();
     dispatch(updateLoading(false));
   }
 
   render() {
-    const { listings, loading } = this.props;
+    const { dispatch, listings, loading, sortOptions } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
-      <Text>loadings</Text>
+      <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
+        <DropDown
+          label={'Sort By'}
+          options={SORT_OPTIONS}
+          selectFunction={option => {
+            dispatch(updateSortOptions(option));
+            const sorted = sortFilter(listings, option);
+            dispatch(updateListings([...sorted]));
+          }}
+          sortOptions={sortOptions}
+        />
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
-          <ChipGrid
-            tags={chips}
-            action={chip => this.closeChip(chip)}
-          />
+          <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
         )}
-        {listings.length < 1 ? (
-          <NoListingText
-            text={
-              'No Results Found - Adjust Your Search'
-            }
-          />
-        ) : (
-          <SearchResult
-            listings={listings}
-            navigation={this.props.navigation}
-          />
-        )}
+        <SearchResult listings={listings} navigation={this.props.navigation} />
       </ScrollView>
     );
   }
@@ -148,6 +152,7 @@ class SearchResultScreen extends Component {
 
 const mapStateToProps = state => ({
   laundryTags: state.filter.laundryTags,
+  listingId: state.listing.listingId,
   listings: state.filter.listings,
   loading: state.filter.loading,
   location: state.filter.location,
@@ -157,7 +162,7 @@ const mapStateToProps = state => ({
   otherTags: state.filter.otherTags,
   parkingTags: state.filter.parkingTags,
   propertyTags: state.filter.propertyTags,
-  listingId: state.listing.listingId
+  sortOptions: state.filter.sortOptions
 });
 
 SearchResultScreen.propTypes = {
@@ -172,7 +177,8 @@ SearchResultScreen.propTypes = {
   occupantTags: PropTypes.object,
   otherTags: PropTypes.object,
   parkingTags: PropTypes.object,
-  propertyTags: PropTypes.object
+  propertyTags: PropTypes.object,
+  sortOptions: PropTypes.string.isRequired
 };
 
 SearchResultScreen.defaultPropTypes = {
@@ -184,6 +190,4 @@ SearchResultScreen.defaultPropTypes = {
   parkingTags: {},
   propertyTags: {}
 };
-export default connect(mapStateToProps)(
-  SearchResultScreen
-);
+export default connect(mapStateToProps)(SearchResultScreen);
