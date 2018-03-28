@@ -51,10 +51,10 @@ const toggleEditable = () => ({
 
 // ASYNC ACTION CREATOR
 
-export const fetchUser = userId => dispatch => {
+export const fetchUser = userId => async dispatch => {
   dispatch(getUserLoading());
 
-  getUserProfile(userId)
+  await getUserProfile(userId)
     .then(doc => {
       if (doc.exists) {
         const userData = unMarshallResult(doc);

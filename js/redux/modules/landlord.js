@@ -1,5 +1,3 @@
-import { updateUserProfile } from '../../config/helpers';
-
 // ACTIONS
 
 const UPDATE_LANDLORD = 'UPDATE_USER';
