@@ -3,18 +3,26 @@ import { Button, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  SORT_OPTIONS,
   queryBasedOnFilters,
   updateLaundryTags,
   updateLoading,
   updateOccupantTags,
   updateOtherTags,
   updateParkingTags,
-  updatePropertyTags
+  updatePropertyTags,
+  updateSortOptions,
+  updateListings
 } from '../../redux/modules/filter';
 import SearchResult from './SearchResult';
+import DropDown from '../../components/DropDown/';
 import Loader from '../../components/Loader/';
 import NoFilterText from '../../components/NoFilterText/';
-import { getTrueParams, setParamToFalse } from '../../lib/filterHelpers';
+import {
+  getTrueParams,
+  setParamToFalse,
+  sortFilter
+} from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
 import { colors } from '../../config/styles';
 import { styles } from './styles';
@@ -110,12 +118,22 @@ class SearchResultScreen extends Component {
   }
 
   render() {
-    const { listings, loading } = this.props;
+    const { dispatch, listings, loading, sortOptions } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
       <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
+        <DropDown
+          label={'Sort By'}
+          options={SORT_OPTIONS}
+          selectFunction={option => {
+            dispatch(updateSortOptions(option));
+            const sorted = sortFilter(listings, option);
+            dispatch(updateListings([...sorted]));
+          }}
+          sortOptions={sortOptions}
+        />
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
@@ -129,6 +147,7 @@ class SearchResultScreen extends Component {
 
 const mapStateToProps = state => ({
   laundryTags: state.filter.laundryTags,
+  listingId: state.listing.listingId,
   listings: state.filter.listings,
   loading: state.filter.loading,
   location: state.filter.location,
@@ -138,7 +157,7 @@ const mapStateToProps = state => ({
   otherTags: state.filter.otherTags,
   parkingTags: state.filter.parkingTags,
   propertyTags: state.filter.propertyTags,
-  listingId: state.listing.listingId
+  sortOptions: state.filter.sortOptions
 });
 
 SearchResultScreen.propTypes = {
@@ -153,7 +172,8 @@ SearchResultScreen.propTypes = {
   occupantTags: PropTypes.object,
   otherTags: PropTypes.object,
   parkingTags: PropTypes.object,
-  propertyTags: PropTypes.object
+  propertyTags: PropTypes.object,
+  sortOptions: PropTypes.string.isRequired
 };
 
 SearchResultScreen.defaultPropTypes = {

@@ -94,12 +94,7 @@ class FilteringScreen extends Component {
             <Text style={styles.locationLabel}>Location:</Text>
             <Text style={styles.text}>{this.props.location}</Text>
           </View>
-          <DropDown
-            label={'Sort By'}
-            options={SORT_OPTIONS}
-            selectFunction={this.sortListings}
-            sortOptions={sortOptions}
-          />
+          
         </View>
         <Filtering
           laundryTags={laundryTags}
