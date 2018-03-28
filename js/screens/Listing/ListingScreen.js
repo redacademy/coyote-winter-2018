@@ -7,7 +7,6 @@ import { sha256 } from 'js-sha256';
 import {
   fetchImages,
   fetchFeaturedImage,
-  fetchLandlord,
   getAddress,
   updateLoading
 } from '../../redux/modules/listing';
@@ -23,6 +22,7 @@ import {
 import { favesError, getFaveIds } from '../../redux/modules/faves';
 import { updateApplicationState } from '../../redux/modules/application';
 import moment from 'moment';
+import { updateLandlordId } from '../../redux/modules/landlord';
 
 class ListingScreen extends Component {
   constructor() {
@@ -38,7 +38,7 @@ class ListingScreen extends Component {
 
     dispatch(fetchImages(images));
     dispatch(fetchFeaturedImage(images[0]));
-    dispatch(fetchLandlord(listing.landlordId));
+    dispatch(updateLandlordId(listing.landlordId));
 
     const address = constructMapUrl(listing.address);
     dispatch(getAddress(address));

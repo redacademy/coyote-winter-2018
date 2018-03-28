@@ -1,8 +1,7 @@
-import { updateUserProfile } from '../../config/helpers';
-
 // ACTIONS
 
 const UPDATE_LANDLORD = 'UPDATE_USER';
+const UPDATE_LANDLORD_ID = 'UPDATE_LANDLORD_ID';
 
 // ACTION CREATORS
 
@@ -11,10 +10,16 @@ export const updateLandlordData = landlordData => ({
   payload: landlordData
 });
 
+export const updateLandlordId = landlordData => ({
+  type: UPDATE_LANDLORD_ID,
+  payload: landlordData
+});
+
 // REDUCER
 
 export default (
   state = {
+    landlordId: '',
     landlordData: {
       bio: '',
       firstName: '',
@@ -32,6 +37,12 @@ export default (
       return {
         ...state,
         landlordData: action.payload
+      };
+    }
+    case UPDATE_LANDLORD_ID: {
+      return {
+        ...state,
+        landlordId: action.payload
       };
     }
     default:

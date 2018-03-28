@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-
 import { withNavigation } from 'react-navigation';
 
 import { styles } from './styles';
@@ -11,6 +10,7 @@ import { styles } from './styles';
 const Listing = ({
   address,
   listing,
+  navigation,
   images,
   faveIds,
   featuredImage,
@@ -62,7 +62,12 @@ const Listing = ({
             })
           )}
 
-          <TouchableOpacity style={styles.buttonTwo}>
+          <TouchableOpacity
+            style={styles.buttonTwo}
+            onPress={() => {
+              navigation.navigate('Landlord');
+            }}
+          >
             <Text style={styles.buttonTextTwo}>View Landlords Profile</Text>
           </TouchableOpacity>
 
@@ -114,6 +119,7 @@ Listing.defaultProps = {
 };
 
 Listing.propTypes = {
+  navigation: PropTypes.object.isRequired,
   featuredImage: PropTypes.string.isRequired,
   listing: PropTypes.object.isRequired,
   images: PropTypes.array.isRequired,

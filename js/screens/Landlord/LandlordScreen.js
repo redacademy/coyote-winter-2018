@@ -11,10 +11,10 @@ class LandlordScreen extends Component {
   };
 
   async componentWillMount() {
-    const landlordId = this.props.navigation.state
-      .params.landlord;
-    getUserProfile(landlordId).then(data => {
-      this.props.dispatch(
+    const { dispatch, landlordId } = this.props;
+    //this.props.navigation.state.params.landlord;
+    await getUserProfile(landlordId).then(data => {
+      dispatch(
         updateLandlordData({
           bio: data.data().bio,
           firstName: data.data().firstName,
@@ -40,13 +40,13 @@ class LandlordScreen extends Component {
 LandlordScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
-  landlordData: PropTypes.object.isRequired
+  landlordData: PropTypes.object.isRequired,
+  landlordId: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
-  landlordData: state.landlord.landlordData
+  landlordData: state.landlord.landlordData,
+  landlordId: state.landlord.landlordId
 });
 
-export default connect(mapStateToProps)(
-  LandlordScreen
-);
+export default connect(mapStateToProps)(LandlordScreen);
