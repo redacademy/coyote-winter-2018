@@ -97,8 +97,8 @@ class FilteringScreen extends Component {
           <DropDown
             label={'Sort By'}
             options={SORT_OPTIONS}
-            defaultValue={SORT_OPTIONS[0]}
             selectFunction={this.sortListings}
+            sortOptions={sortOptions}
           />
         </View>
         <Filtering

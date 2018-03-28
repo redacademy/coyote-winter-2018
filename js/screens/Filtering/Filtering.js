@@ -45,24 +45,12 @@ const Filtering = ({
       <ButtonGrid
         heading="Property Type"
         tags={propertyTags}
-        action={name =>
-          tagAction(
-            propertyTags,
-            name,
-            updatePropertyTags
-          )
-        }
+        action={name => tagAction(propertyTags, name, updatePropertyTags)}
       />
       <ButtonGrid
         heading="I'm Looking for..."
         tags={occupantTags}
-        action={name =>
-          tagAction(
-            occupantTags,
-            name,
-            updateOccupantTags
-          )
-        }
+        action={name => tagAction(occupantTags, name, updateOccupantTags)}
       />
       <View style={styles.rooms}>
         <IncrementalInput
@@ -81,31 +69,17 @@ const Filtering = ({
       <ButtonGrid
         heading="Other"
         tags={otherTags}
-        action={name =>
-          tagAction(otherTags, name, updateOtherTags)
-        }
+        action={name => tagAction(otherTags, name, updateOtherTags)}
       />
       <ButtonGrid
         heading="Laundry"
         tags={laundryTags}
-        action={name =>
-          tagAction(
-            laundryTags,
-            name,
-            updateLaundryTags
-          )
-        }
+        action={name => tagAction(laundryTags, name, updateLaundryTags)}
       />
       <ButtonGrid
         heading="Parking"
         tags={parkingTags}
-        action={name =>
-          tagAction(
-            parkingTags,
-            name,
-            updateParkingTags
-          )
-        }
+        action={name => tagAction(parkingTags, name, updateParkingTags)}
       />
       <View style={styles.applyButton}>
         <Button
