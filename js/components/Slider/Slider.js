@@ -35,9 +35,11 @@ const Slider = ({
     </View>
   );
 };
-
+Slider.defaultProps = {
+  label: ''
+};
 Slider.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
   onPriceRangeChange: PropTypes.func.isRequired,

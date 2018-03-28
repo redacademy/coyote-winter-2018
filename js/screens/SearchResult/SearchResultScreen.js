@@ -45,6 +45,11 @@ class SearchResultScreen extends Component {
     };
   };
 
+  sortListings = sortOrder => {
+    const { dispatch } = this.props;
+    dispatch(updateSortOptions(sortOrder));
+  };
+
   getChipLabels = () => {
     const {
       laundryTags,

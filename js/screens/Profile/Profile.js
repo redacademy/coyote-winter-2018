@@ -8,7 +8,7 @@ const Profile = ({ navigation, userData }) => {
   console.log(userData);
   return (
     <View style={styles.container}>
-      <ProfileHeaderContainer userData={{ userData }} navigation={navigation} />;
+      <ProfileHeaderContainer userData={{ userData }} navigation={navigation} />
     </View>
   );
 };

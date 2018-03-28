@@ -4,6 +4,7 @@ import ProfileScreen from '../../screens/Profile/ProfileScreen';
 import ApplicationScreen from '../../screens/Application/ApplicationScreen';
 import { colors, typography } from '../../config/styles';
 import ListingScreen from '../../screens/Listing';
+import ProfileHeaderContainer from '../../components/ProfileHeader/ProfileHeaderContainer';
 
 const ProfileTab = StackNavigator(
   {
@@ -13,6 +14,9 @@ const ProfileTab = StackNavigator(
       navigationOptions: () => ({
         title: 'Profile'
       })
+    },
+    ProfileHeaderContainer: {
+      screen: ProfileHeaderContainer
     },
     Application: {
       screen: ApplicationScreen

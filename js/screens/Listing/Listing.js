@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import { withNavigation } from 'react-navigation';
-
 import { styles } from './styles';
 
 const Listing = ({
@@ -126,7 +125,6 @@ Listing.propTypes = {
   handleFeaturedImage: PropTypes.func.isRequired,
   faveIds: PropTypes.array,
   addToFaves: PropTypes.func.isRequired,
-  landlord: PropTypes.string.isRequired,
   address: PropTypes.string,
   application: PropTypes.func.isRequired,
   applications: PropTypes.array.isRequired

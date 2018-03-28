@@ -51,8 +51,9 @@ export const styles = StyleSheet.create({
     paddingVertical: 2
   },
   userNameContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   userName: {
     fontSize: H2.fontSize,

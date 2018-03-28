@@ -3,11 +3,6 @@ import { colors } from '../../config/styles';
 import { typography } from '../../config/styles';
 
 export const styles = StyleSheet.create({
-  separator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#CED0CE'
-  },
   faveText: {
     color: colors.MAIN,
     fontFamily: typography.M_BOLD
@@ -20,6 +15,5 @@ export const styles = StyleSheet.create({
   listContainer: {
     borderTopWidth: 0,
     borderBottomWidth: 0
-  },
-  scroll: { marginTop: 25 }
+  }
 });

@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
     borderRightWidth: 2,
     borderBottomWidth: 4,
     borderLeftWidth: 4,
-    borderRadius: 5,
-    borderColor: colors.GREY
+    borderColor: colors.GREY,
+    borderRadius: 5
   },
   editContainer: {
     alignItems: 'flex-end'

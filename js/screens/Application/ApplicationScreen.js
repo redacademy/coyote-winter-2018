@@ -41,7 +41,7 @@ const mapStateToProps = state => ({
 
 ApplicationScreen.propTypes = {
   applications: PropTypes.array.isRequired,
-  authentication: PropTypes.string.isRequired,
+  authenticated: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired

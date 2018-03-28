@@ -25,13 +25,6 @@ import moment from 'moment';
 import { updateLandlordId } from '../../redux/modules/landlord';
 
 class ListingScreen extends Component {
-  constructor() {
-    super();
-
-    this.handleFeaturedImage = this.handleFeaturedImage.bind(this);
-    this.addToFaves = this.addToFaves.bind(this);
-  }
-
   async componentDidMount() {
     const { authenticated, dispatch, listing } = this.props;
     const images = Object.values(listing.pictures);
@@ -74,7 +67,7 @@ class ListingScreen extends Component {
     this.props.dispatch(fetchFeaturedImage(image));
   };
 
-  async addToFaves() {
+  addToFaves = async () => {
     const { authenticated, dispatch, faveIds, listing } = this.props;
 
     const id = listing.listingId;
@@ -97,7 +90,7 @@ class ListingScreen extends Component {
           dispatch(favesError(error));
         });
     }
-  }
+  };
 
   addToApplications = () => {
     const { authenticated, dispatch, listing } = this.props;
