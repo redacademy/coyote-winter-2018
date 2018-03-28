@@ -103,6 +103,8 @@ class SearchResultScreen extends Component {
 
   async componentDidMount() {
     const { dispatch } = this.props;
+    dispatch(updateLoading(true));
+
     await queryBasedOnFilters();
     dispatch(updateLoading(false));
   }
