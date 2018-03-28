@@ -1,43 +1,51 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ProfileHeaderContainer from '../../components/ProfileHeader/ProfileHeaderContainer';
-import { styles } from './styles';
 
-const Profile = ({
-  navigation,
-  signOut,
-  userData
-}) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.profileTab}>
-        <Text style={styles.profileText}>Profile</Text>
-        <Button
-          title="My Applications"
-          onPress={() =>
-            navigation.navigate('Application')
-          }
-          style={styles.profileText}
-        />
-      </View>
-      <ProfileHeaderContainer
-        userData={{ userData }}
+import { fetchUser } from '../../redux/modules/user';
+import Profile from './Profile';
+import Loader from '../../components/Loader/Loader';
+
+class ProfileScreen extends Component {
+  static navigationOptions = () => {
+    return {
+      title: 'Profile',
+      tabBarLabel: 'Profile'
+    };
+  };
+
+  async componentDidMount() {
+    const { userAuth } = this.props;
+
+    await this.props.dispatch(fetchUser(userAuth));
+  }
+
+  render() {
+    const { navigation, userData, userAuth, isLoading } = this.props;
+    return isLoading ? (
+      <Loader />
+    ) : (
+      <Profile
+        navigation={navigation}
+        userData={userData}
+        userAuth={userAuth}
       />
-      <View>
-        <Button
-          onPress={signOut}
-          title="sign me out"
-        />
-      </View>
-    </View>
-  );
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading,
+  userData: state.user.userData,
+  userAuth: state.auth.authenticated
+});
+
+ProfileScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  userData: PropTypes.object.isRequired,
+  userAuth: PropTypes.string,
+  isLoading: PropTypes.bool
 };
 
-Profile.propTypes = {
-  navigation: PropTypes.object,
-  signOut: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired
-};
-
-export default Profile;
+export default connect(mapStateToProps)(ProfileScreen);
