@@ -17,8 +17,11 @@ export const styles = StyleSheet.create({
     width: width - 20,
     alignSelf: 'center',
     marginRight: 10,
-    position: 'absolute',
-    top: 300,
+    marginLeft: 10,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     borderRadius: 5
   },
   morePicture: {
@@ -112,5 +115,9 @@ export const styles = StyleSheet.create({
   },
   heartSize: {
     fontSize: 30
+  },
+  map: {
+    height: 400,
+    width: width - 20
   }
 });

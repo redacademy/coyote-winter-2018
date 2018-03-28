@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  ScrollView,
-  Text
-} from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -16,12 +12,9 @@ import {
   updatePropertyTags
 } from '../../redux/modules/filter';
 import SearchResult from './SearchResult';
-import NoListingText from '../../components/NoListingText/';
+import Loader from '../../components/Loader/';
 import NoFilterText from '../../components/NoFilterText/';
-import {
-  getTrueParams,
-  setParamToFalse
-} from '../../lib/filterHelpers';
+import { getTrueParams, setParamToFalse } from '../../lib/filterHelpers';
 import ChipGrid from '../../components/ChipGrid';
 import { colors } from '../../config/styles';
 import { styles } from './styles';
@@ -30,7 +23,7 @@ class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Search Results',
@@ -108,9 +101,9 @@ class SearchResultScreen extends Component {
     queryBasedOnFilters();
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch } = this.props;
-    queryBasedOnFilters();
+    await queryBasedOnFilters();
     dispatch(updateLoading(false));
   }
 
@@ -118,29 +111,15 @@ class SearchResultScreen extends Component {
     const { listings, loading } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
-      <Text>loadings</Text>
+      <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
-          <ChipGrid
-            tags={chips}
-            action={chip => this.closeChip(chip)}
-          />
+          <ChipGrid tags={chips} action={chip => this.closeChip(chip)} />
         )}
-        {listings.length < 1 ? (
-          <NoListingText
-            text={
-              'No Results Found - Adjust Your Search'
-            }
-          />
-        ) : (
-          <SearchResult
-            listings={listings}
-            navigation={this.props.navigation}
-          />
-        )}
+        <SearchResult listings={listings} navigation={this.props.navigation} />
       </ScrollView>
     );
   }
@@ -184,6 +163,4 @@ SearchResultScreen.defaultPropTypes = {
   parkingTags: {},
   propertyTags: {}
 };
-export default connect(mapStateToProps)(
-  SearchResultScreen
-);
+export default connect(mapStateToProps)(SearchResultScreen);

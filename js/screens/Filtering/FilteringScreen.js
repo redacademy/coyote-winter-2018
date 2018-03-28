@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  Text,
-  View,
-  Button
-} from 'react-native';
+import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Filtering from './Filtering';
@@ -51,15 +46,11 @@ class FilteringScreen extends Component {
     const { numBathrooms, dispatch } = this.props;
     if (isDecrement) {
       numBathrooms > 1
-        ? dispatch(
-            updateNumBathrooms(numBathrooms - 1)
-          )
+        ? dispatch(updateNumBathrooms(numBathrooms - 1))
         : dispatch(updateNumBathrooms(numBathrooms));
     } else {
       numBathrooms < 10
-        ? dispatch(
-            updateNumBathrooms(numBathrooms + 1)
-          )
+        ? dispatch(updateNumBathrooms(numBathrooms + 1))
         : dispatch(updateNumBathrooms(numBathrooms));
     }
   };
@@ -100,12 +91,8 @@ class FilteringScreen extends Component {
           }}
         >
           <View style={{ flexDirection: 'column' }}>
-            <Text style={styles.locationLabel}>
-              Location:
-            </Text>
-            <Text style={styles.text}>
-              {this.props.location}
-            </Text>
+            <Text style={styles.locationLabel}>Location:</Text>
+            <Text style={styles.text}>{this.props.location}</Text>
           </View>
           <DropDown
             label={'Sort By'}
@@ -169,6 +156,4 @@ FilteringScreen.propTypes = {
   propertyTags: PropTypes.object.isRequired,
   sortOptions: PropTypes.string.isRequired
 };
-export default connect(mapStateToProps)(
-  FilteringScreen
-);
+export default connect(mapStateToProps)(FilteringScreen);

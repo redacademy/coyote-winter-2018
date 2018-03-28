@@ -4,15 +4,12 @@ import Favourite from './Favourite';
 import { fetchListings } from '../../redux/modules/listings';
 import { fetchFaves } from '../../redux/modules/faves';
 import { connect } from 'react-redux';
-import {
-  getListings,
-  getFaves
-} from '../../config/helpers';
+import { getListings, getFaves } from '../../config/helpers';
 
 class FavouriteScreen extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { authenticated } = this.props;
-    getListings().then(querySnapshot => {
+    await getListings().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
         data.push(doc.data());
@@ -20,12 +17,10 @@ class FavouriteScreen extends Component {
       this.props.dispatch(fetchListings(data));
     });
 
-    getFaves().then(querySnapshot => {
+    await getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === authenticated
-          ? data.push(doc.data())
-          : null;
+        doc.id === authenticated ? data.push(doc.data()) : null;
       });
       let faves = [];
       data.forEach(favourites => {
@@ -34,23 +29,17 @@ class FavouriteScreen extends Component {
         });
       });
 
-      let favourites = this.props.listings.filter(
-        listing => {
-          return faves.find(
-            fav => fav === listing.listingId
-          );
-        }
-      );
+      let favourites = this.props.listings.filter(listing => {
+        return faves.find(fav => fav === listing.listingId);
+      });
       this.props.dispatch(fetchFaves(favourites));
     });
+    // END REFACTOR
   }
 
   render() {
     return (
-      <Favourite
-        faves={this.props.faves}
-        navigation={this.props.navigation}
-      />
+      <Favourite faves={this.props.faves} navigation={this.props.navigation} />
     );
   }
 }
@@ -69,6 +58,4 @@ const mapStateToProps = state => ({
   authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(
-  FavouriteScreen
-);
+export default connect(mapStateToProps)(FavouriteScreen);

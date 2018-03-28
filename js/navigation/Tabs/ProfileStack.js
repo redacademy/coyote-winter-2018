@@ -2,10 +2,7 @@ import { StackNavigator } from 'react-navigation';
 
 import ProfileScreen from '../../screens/Profile/ProfileScreen';
 import ApplicationScreen from '../../screens/Application/ApplicationScreen';
-import {
-  colors,
-  typography
-} from '../../config/styles';
+import { colors, typography } from '../../config/styles';
 import ListingScreen from '../../screens/Listing';
 
 const ProfileTab = StackNavigator(

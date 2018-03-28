@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Button } from 'react-native';
 import PropTypes from 'prop-types';
-
 import { fetchUser } from '../../redux/modules/user';
 import { colors } from '../../config/styles';
 import Profile from './Profile';
 
 class ProfileScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: (
+      <Button
+        onPress={() => navigation.navigate('Listing')}
+        title="Info"
+        color={colors.MAIN}
+      />
+    )
+  });
+
   componentDidMount() {
     const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
     this.props.dispatch(fetchUser(userId));
