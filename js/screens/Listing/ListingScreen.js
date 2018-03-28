@@ -64,7 +64,8 @@ class ListingScreen extends Component {
       querySnapshot.forEach(doc => {
         doc.id === authenticated ? data.push(doc.data()) : null;
       });
-      this.props.dispatch(updateApplicationState(data[0].applications));
+      if (data.length > 0)
+        this.props.dispatch(updateApplicationState(data[0].applications));
     });
     dispatch(updateLoading(false));
   }
@@ -159,7 +160,7 @@ ListingScreen.defaultProps = {
 };
 
 ListingScreen.propTypes = {
-  applications: PropTypes.array.isRequired,
+  applications: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
   faveIds: PropTypes.array,
   listing: PropTypes.object.isRequired,
@@ -175,7 +176,7 @@ ListingScreen.propTypes = {
 
 ListingScreen.defaultProps = {
   faveIds: [],
-  applications: PropTypes.array
+  applications: []
 };
 
 const mapStateToProps = state => ({
