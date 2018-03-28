@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     fontFamily: typography.M_MEDIUM,
     color: colors.night,
     fontSize: 16,
-    marginRight: 15
+    marginRight: 30
   },
   applyButton: {
     padding: 10,

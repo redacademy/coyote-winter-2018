@@ -67,7 +67,6 @@ const Filtering = ({
         }
       />
       <Text style={styles.heading}>I Need...</Text>
-
       <View style={styles.pickerContainer}>
         <View style={styles.pickerWrapper}>
           <Text style={styles.pickerHeader}>
