@@ -70,7 +70,9 @@ class FilteringScreen extends Component {
         <ScrollView style={styles.scroll}>
           <View style={styles.locationContainer}>
             <View>
-              <Text style={styles.locationText}>{location}</Text>
+              <Text style={location !== '' ? styles.locationText : null}>
+                {location}
+              </Text>
             </View>
             <View>
               <TouchableOpacity

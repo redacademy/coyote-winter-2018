@@ -130,7 +130,7 @@ class SearchResultScreen extends Component {
     ) : (
       <ScrollView style={styles.scroll}>
         <DropDown
-          label={'Sort By'}
+          label="Sort By:"
           options={SORT_OPTIONS}
           selectFunction={option => {
             dispatch(updateSortOptions(option));
