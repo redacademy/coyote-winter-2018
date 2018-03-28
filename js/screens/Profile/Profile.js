@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import ProfileHeaderContainer from '../../components/ProfileHeader/ProfileHeaderContainer';
 import { styles } from './styles';
 
-const Profile = ({ navigation, userData, userAuth }) => {
+const Profile = ({ navigation, userData }) => {
   return (
     <View style={styles.container}>
       <ProfileHeaderContainer
         userData={{ userData }}
         navigation={navigation}
-        userAuth={{ userAuth }}
       />;
     </View>
   );

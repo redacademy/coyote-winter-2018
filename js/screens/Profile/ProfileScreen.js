@@ -22,9 +22,10 @@ class ProfileScreen extends Component {
 
   render() {
     const { navigation, userData, userAuth, isLoading } = this.props;
-    return isLoading ? (
-      <Loader />
-    ) : (
+    return (
+      // isLoading ? (
+      //   <Loader />
+      // ) : (
       <Profile
         navigation={navigation}
         userData={userData}
