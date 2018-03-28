@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
   container: {
     marginTop: 15,
     flexDirection: 'row',
-    width: width / 2,
-    justifyContent: 'space-between',
-    alignSelf: 'center'
+    // width: width / 2
+    justifyContent: 'space-between'
+    // alignSelf: 'center'
   }
 });
