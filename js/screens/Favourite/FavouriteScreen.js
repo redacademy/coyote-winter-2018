@@ -31,8 +31,8 @@ class FavouriteScreen extends Component {
       });
       // if this is the first time we go to the faves, we may
       // need to set faveIds
-      if (data[0] !== this.props.faveIds)
-        this.props.dispatch(getFaveIds(data[0]));
+      // if (data[0] !== this.props.faveIds)
+      //   this.props.dispatch(getFaveIds(data[0]));
 
       this.setFaves(data[0], this.props.listings);
     });
