@@ -2,10 +2,7 @@ import { StackNavigator } from 'react-navigation';
 
 import FavouriteScreen from '../../screens/Favourite/FavouriteScreen';
 
-import {
-  colors,
-  typography
-} from '../../config/styles';
+import { colors, typography } from '../../config/styles';
 
 const FavouriteTab = StackNavigator(
   {

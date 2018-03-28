@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  View
-} from 'react-native';
+import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { styles } from './styles';
+
+import { colors } from '../../config/styles';
 
 class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -24,9 +21,7 @@ class AuthLoadingScreen extends Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem(
-      'userToken'
-    );
+    const userToken = await AsyncStorage.getItem('userToken');
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
@@ -38,11 +33,13 @@ class AuthLoadingScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ActivityIndicator />
-        <StatusBar
-          backgroundColor="blue"
-          barStyle="light-content"
+        <ActivityIndicator
+          animating={true}
+          color={colors.MAIN}
+          size="large"
+          style={styles.loader}
         />
+        <StatusBar backgroundColor={'blue'} barStyle="light-content" />
       </View>
     );
   }

@@ -1,8 +1,20 @@
 const GET_FAVES = 'GET_FAVES';
+const GET_FAVE_IDS = 'GET_FAVE_IDS';
 const FAVES_ERROR = 'FAVES_ERROR';
+const UPDATE_LOADING = 'UPDATE_LOADING';
 
-const getFaves = faves => ({
+export const updateLoading = loading => ({
+  type: UPDATE_LOADING,
+  payload: loading
+});
+
+export const getFaveListings = faves => ({
   type: GET_FAVES,
+  payload: faves
+});
+
+export const getFaveIds = faves => ({
+  type: GET_FAVE_IDS,
   payload: faves
 });
 
@@ -12,13 +24,15 @@ export const favesError = error => ({
 });
 
 export const fetchFaves = faves => dispatch => {
-  dispatch(getFaves(faves));
+  dispatch(getFaveListings(faves));
 };
 
 export default (
   state = {
+    faveIds: [],
     faves: [],
-    error: ''
+    error: '',
+    loading: true
   },
   action
 ) => {
@@ -27,6 +41,18 @@ export default (
       return {
         ...state,
         faves: action.payload
+      };
+    }
+    case UPDATE_LOADING: {
+      return {
+        ...state,
+        loading: action.payload
+      };
+    }
+    case GET_FAVE_IDS: {
+      return {
+        ...state,
+        faveIds: action.payload
       };
     }
     case FAVES_ERROR: {

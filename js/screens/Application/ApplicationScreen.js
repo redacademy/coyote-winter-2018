@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Application from './Application';
 import PropTypes from 'prop-types';
+import Loader from '../../components/Loader/';
 import { getApplicationsByUser } from '../../config/helpers';
 import {
   updateApplicationState,
@@ -12,14 +13,10 @@ import { styles } from './styles';
 
 class ApplicationScreen extends Component {
   async componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, authenticated } = this.props;
+    dispatch(updateLoadingState(true));
 
-    // TODO: get uid from authenticated object in redux
-    const uid = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
-
-    const listingIds = await getApplicationsByUser(
-      uid
-    );
+    const listingIds = await getApplicationsByUser(authenticated);
 
     dispatch(updateApplicationState(listingIds));
     dispatch(updateLoadingState(false));
@@ -27,7 +24,7 @@ class ApplicationScreen extends Component {
   render() {
     const { applications, loading } = this.props;
     return loading ? (
-      <Text>Loading...</Text>
+      <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
         <Application listings={applications} />
@@ -38,16 +35,16 @@ class ApplicationScreen extends Component {
 
 const mapStateToProps = state => ({
   applications: state.application.applications,
+  authenticated: state.auth.authenticated,
   loading: state.application.loading
 });
 
 ApplicationScreen.propTypes = {
   applications: PropTypes.array.isRequired,
+  authenticated: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(
-  ApplicationScreen
-);
+export default connect(mapStateToProps)(ApplicationScreen);

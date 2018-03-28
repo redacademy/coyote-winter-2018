@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: colors.BACKGROUND,
-    fontSize: 10,
+    fontSize: 13,
     marginTop: 2,
     fontFamily: typography.OS_REGULAR
   },
