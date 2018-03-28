@@ -7,8 +7,6 @@ import { updateLocation } from '../../redux/modules/filter';
 import { updateSuggestions } from '../../redux//modules/autocomplete';
 
 class LocationSearchScreen extends Component {
-<<<<<<< HEAD
-=======
   async componentWillMount() {
     const { dispatch } = this.props;
 
@@ -27,7 +25,6 @@ class LocationSearchScreen extends Component {
       location: newLocation
     });
   };
->>>>>>> e303849... added autocomplete and styling to location search screen; loader
   onLocationSearchChange = newLocation => {
     this.props.dispatch(updateLocation(newLocation));
   };

@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     backgroundColor: '#fff',
+    position: 'relative',
     marginTop: -60,
     height: height,
     width: width - 20,
-
     alignSelf: 'center',
     marginRight: 10,
     marginLeft: 10,

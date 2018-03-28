@@ -8,13 +8,7 @@ import NoListingText from '../../components/NoListingText/';
 const renderFunction = item => {
   return (
     <View>
-<<<<<<< HEAD
       <ListItem item={item} />
-=======
-      <TouchableOpacity>
-        <ListItem item={item} />
-      </TouchableOpacity>
->>>>>>> e303849... added autocomplete and styling to location search screen; loader
     </View>
   );
 };

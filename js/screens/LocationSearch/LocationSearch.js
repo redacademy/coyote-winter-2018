@@ -30,41 +30,6 @@ const LocationSearch = ({
   dispatch,
   location,
   onLocationSearchChange,
-<<<<<<< HEAD
-  navigation
-}) => {
-  return (
-    <View style={styles.background}>
-      <View style={styles.headerContainer}>
-        <Image
-          source={logo}
-          style={styles.headerImage}
-        />
-      </View>
-      <View>
-        <Text style={styles.label}>
-          Where do you want to live?
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text =>
-            onLocationSearchChange(text)
-          }
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('Search', {
-              newLocation: 'whatever'
-            })
-          }
-        >
-          <Text style={styles.text}> Search </Text>
-        </TouchableOpacity>
-      </View>
-=======
   onSearch,
   cities
 }) => {
@@ -91,7 +56,6 @@ const LocationSearch = ({
           </TouchableOpacity>
         </View>
       </ImageBackground>
->>>>>>> e303849... added autocomplete and styling to location search screen; loader
     </View>
   );
 };
