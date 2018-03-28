@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Filtering from './Filtering';
 import {
-  SORT_OPTIONS,
   updateNumBathrooms,
   updateNumBedrooms,
   updatePriceRange,
   updateSortOptions
 } from '../../redux/modules/filter';
 import { colors } from '../../config/styles';
-import DropDown from '../../components/DropDown/';
 import { styles } from './styles';
 
 class FilteringScreen extends Component {
@@ -94,7 +92,6 @@ class FilteringScreen extends Component {
             <Text style={styles.locationLabel}>Location:</Text>
             <Text style={styles.text}>{this.props.location}</Text>
           </View>
-          
         </View>
         <Filtering
           laundryTags={laundryTags}
