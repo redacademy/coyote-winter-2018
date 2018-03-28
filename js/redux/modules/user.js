@@ -48,17 +48,14 @@ const toggleEditable = () => ({
 
 export const fetchUser = userId => async dispatch => {
   dispatch(getUserLoading());
-
   await getUserProfile(userId)
     .then(doc => {
       if (doc.exists) {
         const userData = unMarshallResult(doc);
-
         return userData;
       }
     })
     .then(userData => {
-      console.log(userData);
       dispatch(getUser(userData));
     })
     .catch(error => dispatch(getUserError(error)));

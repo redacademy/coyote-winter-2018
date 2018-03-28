@@ -24,18 +24,21 @@ const ProfileHeader = ({
   navigation,
   signOut
 }) => {
-  const base64Image = `data:image/jpg;base64, ${userData.image}`;
-  let userImage =
-    userData && userData.image && editable === false ? (
-      <Image style={styles.profileImage} source={{ url: base64Image }} />
-    ) : (
-      <TouchableOpacity onPress={() => openPicker()}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.profileImage} source={{ url: base64Image }} />
-          <Text style={styles.changeImage}>Change Image</Text>
-        </View>
-      </TouchableOpacity>
-    );
+  let userImage = '';
+  if (userData) {
+    const base64Image = `data:image/jpg;base64, ${userData.image}`;
+    userImage =
+      userData.image && editable === false ? (
+        <Image style={styles.profileImage} source={{ url: base64Image }} />
+      ) : (
+        <TouchableOpacity onPress={() => openPicker()}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.profileImage} source={{ url: base64Image }} />
+            <Text style={styles.changeImage}>Change Image</Text>
+          </View>
+        </TouchableOpacity>
+      );
+  }
 
   return (
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>

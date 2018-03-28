@@ -23,7 +23,7 @@ const searchedCities = (
 ) => {
   const searchedCities = findClosestString(cities, searchedText);
   dispatch(updateAutoSelected(searchedCities));
-  if (searchedText.length > 2) onLocationSearchChange(searchedCities);
+  if (searchedText.length > 3) onLocationSearchChange(searchedCities);
 };
 
 const LocationSearch = ({

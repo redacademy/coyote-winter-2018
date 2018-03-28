@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import Favourite from './Favourite';
 import Loader from '../../components/Loader/';
 import { fetchListings } from '../../redux/modules/listings';
-import { fetchFaves, updateLoading } from '../../redux/modules/faves';
+import {
+  fetchFaves,
+  updateLoading,
+  getFaveIds
+} from '../../redux/modules/faves';
 import { connect } from 'react-redux';
 import { getListings, getFaves } from '../../config/helpers';
 
 class FavouriteScreen extends Component {
   async componentDidMount() {
     const { authenticated } = this.props;
+    this.props.dispatch(updateLoading(true));
+
     await getListings().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
@@ -23,6 +29,10 @@ class FavouriteScreen extends Component {
       querySnapshot.forEach(function(doc) {
         doc.id === authenticated ? data.push(doc.data().favourites) : null;
       });
+      // if this is the first time we go to the faves, we may
+      // need to set faveIds
+      if (data[0] !== this.props.faveIds)
+        this.props.dispatch(getFaveIds(data[0]));
 
       this.setFaves(data[0], this.props.listings);
     });
