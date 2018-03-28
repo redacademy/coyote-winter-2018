@@ -2,7 +2,7 @@ const ROOT_URL = 'https://maps.googleapis.com/maps/api/staticmap?center=';
 const ZOOM_SIZE_MARKER =
   '&zoom=12&size=400x400&markers=color:blue%7Clabel:S%7C';
 
-import { MAP_API } from 'react-native-dotenv';
+// import { MAP_API } from 'react-native-dotenv';
 import { firestoreDb, firebaseAuth } from './firebaseConfig';
 
 // returns a promise for the query for the given userId
@@ -145,7 +145,12 @@ export const updateFavourites = (faves, id) => {
 export const constructMapUrl = address => {
   const addressUrl = address.split(' ').join('+');
   return (
-    ROOT_URL + addressUrl + ZOOM_SIZE_MARKER + addressUrl + '&key=' + MAP_API
+    ROOT_URL +
+    addressUrl +
+    ZOOM_SIZE_MARKER +
+    addressUrl +
+    '&key=' +
+    'AIzaSyAF2vWcKhpiAZ78Aw9IGxGYD87zX80IHHY'
   );
 };
 

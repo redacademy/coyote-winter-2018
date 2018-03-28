@@ -1,21 +1,44 @@
-## Coyote Rentals
+# Coyote Rental Solutions
 
-The Coyote kick off is now! Coyote Rental Solutions' purpose is to promote the connection between tenants and landlords.
+Coyote Rental Solutions is a React Native mobile app that promotes the connection between tenants and landlords. It is a platform potential tenants can search for long-term rentals and reach out to the landlords.
 
-# Features
+Coyote is a Red Academy Community Partner project, the capstone of coursework for RED Academy's App Developer program.
 
-* React-Native
-* Redux
-* Firebase
-* Github
+![Coyote Rentals Screenshot](js/assets/images/readme_login.png "Coyote Rental Solutions")
 
-# Configuration file (./config.js)
-
-We created the configuration file in order to have easily accessible constants. More importantly, if the colors need to be changed, or fonts need to be changed, they can be changed in one place. Furthermore, we added buttonStyle in order to have UI consistency across our platform(s). We also added config/iconType. This file has all of the icons that we need all across our application.
-
-# Author:
+## Developer Team
 
 * Lindsey Woo
 * Colin Matson-Jones
 * Aaron Griffiths
 * Nicholas Johnston
+
+## Design Team
+
+* Gurvi Chandi
+* Cheryl Kwan
+* Itzel Rodriguez
+* Deirdre O'Driscoll
+* Satyen Ram
+
+## Technology used
+
+* React-Native
+* React navigation
+* Redux
+* Firebase - Firestore
+* Git
+
+## Getting it up and running
+
+### Start an iPhone simulation
+
+```bash
+react-native run-ios --simulator="iPhone SE"```
+
+### Start remote debugging tool
+
+This project can be debugged using the [React-Native Debugger](https://github.com/jhen0409/react-native-debugger).
+
+```bash
+open "rndebugger://set-debugger-loc?host=localhost&port=8081"```
