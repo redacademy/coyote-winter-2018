@@ -85,8 +85,8 @@ const Listing = ({
             style={styles.heart}
             onPress={addToFaves}
           >
-            {currentListing ? (
-              faves.includes(currentListing) ? (
+            {listing.listingId ? (
+              faveIds.includes(listing.listingId) ? (
                 <Icon
                   name="ios-heart-outline"
                   color="red"
