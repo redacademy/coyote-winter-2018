@@ -4,8 +4,8 @@ MAIN_ is the accent color
 MAIN_LIGHT is the primary color
 */
 export const colors = {
-  BACKGROUND: '#ffffff',
-  GREY: '#f1f1f1',
+  WHITE: '#ffffff',
+  GREY: '#d3d3d3',
   OFF_WHITE: '#f3e8bb',
   MAIN_: '#fbb756',
   MAIN_LIGHT: '#f18b01',
@@ -37,11 +37,11 @@ export const textStyles = {
 
   H4: {
     fontFamily: typography.M_SEMIBOLD,
-    fontSize: 20
+    fontSize: 18
   },
   SMALL: {
     fontFamily: typography.M_MEDIUM,
-    fontSize: 15
+    fontSize: 16
   },
   BODY: {
     fontFamily: typography.OS_REGULAR,
