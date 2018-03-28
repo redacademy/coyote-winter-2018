@@ -15,12 +15,10 @@ class ProfileScreen extends Component {
 
   async componentDidMount() {
     const { userAuth } = this.props;
-    await this.props.dispatch(
-      fetchUser(
-        //userAuth));
-        '20032OjyKweGTpikv65HoUeQCQr1'
-      )
-    );
+    await this.props.dispatch(fetchUser(userAuth));
+    //     '20032OjyKweGTpikv65HoUeQCQr1'
+    //   )
+    // );
   }
 
   render() {

@@ -9,7 +9,7 @@ import { View, Text } from 'react-native';
 const DropDown = ({ label, options, selectFunction, sortOptions }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{label}</Text>
+      <Text style={styles.buttonText}>{label}</Text>
       <View>
         <ModalDropdown
           textStyle={styles.buttonText}
