@@ -1,51 +1,25 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
+import ProfileHeaderContainer from '../../components/ProfileHeader/ProfileHeaderContainer';
+import { styles } from './styles';
 
-import { fetchUser } from '../../redux/modules/user';
-import Profile from './Profile';
-import Loader from '../../components/Loader/Loader';
-
-class ProfileScreen extends Component {
-  static navigationOptions = () => {
-    return {
-      title: 'Profile',
-      tabBarLabel: 'Profile'
-    };
-  };
-
-  async componentDidMount() {
-    const { userAuth } = this.props;
-
-    await this.props.dispatch(fetchUser(userAuth));
-  }
-
-  render() {
-    const { navigation, userData, userAuth, isLoading } = this.props;
-    return isLoading ? (
-      <Loader />
-    ) : (
-      <Profile
+const Profile = ({ navigation, userData }) => {
+  return (
+    <View style={styles.container}>
+      <ProfileHeaderContainer
+        userData={{ userData }}
         navigation={navigation}
-        userData={userData}
-        userAuth={userAuth}
-      />
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  isLoading: state.user.isLoading,
-  userData: state.user.userData,
-  userAuth: state.auth.authenticated
-});
-
-ProfileScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
-  userAuth: PropTypes.string,
-  isLoading: PropTypes.bool
+      />;
+    </View>
+  );
 };
 
-export default connect(mapStateToProps)(ProfileScreen);
+Profile.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  signOut: PropTypes.func,
+  userData: PropTypes.object,
+  userAuth: PropTypes.string
+};
+
+export default Profile;
