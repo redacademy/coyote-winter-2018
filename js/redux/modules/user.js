@@ -63,6 +63,7 @@ export const fetchUser = userId => dispatch => {
       }
     })
     .then(userData => {
+      console.log(userData);
       dispatch(getUser(userData));
     })
     .catch(error => dispatch(getUserError(error)));
