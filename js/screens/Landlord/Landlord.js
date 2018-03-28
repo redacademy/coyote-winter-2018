@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 import { styles } from './styles';
 
 const Landlord = ({ landlord }) => {
-  const { bio, firstName, lastName, avatar, email, location } = landlord;
+  const { bio, firstName, lastName, photoURL, email, location } = landlord;
 
   return (
     <ScrollView>
       <View style={styles.profileContainer}>
         <View style={styles.userWrapper}>
           <View style={styles.imageContainer}>
-            console.log(avatar);
+            console.log(photoURL);
             <Image
               style={styles.profileImage}
               source={{
-                url: `data:image/jpg;base64, ${avatar}`
+                url: `data:image/jpg;base64, ${photoURL}`
               }}
             />
           </View>
