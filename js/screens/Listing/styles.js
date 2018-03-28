@@ -119,5 +119,10 @@ export const styles = StyleSheet.create({
   map: {
     height: 400,
     width: width - 20
+  },
+  confirmed: {
+    textAlign: 'center',
+    fontFamily: typography.M_MEDIUM,
+    color: colors.MAIN
   }
 });

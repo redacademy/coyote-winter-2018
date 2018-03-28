@@ -3,7 +3,7 @@ import Listing from './Listing';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Loader from '../../components/Loader/';
-
+import { sha256 } from 'js-sha256';
 import {
   fetchImages,
   fetchFeaturedImage,
@@ -12,6 +12,8 @@ import {
   updateLoading
 } from '../../redux/modules/listing';
 import {
+  addApplication,
+  applicationsYo,
   getFaves,
   addFavourite,
   updateFavourites,
@@ -19,6 +21,8 @@ import {
   getListings
 } from '../../config/helpers';
 import { favesError, getFaveIds } from '../../redux/modules/faves';
+import { updateApplicationState } from '../../redux/modules/application';
+import moment from 'moment';
 
 class ListingScreen extends Component {
   constructor() {
@@ -54,6 +58,14 @@ class ListingScreen extends Component {
       // write array of faveIds to redux state
       dispatch(getFaveIds(faves[0]));
     });
+
+    applicationsYo().then(querySnapshot => {
+      let data = [];
+      querySnapshot.forEach(doc => {
+        doc.id === authenticated ? data.push(doc.data()) : null;
+      });
+      this.props.dispatch(updateApplicationState(data[0].applications));
+    });
     dispatch(updateLoading(false));
   }
 
@@ -86,6 +98,25 @@ class ListingScreen extends Component {
     }
   }
 
+  addToApplications = () => {
+    const { authenticated, dispatch, listing } = this.props;
+    const listingId = listing.listingId;
+    const created = moment().unix();
+    let id = sha256(created.toString());
+
+    let { applications } = this.props;
+
+    applications.push({
+      applicationStatus: 'Pending',
+      createdOn: created,
+      listingId: listingId,
+      applicationId: id
+    });
+
+    addApplication(authenticated, applications);
+    dispatch(updateApplicationState([...applications]));
+  };
+
   render() {
     const {
       listing,
@@ -96,6 +127,11 @@ class ListingScreen extends Component {
       landlordId,
       address
     } = this.props;
+
+    let applications = [];
+    this.props.applications.forEach(app => {
+      applications.push([app.listingId, app.createdOn]);
+    });
 
     return loading ? (
       <Loader />
@@ -111,12 +147,19 @@ class ListingScreen extends Component {
         landlord={landlordId}
         navigation={this.props.navigation}
         address={address}
+        application={this.addToApplications}
+        applications={applications}
       />
     );
   }
 }
 
+ListingScreen.defaultProps = {
+  applications: []
+};
+
 ListingScreen.propTypes = {
+  applications: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   faveIds: PropTypes.array,
   listing: PropTypes.object.isRequired,
@@ -131,7 +174,8 @@ ListingScreen.propTypes = {
 };
 
 ListingScreen.defaultProps = {
-  faveIds: []
+  faveIds: [],
+  applications: PropTypes.array
 };
 
 const mapStateToProps = state => ({
@@ -143,7 +187,8 @@ const mapStateToProps = state => ({
   featuredImage: state.listing.featuredImage,
   landlordId: state.listing.landlordId,
   authenticated: state.auth.authenticated,
-  address: state.listing.address
+  address: state.listing.address,
+  applications: state.application.applications
 });
 
 export default connect(mapStateToProps)(ListingScreen);

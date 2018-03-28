@@ -20,21 +20,24 @@ class FavouriteScreen extends Component {
     await getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === authenticated ? data.push(doc.data()) : null;
-      });
-      let faves = [];
-      data.forEach(favourites => {
-        favourites.favourites.forEach(fav => {
-          faves.push(fav);
-        });
+        doc.id === authenticated ? data.push(doc.data().favourites) : null;
       });
 
-      let favourites = this.props.listings.filter(listing => {
-        return faves.find(fav => fav === listing.listingId);
-      });
-      this.props.dispatch(fetchFaves(favourites));
+      this.setFaves(data[0], this.props.listings);
     });
-    // END REFACTOR
+  }
+
+  setFaves = (faveIds, listings) => {
+    let favourites = listings.filter(listing => {
+      return faveIds.find(fav => fav === listing.listingId);
+    });
+    this.props.dispatch(fetchFaves(favourites));
+  };
+
+  componentWillReceiveProps(props) {
+    if (props.faveIds.length !== props.faves.length) {
+      this.setFaves(props.faveIds, props.listings);
+    }
   }
 
   render() {
@@ -48,12 +51,14 @@ FavouriteScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
   listings: PropTypes.array.isRequired,
   faves: PropTypes.array.isRequired,
+  faveIds: PropTypes.array.isRequired,
   authenticated: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   listings: state.listings.listings,
+  faveIds: state.faves.faveIds,
   faves: state.faves.faves,
   authenticated: state.auth.authenticated
 });

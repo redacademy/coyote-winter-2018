@@ -15,7 +15,7 @@ export const getUserProfile = userId => {
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the application collection
-const getApplications = userId => {
+export const getApplications = userId => {
   const db = firestoreDb.collection('applications').doc(userId);
   return db.get();
 };
@@ -64,6 +64,10 @@ export const unMarshallResult = result => {
 
 export const getUsers = () => {
   return firestoreDb.collection('users').get();
+};
+
+export const applicationsYo = () => {
+  return firestoreDb.collection('applications').get();
 };
 
 export const getListings = () => {
@@ -150,4 +154,13 @@ export const getCities = () => {
     .collection('listings')
     .orderBy('city')
     .get();
+};
+
+export const addApplication = (userId, apps) => {
+  return firestoreDb
+    .collection('applications')
+    .doc(userId)
+    .set({
+      applications: apps
+    });
 };

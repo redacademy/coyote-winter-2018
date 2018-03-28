@@ -2,19 +2,22 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
 
 import { withNavigation } from 'react-navigation';
 
 import { styles } from './styles';
 
 const Listing = ({
+  address,
   listing,
   images,
   faveIds,
   featuredImage,
   handleFeaturedImage,
   addToFaves,
-  address
+  application,
+  applications
 }) => {
   return (
     <View>
@@ -22,7 +25,6 @@ const Listing = ({
         {featuredImage !== '' ? (
           <Image source={{ uri: featuredImage }} style={styles.featuredImage} />
         ) : null}
-
         <View style={styles.cardContainer}>
           <Text style={styles.morePicture}>More Pictures</Text>
           <View style={styles.imageContainer}>
@@ -42,9 +44,24 @@ const Listing = ({
               );
             })}
           </View>
-          <TouchableOpacity style={styles.buttonOne}>
-            <Text style={styles.buttonTextOne}>Apply To This Property</Text>
-          </TouchableOpacity>
+
+          {!applications.find(app => app[0] === listing.listingId) ? (
+            <TouchableOpacity style={styles.buttonOne} onPress={application}>
+              <Text style={styles.buttonTextOne}>Apply To This Property</Text>
+            </TouchableOpacity>
+          ) : (
+            applications.map((app, i) => {
+              return (
+                app[0] === listing.listingId && (
+                  <Text style={styles.confirmed} key={i}>
+                    You applied to this on
+                    {' ' + moment.unix(app[1]).format('MM/DD/YYYY')}
+                  </Text>
+                )
+              );
+            })
+          )}
+
           <TouchableOpacity style={styles.buttonTwo}>
             <Text style={styles.buttonTextTwo}>View Landlords Profile</Text>
           </TouchableOpacity>
@@ -104,7 +121,9 @@ Listing.propTypes = {
   faveIds: PropTypes.array,
   addToFaves: PropTypes.func.isRequired,
   landlord: PropTypes.string.isRequired,
-  address: PropTypes.string
+  address: PropTypes.string,
+  application: PropTypes.func.isRequired,
+  applications: PropTypes.array.isRequired
 };
 
 export default withNavigation(Listing);
