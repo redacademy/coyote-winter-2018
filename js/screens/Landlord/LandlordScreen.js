@@ -12,7 +12,7 @@ class LandlordScreen extends Component {
 
   async componentWillMount() {
     const { dispatch, landlordId } = this.props;
-    //this.props.navigation.state.params.landlord;
+
     await getUserProfile(landlordId).then(data => {
       dispatch(
         updateLandlordData({

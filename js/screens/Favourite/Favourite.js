@@ -13,14 +13,6 @@ const Favourite = ({ faves, navigation }) => {
     <View style={styles.container}>
       <Text style={styles.faveText}>
         {faves.length === 0 && "You haven't added any favourites yet!"}
-        {faves.length === 0 && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Search')}
-          >
-            <Text style={styles.buttonText}>Search</Text>
-          </TouchableOpacity>
-        )}
       </Text>
 
       {faves.length === 0 && (
