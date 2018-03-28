@@ -11,8 +11,7 @@ class LandlordScreen extends Component {
   };
 
   async componentWillMount() {
-    const landlordId = this.props.navigation.state
-      .params.landlord;
+    const landlordId = this.props.navigation.state.params.landlord;
     getUserProfile(landlordId).then(data => {
       this.props.dispatch(
         updateLandlordData({
@@ -47,6 +46,4 @@ const mapStateToProps = state => ({
   landlordData: state.landlord.landlordData
 });
 
-export default connect(mapStateToProps)(
-  LandlordScreen
-);
+export default connect(mapStateToProps)(LandlordScreen);
