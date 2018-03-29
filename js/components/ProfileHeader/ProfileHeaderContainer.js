@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import ImagePicker from 'react-native-image-crop-picker';
 
 import ProfileHeader from './ProfileHeader';
 import {
+  updateUser,
   updateUserData,
   updateToggleEditable
 } from '../../redux/modules/user';
-
-const userId = 'QhP2yK3dx4P8BAB3AHJiLPAZgn93';
 
 class ProfileHeaderContainer extends Component {
   openPicker = () => {
@@ -27,36 +26,34 @@ class ProfileHeaderContainer extends Component {
   };
 
   handleImage = image => {
-    this.props.dispatch(
-      updateUserData(userId, { image })
-    );
+    this.props.dispatch(updateUser({ image }));
   };
   handleBio = userData => {
-    this.props.dispatch(
-      updateUserData(userId, { bio: userData })
-    );
+    this.props.dispatch(updateUser({ bio: userData }));
   };
   handleFirstName = userData => {
-    this.props.dispatch(
-      updateUserData(userId, { firstName: userData })
-    );
+    this.props.dispatch(updateUser({ firstName: userData }));
   };
   handleLastName = userData => {
-    this.props.dispatch(
-      updateUserData(userId, { lastName: userData })
-    );
+    this.props.dispatch(updateUser({ lastName: userData }));
   };
   handleLocation = userData => {
-    this.props.dispatch(
-      updateUserData(userId, { location: userData })
-    );
+    this.props.dispatch(updateUser({ location: userData }));
   };
   handleToggleEditable = () => {
     this.props.dispatch(updateToggleEditable());
   };
+  handleSubmit = async userData => {
+    this.props.dispatch(updateUserData(this.props.userAuth, userData));
+  };
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
 
   render() {
-    const { userData, editable } = this.props;
+    const { userData, editable, navigation } = this.props;
+
     return (
       <ProfileHeader
         editable={editable}
@@ -65,10 +62,11 @@ class ProfileHeaderContainer extends Component {
         handleFirstName={this.handleFirstName}
         handleLastName={this.handleLastName}
         handleLocation={this.handleLocation}
-        handleToggleEditable={
-          this.handleToggleEditable
-        }
+        handleToggleEditable={this.handleToggleEditable}
+        handleSubmit={this.handleSubmit}
         userData={userData.userData}
+        navigation={navigation}
+        signOut={this._signOutAsync}
       />
     );
   }
@@ -78,7 +76,7 @@ const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
   updateUser: state.user.updateUserData,
   editable: state.user.editable,
-  userAuth: state.auth.updateAuthState
+  userAuth: state.auth.authenticated
 });
 
 ProfileHeaderContainer.defaultProps = {
@@ -88,16 +86,17 @@ ProfileHeaderContainer.defaultProps = {
   bio: '',
   image: {},
   userData: {},
-  updateUserData: {}
+  updateUserData: {},
+  userAuth: ''
 };
 
 ProfileHeaderContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   updateUserData: PropTypes.object,
   userData: PropTypes.object.isRequired,
-  editable: PropTypes.bool.isRequired
+  editable: PropTypes.bool.isRequired,
+  navigation: PropTypes.object.isRequired,
+  userAuth: PropTypes.string
 };
 
-export default connect(mapStateToProps)(
-  ProfileHeaderContainer
-);
+export default connect(mapStateToProps)(ProfileHeaderContainer);

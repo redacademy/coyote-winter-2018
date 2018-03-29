@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity
-} from 'react-native';
-
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { fetchListing } from '../../redux/modules/listing';
 import { withNavigation } from 'react-navigation';
-
+import store from '../../redux/store';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -17,39 +12,27 @@ const ListItem = ({ item, navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Image
-          source={{ uri: item.pictures.pic4 }}
-          style={styles.image}
-        />
+        <Image source={{ uri: item.pictures.pic4 }} style={styles.image} />
       </View>
       <View style={styles.listing}>
-        <Text style={styles.title}>
-          {item.listingTitle}
-        </Text>
+        <Text style={styles.title}>{item.listingTitle}</Text>
         <View style={styles.descriptionContainer}>
-          <Text style={styles.description}>
-            {item.description}
-          </Text>
+          <Text style={styles.description}>{item.description}</Text>
         </View>
         <Text style={styles.lastUpdated}>
           Last Updated:
-          {moment
-            .unix(item.listingCreatedDate)
-            .format('MM/DD/YYYY')}
+          {moment.unix(item.listingCreatedDate).format('MM/DD/YYYY')}
         </Text>
         <View />
         <View style={styles.priceAndButton}>
-          <Text style={styles.price}>
-            ${item.price}
-          </Text>
+          <Text style={styles.price}>${item.price}</Text>
           <TouchableOpacity
             style={styles.button}
             title="View"
-            onPress={() =>
-              navigation.navigate('Listing', {
-                listingId: item.listingId
-              })
-            }
+            onPress={() => {
+              store.dispatch(fetchListing(item));
+              navigation.navigate('Listing');
+            }}
           >
             <Text style={styles.buttonText}>View</Text>
           </TouchableOpacity>

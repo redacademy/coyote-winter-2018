@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  Text,
-  TouchableOpacity
-} from 'react-native';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import FavouriteItem from '../../components/FavouriteItem';
 import PropTypes from 'prop-types';
 import { styles } from './styles';
@@ -17,8 +12,7 @@ const Favourite = ({ faves, navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.faveText}>
-        {faves.length === 0 &&
-          "You haven't added any favourites yet!"}
+        {faves.length === 0 && "You haven't added any favourites yet!"}
       </Text>
 
       {faves.length === 0 && (

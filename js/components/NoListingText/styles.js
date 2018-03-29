@@ -5,5 +5,6 @@ export const styles = StyleSheet.create({
   text: {
     color: colors.MAIN,
     fontFamily: typography.OS_REGULAR
-  }
+  },
+  container: { alignItems: 'center' }
 });
