@@ -71,9 +71,9 @@ class FavouriteScreen extends Component {
       <Text
         onPress={onPress}
         style={{
-          marginTop: 10,
+          marginTop: 8,
           opacity: 0.7,
-          fontSize: 12,
+          fontSize: 14,
           fontStyle: 'italic'
         }}
       >
@@ -87,9 +87,9 @@ class FavouriteScreen extends Component {
       <Text
         onPress={onPress}
         style={{
-          marginTop: 10,
+          marginTop: 8,
           opacity: 0.7,
-          fontSize: 12,
+          fontSize: 14,
           fontStyle: 'italic'
         }}
       >

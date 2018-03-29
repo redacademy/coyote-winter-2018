@@ -10,8 +10,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around'
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#A9A9A9',
+    paddingBottom: 10,
+    marginBottom: 10
   },
   image: {
     height: 150,
@@ -24,19 +28,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
+    marginBottom: 12,
     fontFamily: typography.M_BOLD,
     color: colors.MAIN
   },
-  descriptionContainer: { flexDirection: 'row' },
   description: {
-    flexWrap: 'wrap',
+    flex: 1,
     fontSize: 12,
-    marginBottom: 5,
+    marginBottom: 3,
     fontFamily: typography.OS_REGULAR
   },
   lastUpdated: {
     fontSize: 10,
-    marginBottom: 5,
+    marginTop: 5,
     color: 'grey',
     fontFamily: typography.OS_REGULAR
   },
@@ -56,7 +60,7 @@ export const styles = StyleSheet.create({
     borderRadius: 25
   },
   buttonText: {
-    color: colors.BACKGROUND,
+    color: colors.WHITE,
     marginVertical: 5,
     marginHorizontal: 20,
     borderRadius: 30

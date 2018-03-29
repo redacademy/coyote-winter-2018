@@ -218,7 +218,7 @@ export const renderViewMore = onPress => {
     <Text
       onPress={onPress}
       style={{
-        marginTop: 10,
+        marginTop: 8,
         opacity: 0.7,
         fontSize: 12,
         fontStyle: 'italic'
@@ -234,7 +234,7 @@ export const renderViewLess = onPress => {
     <Text
       onPress={onPress}
       style={{
-        marginTop: 10,
+        marginTop: 8,
         opacity: 0.7,
         fontSize: 12,
         fontStyle: 'italic'
