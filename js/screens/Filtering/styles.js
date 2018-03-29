@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     borderRadius: 25
   },
   buttonText: {
-    color: colors.BACKGROUND,
+    color: colors.WHITE,
     marginVertical: 5,
     marginHorizontal: 25,
     borderRadius: 30,

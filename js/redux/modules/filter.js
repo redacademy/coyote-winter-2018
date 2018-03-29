@@ -1,8 +1,4 @@
-export const SORT_OPTIONS = [
-  'Newest',
-  'Highest Price',
-  'Lowest Price'
-];
+export const SORT_OPTIONS = ['Newest', 'Highest Price', 'Lowest Price'];
 import {
   filterByAnd,
   filterByBoolean,
@@ -44,36 +40,18 @@ export const queryBasedOnFilters = async () => {
   } = store.getState().filter;
 
   const listingArray = await getNewListings(location);
-  let results = listingArray.docs.map(result =>
-    unMarshallResult(result)
-  );
+  let results = listingArray.docs.map(result => unMarshallResult(result));
 
   results = filterByPriceRange(results, priceRange);
-  results = filterByTags(
-    results,
-    propertyTags,
-    'propertyType'
-  );
+  results = filterByTags(results, propertyTags, 'propertyType');
   results = filterByBoolean(results, laundryTags);
   results = filterByBoolean(results, occupantTags);
-  results = filterByTags(
-    results,
-    parkingTags,
-    'parking'
-  );
+  results = filterByTags(results, parkingTags, 'parking');
   results = filterByAnd(results, otherTags);
   // if number of bed and bath are both 0, then not incld in query
   if (numBathrooms !== 0 && numBedrooms !== 0) {
-    results = filterBySingleValue(
-      results,
-      'numBathrooms',
-      numBathrooms
-    );
-    results = filterBySingleValue(
-      results,
-      'numBedrooms',
-      numBedrooms
-    );
+    results = filterBySingleValue(results, 'numBathrooms', numBathrooms);
+    results = filterBySingleValue(results, 'numBedrooms', numBedrooms);
   }
   results = sortFilter(results, sortOptions);
 
@@ -148,8 +126,8 @@ export const updateSortOptions = sortOptions => ({
 export default function(
   state = {
     laundryTags: {
-      'Laundry in Suite': false,
-      'Shared Laundry': false
+      'In Suite': false,
+      Shared: false
     },
     listings: [],
     loading: true,
@@ -162,15 +140,15 @@ export default function(
     },
     otherTags: {
       'Pets Ok': false,
-      'Wheelchair Ok': false,
+      Accessible: false,
       Furnished: false,
       'Smoking Ok': false
     },
     parkingTags: {
       'Car Port': false,
-      'Attached Garage': false,
-      'Detached Garage': false,
-      'Street Parking': false,
+      Attached: false,
+      Detached: false,
+      Street: false,
       'No Parking': false
     },
     priceRange: [100, 10000],
