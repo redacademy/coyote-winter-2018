@@ -10,26 +10,28 @@ const DropDown = ({ label, options, selectFunction, sortOptions }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.buttonText}>{label}</Text>
-      <View>
-        <ModalDropdown
-          textStyle={styles.buttonText}
-          dropdownTextStyle={{
-            height: 130,
-            alignSelf: 'center',
-            fontSize: 26,
-            fontFamily: typography.OS_REGULAR,
-            paddingTop: 55,
-            color: colors.MAIN
-          }}
-          dropdownStyle={{
-            height: '100%',
-            width: '100%'
-          }}
-          options={options}
-          defaultValue={SORT_OPTIONS[sortOptions]}
-          onSelect={selectFunction}
-        />
-      </View>
+      <ModalDropdown
+        textStyle={styles.text}
+        dropdownTextStyle={{
+          height: 130,
+          fontSize: 26,
+          fontFamily: typography.OS_REGULAR,
+          paddingTop: 55,
+          color: colors.MAIN,
+          textAlign: 'center'
+        }}
+        dropdownTextHighlightStyle={{
+          backgroundColor: colors.MAIN,
+          color: colors.WHITE
+        }}
+        dropdownStyle={{
+          height: '100%',
+          width: '100%'
+        }}
+        options={options}
+        defaultValue={SORT_OPTIONS[sortOptions]}
+        onSelect={selectFunction}
+      />
     </View>
   );
 };

@@ -11,9 +11,5 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  listContainer: {
-    borderTopWidth: 0,
-    borderBottomWidth: 0
   }
 });

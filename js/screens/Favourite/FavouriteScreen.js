@@ -2,58 +2,45 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Favourite from './Favourite';
 import Loader from '../../components/Loader/';
-import { fetchListings } from '../../redux/modules/listings';
 import {
   fetchFaves,
-  updateLoading,
-  getFaveIds
+  fetchFaveIds,
+  updateLoading
 } from '../../redux/modules/faves';
 import { connect } from 'react-redux';
-import { getListings, getFaves } from '../../config/helpers';
+import { getListings } from '../../config/helpers';
 
 class FavouriteScreen extends Component {
   async componentDidMount() {
-    const { authenticated } = this.props;
+    const { authenticated, dispatch } = this.props;
     this.props.dispatch(updateLoading(true));
 
+    dispatch(fetchFaveIds(authenticated));
+
+    let data = [];
     await getListings().then(querySnapshot => {
-      let data = [];
+      const faves = this.props.faveIds;
       querySnapshot.forEach(function(doc) {
-        data.push(doc.data());
+        faves.forEach(fave => {
+          if (fave === doc.data().listingId) {
+            data.push(doc.data());
+          }
+        });
       });
-      this.props.dispatch(fetchListings(data));
     });
-
-    await getFaves().then(querySnapshot => {
-      let data = [];
-      querySnapshot.forEach(function(doc) {
-        doc.id === authenticated ? data.push(doc.data().favourites) : null;
-      });
-      // if this is the first time we go to the faves, we may
-      // need to set faveIds
-      // if (data[0] !== this.props.faveIds)
-      //   this.props.dispatch(getFaveIds(data[0]));
-
-      this.setFaves(data[0], this.props.listings);
-    });
-    this.props.dispatch(updateLoading(false));
+    dispatch(fetchFaves(data));
+    dispatch(updateLoading(false));
   }
 
-  setFaves = (faveIds, listings) => {
-    let favourites = [];
-    if (faveIds && faveIds.length > 0) {
-      favourites = listings.filter(listing => {
-        return faveIds.find(fav => fav === listing.listingId);
-      });
-    }
-    this.props.dispatch(fetchFaves(favourites));
-  };
-
-  componentWillReceiveProps(props) {
-    if (props.faveIds && props.faveIds.length !== props.faves.length) {
-      this.setFaves(props.faveIds, props.listings);
-    }
-  }
+  // setFaves = (faveIds, listings) => {
+  //   let favourites = [];
+  //   if (faveIds && faveIds.length > 0) {
+  //     favourites = listings.filter(listing => {
+  //       return faveIds.find(fav => fav === listing.listingId);
+  //     });
+  //   }
+  //   this.props.dispatch(fetchFaves(favourites));
+  // };
 
   render() {
     const { loading } = this.props;

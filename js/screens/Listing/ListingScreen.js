@@ -13,13 +13,18 @@ import {
 import {
   addApplication,
   applicationsYo,
-  getFaves,
   addFavourite,
   updateFavourites,
   constructMapUrl,
-  getListings
+  getListings,
+  getSingleListing
 } from '../../config/helpers';
-import { favesError, getFaveIds } from '../../redux/modules/faves';
+import {
+  favesError,
+  fetchFaves,
+  getFaveIds,
+  fetchFaveIds
+} from '../../redux/modules/faves';
 import { updateApplicationState } from '../../redux/modules/application';
 import moment from 'moment';
 import { updateLandlordId } from '../../redux/modules/landlord';
@@ -36,21 +41,20 @@ class ListingScreen extends Component {
     const address = constructMapUrl(listing.address);
     dispatch(getAddress(address));
 
+    dispatch(fetchFaveIds(authenticated));
+
     let data = [];
     await getListings().then(querySnapshot => {
+      const faves = this.props.faveIds;
       querySnapshot.forEach(function(doc) {
-        data.push(doc.data());
+        faves.forEach(fave => {
+          if (fave === doc.data().listingId) {
+            data.push(doc.data());
+          }
+        });
       });
     });
-
-    await getFaves().then(querySnapshot => {
-      let faves = [];
-      querySnapshot.forEach(function(doc) {
-        if (doc.id === authenticated) faves.push(doc.data().favourites);
-      });
-      // write array of faveIds to redux state
-      dispatch(getFaveIds(faves[0]));
-    });
+    dispatch(fetchFaves(data));
 
     applicationsYo().then(querySnapshot => {
       let data = [];
@@ -68,7 +72,7 @@ class ListingScreen extends Component {
   };
 
   addToFaves = async () => {
-    const { authenticated, dispatch, faveIds, listing } = this.props;
+    const { authenticated, dispatch, faves, faveIds, listing } = this.props;
 
     const id = listing.listingId;
     if (faveIds && !faveIds.includes(id)) {
@@ -81,14 +85,33 @@ class ListingScreen extends Component {
         .catch(error => {
           dispatch(favesError(error));
         });
+      // get single listing, add it to faves
+      await getSingleListing(id)
+        .then(listing => {
+          const faveListings = faves;
+          listing.forEach(query => {
+            faveListings.push(query.data());
+          });
+          dispatch(fetchFaves([...faveListings]));
+        })
+        .catch(e => console.log(e));
     } else {
       const unFave = faveIds;
       unFave.splice(unFave.indexOf(id), 1);
+
+      const faveListings = faves;
+      let newListings = [];
+      faveListings.forEach(fave => {
+        if (fave.listingId !== id) newListings.push(fave);
+      });
+      dispatch(fetchFaves([...newListings]));
+
       await updateFavourites(unFave, authenticated)
-        .then(() => dispatch(getFaveIds([...unFave])))
+        .then(() => {})
         .catch(error => {
           dispatch(favesError(error));
         });
+      dispatch(getFaveIds([...unFave]));
     }
   };
 
@@ -155,6 +178,7 @@ ListingScreen.defaultProps = {
 ListingScreen.propTypes = {
   applications: PropTypes.array,
   dispatch: PropTypes.func.isRequired,
+  faves: PropTypes.array,
   faveIds: PropTypes.array,
   listing: PropTypes.object.isRequired,
   listings: PropTypes.array.isRequired,
@@ -173,6 +197,7 @@ ListingScreen.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  faves: state.faves.faves,
   faveIds: state.faves.faveIds,
   listing: state.listing.listing,
   listings: state.listings.listings,

@@ -10,12 +10,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginVertical: 30
+    marginTop: 25,
+    marginBottom: 30
   },
   locationText: {
     fontFamily: typography.M_MEDIUM,
     color: colors.night,
-    fontSize: 16
+    fontSize: 16,
+    marginRight: 15
   },
   applyButton: {
     padding: 10,
@@ -42,7 +44,7 @@ export const styles = StyleSheet.create({
     marginBottom: -10
   },
   scroll: {
-    marginBottom: 40
+    marginBottom: 50
   },
   pickerContainer: {
     alignSelf: 'center',
@@ -76,6 +78,7 @@ export const styles = StyleSheet.create({
     color: colors.BACKGROUND,
     marginVertical: 5,
     marginHorizontal: 25,
-    borderRadius: 30
+    borderRadius: 30,
+    fontSize: 16
   }
 });

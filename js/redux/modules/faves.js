@@ -2,6 +2,7 @@ const GET_FAVES = 'GET_FAVES';
 const GET_FAVE_IDS = 'GET_FAVE_IDS';
 const FAVES_ERROR = 'FAVES_ERROR';
 const UPDATE_LOADING = 'UPDATE_LOADING';
+import { getFavesByUser } from '../../config/helpers';
 
 export const updateLoading = loading => ({
   type: UPDATE_LOADING,
@@ -25,6 +26,13 @@ export const favesError = error => ({
 
 export const fetchFaves = faves => dispatch => {
   dispatch(getFaveListings(faves));
+};
+
+export const fetchFaveIds = userId => dispatch => {
+  getFavesByUser(userId).then(data => {
+    console.log(data.data().favourites);
+    dispatch(getFaveIds(data.data().favourites));
+  });
 };
 
 export default (

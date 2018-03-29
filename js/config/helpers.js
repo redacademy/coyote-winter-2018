@@ -78,6 +78,13 @@ export const getFaves = () => {
   return firestoreDb.collection('favourites').get();
 };
 
+export const getFavesByUser = userId => {
+  return firestoreDb
+    .collection('favourites')
+    .doc(userId)
+    .get();
+};
+
 export const newUser = (email, password, firstName, lastName) => {
   return firebaseAuth
     .createUserWithEmailAndPassword(email, password)
