@@ -1,27 +1,16 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { styles } from './styles';
 import PropTypes from 'prop-types';
-import { SORT_OPTIONS } from '../../redux/modules/filter';
 import {
   colors,
   typography
 } from '../../config/styles';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-const DropDown = ({
-  options,
-  selectFunction,
-  sortOptions
-}) => {
+const DropDown = ({ options, selectFunction }) => {
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.buttonText}>
-        {defaultValue}
-      </Text> */}
       <ModalDropdown
         style={{
           zIndex: 3,
@@ -59,7 +48,6 @@ const DropDown = ({
 };
 
 DropDown.propTypes = {
-  // label: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   selectFunction: PropTypes.func.isRequired,
   sortOptions: PropTypes.string.isRequired

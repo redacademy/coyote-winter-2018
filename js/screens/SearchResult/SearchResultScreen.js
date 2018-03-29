@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Button,
   ScrollView,
-  Text,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -34,17 +33,8 @@ import { colors } from '../../config/styles';
 import { styles } from './styles';
 
 class SearchResultScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Search Results'
-      // headerLeft: (
-      //   <Button
-      //     onPress={() => navigation.navigate('Filter')}
-      //     title="Filter"
-      //     color={colors.MAIN}
-      //   />
-      // )
-    };
+  static navigationOptions = {
+    title: 'Search Results'
   };
 
   sortListings = sortOrder => {
