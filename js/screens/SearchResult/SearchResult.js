@@ -14,9 +14,14 @@ const renderFunction = item => {
 };
 const SearchResult = ({ listings }) => {
   return listings.length < 1 ? (
-    <NoListingText text={'No Results Found - Adjust Your Search'} />
+    <NoListingText
+      text={'No Results Found - Adjust Your Search'}
+    />
   ) : (
-    <ListingList listings={listings} renderFunction={renderFunction} />
+    <ListingList
+      listings={listings}
+      renderFunction={renderFunction}
+    />
   );
 };
 

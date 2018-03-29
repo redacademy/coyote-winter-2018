@@ -12,13 +12,12 @@ import { withNavigation } from 'react-navigation';
 import { styles } from './styles';
 import { fetchListing } from '../../redux/modules/listing';
 import store from '../../redux/store';
+import {
+  renderViewMore,
+  renderViewLess
+} from '../../config/helpers';
 
-const FavouriteItem = ({
-  item,
-  navigation,
-  viewMore,
-  viewLess
-}) => {
+const FavouriteItem = ({ item, navigation }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -35,8 +34,8 @@ const FavouriteItem = ({
           </Text>
           <ViewMoreText
             numberOfLines={2}
-            renderViewMore={viewMore}
-            renderViewLess={viewLess}
+            renderViewMore={renderViewMore}
+            renderViewLess={renderViewLess}
           >
             <Text>{item.description}</Text>
           </ViewMoreText>
@@ -64,9 +63,7 @@ const FavouriteItem = ({
 
 FavouriteItem.propTypes = {
   item: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
-  viewMore: PropTypes.func.isRequired,
-  viewLess: PropTypes.func.isRequired
+  navigation: PropTypes.object.isRequired
 };
 
 export default withNavigation(FavouriteItem);

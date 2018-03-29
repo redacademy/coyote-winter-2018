@@ -1,8 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import {
   colors,
   typography
 } from '../../config/styles';
+
+const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,16 +14,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   image: {
-    height: 120,
-    width: 100,
-    borderRadius: 10,
-    marginRight: 5,
-    marginTop: 5,
-    marginBottom: 10
+    height: 150,
+    width: width / 3,
+    borderRadius: 10
   },
-  listing: { marginTop: 5, width: 175 },
+  listing: {
+    width: width / 2,
+    marginLeft: 10,
+    justifyContent: 'space-between'
+  },
   title: {
-    marginBottom: 5,
     fontFamily: typography.M_BOLD,
     color: colors.MAIN
   },

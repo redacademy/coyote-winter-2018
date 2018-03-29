@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Button, ScrollView } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  Text
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -153,6 +157,8 @@ class SearchResultScreen extends Component {
           />
         )}
         <SearchResult
+          viewMore={this.renderViewLess}
+          viewLess={this.renderViewMore}
           listings={listings}
           navigation={this.props.navigation}
         />

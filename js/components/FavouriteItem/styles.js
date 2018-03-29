@@ -12,8 +12,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'space-between',
-    // borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#A9A9A9',
+    paddingBottom: 10,
+    marginBottom: 10
   },
   image: {
     height: 150,
@@ -26,7 +28,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    marginBottom: 15,
+    marginBottom: 20,
     fontFamily: typography.M_BOLD,
     color: colors.MAIN
   },

@@ -65,6 +65,7 @@ class FavouriteScreen extends Component {
       this.setFaves(props.faveIds, props.listings);
     }
   }
+
   renderViewMore = onPress => {
     return (
       <Text
@@ -80,6 +81,7 @@ class FavouriteScreen extends Component {
       </Text>
     );
   };
+
   renderViewLess = onPress => {
     return (
       <Text
