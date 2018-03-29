@@ -6,7 +6,10 @@ import FilteringScreen from '../../screens/Filtering/FilteringScreen';
 import ListingScreen from '../../screens/Listing/ListingScreen';
 import LandlordScreen from '../../screens/Landlord/LandlordScreen';
 
-import { colors, typography } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 const SearchTab = StackNavigator(
   {

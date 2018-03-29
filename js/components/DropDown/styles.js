@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     fontSize: 18
   },
   container: {
-    marginTop: 15,
+    paddingTop: 2,
     flexDirection: 'row',
     justifyContent: 'space-between'
   }

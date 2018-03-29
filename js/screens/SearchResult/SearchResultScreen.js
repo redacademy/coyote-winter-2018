@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   Button,
   ScrollView,
-  Text
+  Text,
+  View
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -35,14 +36,14 @@ import { styles } from './styles';
 class SearchResultScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Search Results',
-      headerLeft: (
-        <Button
-          onPress={() => navigation.navigate('Filter')}
-          title="Filter"
-          color={colors.MAIN}
-        />
-      )
+      title: 'Search Results'
+      // headerLeft: (
+      //   <Button
+      //     onPress={() => navigation.navigate('Filter')}
+      //     title="Filter"
+      //     color={colors.MAIN}
+      //   />
+      // )
     };
   };
 
@@ -128,26 +129,39 @@ class SearchResultScreen extends Component {
       dispatch,
       listings,
       loading,
-      sortOptions
+      sortOptions,
+      navigation
     } = this.props;
     const chips = this.getChipLabels();
     return loading ? (
       <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
-        <DropDown
-          label="Sort By:"
-          options={SORT_OPTIONS}
-          selectFunction={option => {
-            dispatch(updateSortOptions(option));
-            const sorted = sortFilter(
-              listings,
-              option
-            );
-            dispatch(updateListings([...sorted]));
-          }}
-          sortOptions={sortOptions}
-        />
+        <View style={styles.sortAndFilter}>
+          <View>
+            <Button
+              onPress={() =>
+                navigation.navigate('Filter')
+              }
+              title="Filter"
+              color={colors.MAIN}
+            />
+          </View>
+          <View>
+            <DropDown
+              options={SORT_OPTIONS}
+              selectFunction={option => {
+                dispatch(updateSortOptions(option));
+                const sorted = sortFilter(
+                  listings,
+                  option
+                );
+                dispatch(updateListings([...sorted]));
+              }}
+              sortOptions={sortOptions}
+            />
+          </View>
+        </View>
         {chips.length < 1 ? (
           <NoFilterText text={'No Filters Applied'} />
         ) : (
