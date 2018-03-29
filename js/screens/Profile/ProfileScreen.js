@@ -15,7 +15,6 @@ class ProfileScreen extends Component {
 
   async componentDidMount() {
     const { userAuth } = this.props;
-    console.log(userAuth);
     await this.props.dispatch(fetchUser(userAuth));
     //     '20032OjyKweGTpikv65HoUeQCQr1'
     //   )

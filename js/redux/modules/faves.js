@@ -30,7 +30,6 @@ export const fetchFaves = faves => dispatch => {
 
 export const fetchFaveIds = userId => dispatch => {
   getFavesByUser(userId).then(data => {
-    console.log(data.data().favourites);
     dispatch(getFaveIds(data.data().favourites));
   });
 };
