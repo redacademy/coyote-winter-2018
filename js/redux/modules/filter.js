@@ -126,8 +126,8 @@ export const updateSortOptions = sortOptions => ({
 export default function(
   state = {
     laundryTags: {
-      'Laundry in Suite': false,
-      'Shared Laundry': false
+      'In Suite': false,
+      Shared: false
     },
     listings: [],
     loading: true,
@@ -140,15 +140,15 @@ export default function(
     },
     otherTags: {
       'Pets Ok': false,
-      'Wheelchair Ok': false,
+      Accessible: false,
       Furnished: false,
       'Smoking Ok': false
     },
     parkingTags: {
       'Car Port': false,
-      'Attached Garage': false,
-      'Detached Garage': false,
-      'Street Parking': false,
+      Attached: false,
+      Detached: false,
+      Street: false,
       'No Parking': false
     },
     priceRange: [100, 10000],
@@ -176,11 +176,17 @@ export default function(
     case UPDATE_LOCATION:
       return { ...state, location: action.payload };
     case UPDATE_NUM_BATHROOMS:
-      return { ...state, numBathrooms: action.payload };
+      return {
+        ...state,
+        numBathrooms: action.payload
+      };
     case UPDATE_NUM_BEDROOMS:
       return { ...state, numBedrooms: action.payload };
     case UPDATE_OCCUPANT_TAGS:
-      return { ...state, occupantTags: action.payload };
+      return {
+        ...state,
+        occupantTags: action.payload
+      };
     case UPDATE_OTHER_TAGS:
       return { ...state, otherTags: action.payload };
     case UPDATE_PARKING_TAGS:
@@ -188,7 +194,10 @@ export default function(
     case UPDATE_PRICE_RANGE:
       return { ...state, priceRange: action.payload };
     case UPDATE_PROPERTY_TAGS:
-      return { ...state, propertyTags: action.payload };
+      return {
+        ...state,
+        propertyTags: action.payload
+      };
     case UPDATE_SORT_OPTIONS:
       return { ...state, sortOptions: action.payload };
     default:

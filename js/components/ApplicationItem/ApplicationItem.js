@@ -17,7 +17,7 @@ const ApplicationItem = ({ item }) => {
         </View>
         <Text style={styles.lastUpdated}>
           Applied On:
-          {moment.unix(item.createdOnDate).format('MM/DD/YYYY')}
+          {moment.unix(item.createdOn).format('MM/DD/YYYY')}
         </Text>
         <Text style={styles.price}>{item.applicationStatus}</Text>
         <View />

@@ -13,7 +13,7 @@ export const userLoading = isLoading => ({
 
 export default function(
   state = {
-    authenticated: 'LOADING_USER',
+    authenticated: '',
     userLoading: true
   },
   action
