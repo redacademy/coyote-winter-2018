@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Text } from 'react-native';
+import { connect } from 'react-redux';
 import Favourite from './Favourite';
 import Loader from '../../components/Loader/';
 import { fetchListings } from '../../redux/modules/listings';
@@ -8,8 +10,10 @@ import {
   updateLoading,
   getFaveIds
 } from '../../redux/modules/faves';
-import { connect } from 'react-redux';
-import { getListings, getFaves } from '../../config/helpers';
+import {
+  getListings,
+  getFaves
+} from '../../config/helpers';
 
 class FavouriteScreen extends Component {
   async componentDidMount() {
@@ -27,7 +31,9 @@ class FavouriteScreen extends Component {
     await getFaves().then(querySnapshot => {
       let data = [];
       querySnapshot.forEach(function(doc) {
-        doc.id === authenticated ? data.push(doc.data().favourites) : null;
+        doc.id === authenticated
+          ? data.push(doc.data().favourites)
+          : null;
       });
       // if this is the first time we go to the faves, we may
       // need to set faveIds
@@ -43,24 +49,64 @@ class FavouriteScreen extends Component {
     let favourites = [];
     if (faveIds && faveIds.length > 0) {
       favourites = listings.filter(listing => {
-        return faveIds.find(fav => fav === listing.listingId);
+        return faveIds.find(
+          fav => fav === listing.listingId
+        );
       });
     }
     this.props.dispatch(fetchFaves(favourites));
   };
 
   componentWillReceiveProps(props) {
-    if (props.faveIds && props.faveIds.length !== props.faves.length) {
+    if (
+      props.faveIds &&
+      props.faveIds.length !== props.faves.length
+    ) {
       this.setFaves(props.faveIds, props.listings);
     }
   }
+  renderViewMore = onPress => {
+    return (
+      <Text
+        onPress={onPress}
+        style={{
+          marginTop: 10,
+          opacity: 0.7,
+          fontSize: 12,
+          fontStyle: 'italic'
+        }}
+      >
+        View more
+      </Text>
+    );
+  };
+  renderViewLess = onPress => {
+    return (
+      <Text
+        onPress={onPress}
+        style={{
+          marginTop: 10,
+          opacity: 0.7,
+          fontSize: 12,
+          fontStyle: 'italic'
+        }}
+      >
+        View less
+      </Text>
+    );
+  };
 
   render() {
     const { loading } = this.props;
     return loading ? (
       <Loader />
     ) : (
-      <Favourite faves={this.props.faves} navigation={this.props.navigation} />
+      <Favourite
+        viewMore={this.renderViewMore}
+        viewLess={this.renderViewLess}
+        faves={this.props.faves}
+        navigation={this.props.navigation}
+      />
     );
   }
 }
@@ -87,4 +133,6 @@ const mapStateToProps = state => ({
   authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(FavouriteScreen);
+export default connect(mapStateToProps)(
+  FavouriteScreen
+);

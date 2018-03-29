@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity
+} from 'react-native';
 import FavouriteItem from '../../components/FavouriteItem';
 import PropTypes from 'prop-types';
 import { styles } from './styles';
@@ -8,11 +13,17 @@ const renderSeparator = () => {
   return <View style={styles.separator} />;
 };
 
-const Favourite = ({ faves, navigation }) => {
+const Favourite = ({
+  faves,
+  navigation,
+  viewMore,
+  viewLess
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.faveText}>
-        {faves.length === 0 && "You haven't added any favourites yet!"}
+        {faves.length === 0 &&
+          "You haven't added any favourites yet!"}
       </Text>
 
       {faves.length === 0 && (
@@ -28,9 +39,14 @@ const Favourite = ({ faves, navigation }) => {
         keyExtractor={item => item.listingId}
         data={faves}
         ItemSeparatorComponent={renderSeparator}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View>
-            <FavouriteItem item={item} />
+            <FavouriteItem
+              item={item}
+              viewMore={viewMore}
+              viewLess={viewLess}
+            />
           </View>
         )}
       />
@@ -40,7 +56,9 @@ const Favourite = ({ faves, navigation }) => {
 
 Favourite.propTypes = {
   faves: PropTypes.array.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  viewMore: PropTypes.func.isRequired,
+  viewLess: PropTypes.func.isRequired
 };
 
 export default Favourite;
