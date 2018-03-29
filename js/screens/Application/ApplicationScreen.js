@@ -5,9 +5,10 @@ import Application from './Application';
 import PropTypes from 'prop-types';
 import Loader from '../../components/Loader/';
 import { getApplicationsByUser } from '../../config/helpers';
+
 import {
-  updateApplicationState,
-  updateLoadingState
+  updateLoadingState,
+  getApplicationObject
 } from '../../redux/modules/application';
 import { styles } from './styles';
 
@@ -18,33 +19,37 @@ class ApplicationScreen extends Component {
 
     const listingIds = await getApplicationsByUser(authenticated);
 
-    dispatch(updateApplicationState(listingIds));
+    // dispatch(updateApplicationState(listingIds));
     dispatch(updateLoadingState(false));
+    dispatch(getApplicationObject(listingIds));
   }
+
   render() {
-    const { applications, loading } = this.props;
+    const { loading, applicationObject } = this.props;
+
     return loading ? (
       <Loader />
     ) : (
       <ScrollView style={styles.scroll}>
-        <Application listings={applications} />
+        <Application listings={applicationObject} />
       </ScrollView>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  applications: state.application.applications,
-  authenticated: state.auth.authenticated,
-  loading: state.application.loading
+  applicationObject: state.application.applicationObject,
+  loading: state.application.loading,
+  authenticated: state.auth.authenticated
 });
 
 ApplicationScreen.propTypes = {
-  applications: PropTypes.array.isRequired,
   authenticated: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+ 
+  applicationObject: PropTypes.array
 };
 
 export default connect(mapStateToProps)(ApplicationScreen);

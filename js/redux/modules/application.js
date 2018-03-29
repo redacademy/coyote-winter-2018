@@ -1,4 +1,5 @@
 const UPDATE_APPLICATION_STATE = 'UPDATE_APPLICATION_STATE';
+const GET_APPLICATION_OBJECT = 'GET_APPLICATION_OBJECT';
 const UPDATE_LOADING = 'UPDATE_LOADING';
 const UPDATE_ERROR = 'UPDATE_ERROR';
 
@@ -17,11 +18,17 @@ export const updateErrorState = error => ({
   payload: error
 });
 
+export const getApplicationObject = applications => ({
+  type: GET_APPLICATION_OBJECT,
+  payload: applications
+});
+
 export default function(
   state = {
     applications: [],
     loading: true,
-    error: ''
+    error: '',
+    applicationObject: []
   },
   action
 ) {
@@ -32,6 +39,12 @@ export default function(
       return { ...state, loading: action.payload };
     case UPDATE_ERROR:
       return { ...state, error: action.payload };
+    case GET_APPLICATION_OBJECT: {
+      return {
+        ...state,
+        applicationObject: action.payload
+      };
+    }
     default:
       return state;
   }
