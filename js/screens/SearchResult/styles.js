@@ -12,8 +12,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  listContainer: {
-    borderTopWidth: 0,
-    borderBottomWidth: 0
+  sortAndFilter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 });

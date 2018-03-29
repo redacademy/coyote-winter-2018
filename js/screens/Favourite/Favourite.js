@@ -13,7 +13,12 @@ const renderSeparator = () => {
   return <View style={styles.separator} />;
 };
 
-const Favourite = ({ faves, navigation }) => {
+const Favourite = ({
+  faves,
+  navigation,
+  viewMore,
+  viewLess
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.faveText}>
@@ -34,9 +39,14 @@ const Favourite = ({ faves, navigation }) => {
         keyExtractor={item => item.listingId}
         data={faves}
         ItemSeparatorComponent={renderSeparator}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View>
-            <FavouriteItem item={item} />
+            <FavouriteItem
+              item={item}
+              viewMore={viewMore}
+              viewLess={viewLess}
+            />
           </View>
         )}
       />
@@ -46,7 +56,9 @@ const Favourite = ({ faves, navigation }) => {
 
 Favourite.propTypes = {
   faves: PropTypes.array.isRequired,
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  viewMore: PropTypes.func.isRequired,
+  viewLess: PropTypes.func.isRequired
 };
 
 export default Favourite;

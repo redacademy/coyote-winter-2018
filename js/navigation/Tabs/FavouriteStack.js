@@ -6,6 +6,7 @@ import {
   colors,
   typography
 } from '../../config/styles';
+import ListingScreen from '../../screens/Listing';
 
 const FavouriteTab = StackNavigator(
   {
@@ -16,7 +17,8 @@ const FavouriteTab = StackNavigator(
         title: 'Faves',
         style: { color: colors.MAIN }
       })
-    }
+    },
+    Listing: { screen: ListingScreen }
   },
   {
     mode: 'modal',

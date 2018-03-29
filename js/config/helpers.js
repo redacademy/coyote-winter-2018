@@ -1,3 +1,11 @@
+import React from 'react';
+import { Text } from 'react-native';
+const ROOT_URL =
+  'https://maps.googleapis.com/maps/api/staticmap?center=';
+const ZOOM_SIZE_MARKER =
+  '&zoom=12&size=400x400&markers=color:blue%7Clabel:S%7C';
+
+// import { MAP_API } from 'react-native-dotenv';
 import {
   firestoreDb,
   firebaseAuth
@@ -15,7 +23,7 @@ export const getUserProfile = userId => {
 
 // returns a promise for the query for the given userId
 // used to retrieve data from the application collection
-const getApplications = userId => {
+export const getApplications = userId => {
   const db = firestoreDb
     .collection('applications')
     .doc(userId);
@@ -89,6 +97,10 @@ export const getUsers = () => {
   return firestoreDb.collection('users').get();
 };
 
+export const applicationsYo = () => {
+  return firestoreDb.collection('applications').get();
+};
+
 export const getListings = () => {
   return firestoreDb.collection('listings').get();
 };
@@ -113,9 +125,6 @@ export const newUser = (
           firstName: firstName,
           lastName: lastName,
           email: email
-        })
-        .catch(error => {
-          return `This is an ${error}`;
         });
     });
 };
@@ -174,4 +183,64 @@ export const updateFavourites = (faves, id) => {
     .update({
       favourites: faves
     });
+};
+
+export const constructMapUrl = address => {
+  const addressUrl = address.split(' ').join('+');
+  return (
+    ROOT_URL +
+    addressUrl +
+    ZOOM_SIZE_MARKER +
+    addressUrl +
+    '&key=' +
+    'AIzaSyAF2vWcKhpiAZ78Aw9IGxGYD87zX80IHHY'
+  );
+};
+
+export const getCities = () => {
+  return firestoreDb
+    .collection('listings')
+    .orderBy('city')
+    .get();
+};
+
+export const addApplication = (userId, apps) => {
+  return firestoreDb
+    .collection('applications')
+    .doc(userId)
+    .set({
+      applications: apps
+    });
+};
+
+export const renderViewMore = onPress => {
+  return (
+    <Text
+      onPress={onPress}
+      style={{
+        marginTop: 8,
+        opacity: 0.7,
+        fontSize: 12,
+        fontStyle: 'italic'
+      }}
+    >
+      View more
+    </Text>
+  );
+};
+
+export const renderViewLess = onPress => {
+  return (
+    <Text
+      onPress={onPress}
+      style={{
+        marginTop: 8,
+        opacity: 0.7,
+        fontSize: 12,
+        fontStyle: 'italic'
+      }}
+    >
+      View less
+    </Text>
+  );
 };

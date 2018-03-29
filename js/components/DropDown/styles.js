@@ -1,12 +1,25 @@
 import { StyleSheet } from 'react-native';
-import { colors /*typography*/ } from '../../config/styles';
+import {
+  colors,
+  typography
+} from '../../config/styles';
 
 export const styles = StyleSheet.create({
   text: {
-    marginTop: 15,
-    marginBottom: 5,
-    //fontFamily: typography.M_BOLD,
-    color: colors.MAIN
+    color: colors.night,
+    fontFamily: typography.OS_REGULAR,
+    fontSize: 18,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.night
   },
-  container: { alignItems: 'flex-end' }
+  buttonText: {
+    color: colors.MAIN,
+    fontFamily: typography.OS_REGULAR,
+    fontSize: 18
+  },
+  container: {
+    paddingTop: 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
 });
