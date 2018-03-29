@@ -107,6 +107,8 @@ export const getApplicationsByUser = async uid => {
   const listingOfApplications = [];
 
   await getApplications(uid).then(applications => {
+    if (!applications.exists) return false;
+
     applications.data().applications.forEach(application => {
       listingIds[application.listingId] = application;
     });
