@@ -18,6 +18,7 @@ const ProfileHeader = ({
   handleFirstName,
   handleLastName,
   handleLocation,
+  handleSubmit,
   handleToggleEditable,
   openPicker,
   userData,
@@ -111,7 +112,12 @@ const ProfileHeader = ({
             </View>
 
             {editable === true ? (
-              <TouchableOpacity onPress={handleToggleEditable}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleToggleEditable();
+                  handleSubmit(userData);
+                }}
+              >
                 <View style={styles.saveButton}>
                   <Text style={styles.buttonText}>SAVE</Text>
                 </View>
@@ -130,6 +136,7 @@ ProfileHeader.propTypes = {
   handleFirstName: PropTypes.func.isRequired,
   handleLastName: PropTypes.func.isRequired,
   handleLocation: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   handleToggleEditable: PropTypes.func.isRequired,
   openPicker: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,

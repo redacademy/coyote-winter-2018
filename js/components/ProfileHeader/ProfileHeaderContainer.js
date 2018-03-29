@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import ProfileHeader from './ProfileHeader';
-import { updateUserData, updateToggleEditable } from '../../redux/modules/user';
+import {
+  updateUser,
+  updateUserData,
+  updateToggleEditable
+} from '../../redux/modules/user';
 
 class ProfileHeaderContainer extends Component {
   openPicker = () => {
@@ -22,28 +26,25 @@ class ProfileHeaderContainer extends Component {
   };
 
   handleImage = image => {
-    this.props.dispatch(updateUserData(this.props.userAuth, { image }));
+    this.props.dispatch(updateUser({ image }));
   };
   handleBio = userData => {
-    this.props.dispatch(updateUserData(this.props.userAuth, { bio: userData }));
+    this.props.dispatch(updateUser({ bio: userData }));
   };
   handleFirstName = userData => {
-    this.props.dispatch(
-      updateUserData(this.props.userAuth, { firstName: userData })
-    );
+    this.props.dispatch(updateUser({ firstName: userData }));
   };
   handleLastName = userData => {
-    this.props.dispatch(
-      updateUserData(this.props.userAuth, { lastName: userData })
-    );
+    this.props.dispatch(updateUser({ lastName: userData }));
   };
   handleLocation = userData => {
-    this.props.dispatch(
-      updateUserData(this.props.userAuth, { location: userData })
-    );
+    this.props.dispatch(updateUser({ location: userData }));
   };
   handleToggleEditable = () => {
     this.props.dispatch(updateToggleEditable());
+  };
+  handleSubmit = async userData => {
+    this.props.dispatch(updateUserData(this.props.userAuth, userData));
   };
   _signOutAsync = async () => {
     await AsyncStorage.clear();
@@ -51,7 +52,7 @@ class ProfileHeaderContainer extends Component {
   };
 
   render() {
-    const { userData, editable } = this.props;
+    const { userData, editable, navigation } = this.props;
 
     return (
       <ProfileHeader
@@ -62,8 +63,9 @@ class ProfileHeaderContainer extends Component {
         handleLastName={this.handleLastName}
         handleLocation={this.handleLocation}
         handleToggleEditable={this.handleToggleEditable}
+        handleSubmit={this.handleSubmit}
         userData={userData.userData}
-        navigation={this.props.navigation}
+        navigation={navigation}
         signOut={this._signOutAsync}
       />
     );

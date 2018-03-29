@@ -30,7 +30,7 @@ const getUserError = error => ({
   payload: error
 });
 
-const updateUser = updateUserData => ({
+export const updateUser = updateUserData => ({
   type: UPDATE_USER,
   payload: updateUserData
 });
@@ -65,7 +65,6 @@ export const updateUserData = (userId, userData) => async dispatch => {
   await updateUserProfile(userId, userData).catch(error =>
     dispatch(updateUserError(error))
   );
-  dispatch(updateUser(userData));
 };
 
 export const updateToggleEditable = () => dispatch => {
@@ -77,8 +76,20 @@ export const updateToggleEditable = () => dispatch => {
 export default (
   state = {
     isLoading: false,
-    userData: {},
-    updateUserData: {},
+    userData: {
+      bio: '',
+      firstName: '',
+      lastName: '',
+      location: '',
+      image: ''
+    },
+    updateUserData: {
+      bio: '',
+      firstName: '',
+      lastName: '',
+      location: '',
+      image: ''
+    },
     error: '',
     editable: false
   },
@@ -93,6 +104,7 @@ export default (
         ...state,
         isLoading: false,
         userData: action.payload,
+        updateUserData: action.payload,
         error: ''
       };
     }
