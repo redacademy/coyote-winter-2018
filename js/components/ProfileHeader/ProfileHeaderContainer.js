@@ -12,7 +12,7 @@ import {
 } from '../../redux/modules/user';
 
 class ProfileHeaderContainer extends Component {
-  openPicker = () => {
+  _openPicker = () => {
     ImagePicker.openPicker({
       width: 200,
       height: 200,
@@ -21,29 +21,28 @@ class ProfileHeaderContainer extends Component {
       cropperCircleOverlay: true,
       compressImageQuality: 0
     }).then(image => {
-      this.handleImage(image.data);
+      this._handleImage(image.data);
     });
   };
-
-  handleImage = image => {
+  _handleImage = image => {
     this.props.dispatch(updateUser({ image }));
   };
-  handleBio = userData => {
+  _handleBio = userData => {
     this.props.dispatch(updateUser({ bio: userData }));
   };
-  handleFirstName = userData => {
+  _handleFirstName = userData => {
     this.props.dispatch(updateUser({ firstName: userData }));
   };
-  handleLastName = userData => {
+  _handleLastName = userData => {
     this.props.dispatch(updateUser({ lastName: userData }));
   };
-  handleLocation = userData => {
+  _handleLocation = userData => {
     this.props.dispatch(updateUser({ location: userData }));
   };
-  handleToggleEditable = () => {
+  _handleToggleEditable = () => {
     this.props.dispatch(updateToggleEditable());
   };
-  handleSubmit = async userData => {
+  _handleSubmit = async userData => {
     this.props.dispatch(updateUserData(this.props.userAuth, userData));
   };
   _signOutAsync = async () => {
@@ -56,16 +55,16 @@ class ProfileHeaderContainer extends Component {
 
     return (
       <ProfileHeader
-        editable={editable}
-        openPicker={this.openPicker}
-        handleBio={this.handleBio}
-        handleFirstName={this.handleFirstName}
-        handleLastName={this.handleLastName}
-        handleLocation={this.handleLocation}
-        handleToggleEditable={this.handleToggleEditable}
-        handleSubmit={this.handleSubmit}
         userData={userData.userData}
         navigation={navigation}
+        editable={editable}
+        openPicker={this._openPicker}
+        handleBio={this._handleBio}
+        handleFirstName={this._handleFirstName}
+        handleLastName={this._handleLastName}
+        handleLocation={this._handleLocation}
+        handleToggleEditable={this._handleToggleEditable}
+        handleSubmit={this._handleSubmit}
         signOut={this._signOutAsync}
       />
     );

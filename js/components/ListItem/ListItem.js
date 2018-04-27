@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import ViewMoreText from 'react-native-view-more-text';
 import { fetchListing } from '../../redux/modules/listing';
 import { withNavigation } from 'react-navigation';
 import store from '../../redux/store';
@@ -7,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { styles } from './styles';
+import { renderViewMore, renderViewLess } from '../../config/helpers';
 
 const ListItem = ({ item, navigation }) => {
   return (
@@ -15,9 +17,15 @@ const ListItem = ({ item, navigation }) => {
         <Image source={{ uri: item.pictures.pic4 }} style={styles.image} />
       </View>
       <View style={styles.listing}>
-        <Text style={styles.title}>{item.listingTitle}</Text>
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.description}>{item.description}</Text>
+        <View>
+          <Text style={styles.title}>{item.listingTitle}</Text>
+          <ViewMoreText
+            numberOfLines={2}
+            renderViewMore={renderViewMore}
+            renderViewLess={renderViewLess}
+          >
+            <Text>{item.description}</Text>
+          </ViewMoreText>
         </View>
         <Text style={styles.lastUpdated}>
           Last Updated:

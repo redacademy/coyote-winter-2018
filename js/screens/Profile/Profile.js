@@ -5,7 +5,6 @@ import ProfileHeaderContainer from '../../components/ProfileHeader/ProfileHeader
 import { styles } from './styles';
 
 const Profile = ({ navigation, userData }) => {
-  console.log(userData);
   return (
     <View style={styles.container}>
       <ProfileHeaderContainer userData={{ userData }} navigation={navigation} />

@@ -1,35 +1,36 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors, typography } from '../../config/styles';
+
+const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
-    borderBottomColor: colors.GREY,
-    borderBottomWidth: 3
-  },
-  image: {
-    height: 120,
-    width: 100,
-    borderRadius: 10,
-    marginRight: 10,
-    marginTop: 15,
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#A9A9A9',
+    paddingBottom: 10,
     marginBottom: 10
   },
-  listing: { marginTop: 5 },
+  image: {
+    height: 150,
+    width: width / 3,
+    borderRadius: 10
+  },
+  listing: {
+    width: width / 2,
+    marginLeft: 10,
+    justifyContent: 'space-between'
+  },
   title: {
-    marginBottom: 5,
+    marginBottom: 20,
     fontFamily: typography.M_BOLD,
     color: colors.MAIN
   },
-  descriptionContainer: { flexDirection: 'row' },
   description: {
     flex: 1,
-    flexWrap: 'wrap',
     fontSize: 12,
     marginBottom: 5,
     fontFamily: typography.OS_REGULAR
@@ -45,9 +46,27 @@ export const styles = StyleSheet.create({
     fontFamily: typography.M_SEMIBOLD
   },
   heart: {
-    color: 'red',
-    alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
     fontSize: 20,
-    marginBottom: 10
+    color: colors.MAIN
+  },
+  priceAndButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10
+  },
+  button: {
+    backgroundColor: colors.MAIN,
+    marginRight: 28,
+    borderRadius: 25
+  },
+  buttonText: {
+    color: colors.WHITE,
+    marginVertical: 5,
+    marginHorizontal: 20,
+    borderRadius: 30
   }
 });

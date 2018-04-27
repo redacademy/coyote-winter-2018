@@ -1,3 +1,6 @@
+import React from 'react';
+import { Text } from 'react-native';
+
 const ROOT_URL = 'https://maps.googleapis.com/maps/api/staticmap?center=';
 const ZOOM_SIZE_MARKER =
   '&zoom=12&size=400x400&markers=color:blue%7Clabel:S%7C';
@@ -168,4 +171,36 @@ export const addApplication = (userId, apps) => {
     .set({
       applications: apps
     });
+};
+
+export const renderViewMore = onPress => {
+  return (
+    <Text
+      onPress={onPress}
+      style={{
+        marginTop: 8,
+        opacity: 0.7,
+        fontSize: 12,
+        fontStyle: 'italic'
+      }}
+    >
+      View more
+    </Text>
+  );
+};
+
+export const renderViewLess = onPress => {
+  return (
+    <Text
+      onPress={onPress}
+      style={{
+        marginTop: 8,
+        opacity: 0.7,
+        fontSize: 12,
+        fontStyle: 'italic'
+      }}
+    >
+      View less
+    </Text>
+  );
 };
