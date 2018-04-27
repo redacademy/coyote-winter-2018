@@ -1,17 +1,10 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  TabNavigator,
-  SwitchNavigator
-} from 'react-navigation';
+import { TabNavigator, SwitchNavigator } from 'react-navigation';
 
 import LocationSearchScreen from '../../screens/LocationSearch/LocationSearchScreen';
 
-import {
-  profileIcon,
-  searchIcon,
-  heartIcon
-} from '../../config/iconType';
+import { profileIcon, searchIcon, heartIcon } from '../../config/iconType';
 
 import SearchTab from './SearchStack';
 import FavouriteTab from './FavouriteStack';
@@ -39,11 +32,7 @@ const TabNav = TabNavigator(
         }) {
           return (
             <Ionicons
-              name={
-                focused
-                  ? searchIcon
-                  : `${searchIcon}-outline`
-              }
+              name={focused ? searchIcon : `${searchIcon}-outline`}
               size={26}
               style={{ color: tintColor }}
             />
@@ -64,11 +53,7 @@ const TabNav = TabNavigator(
         }) {
           return (
             <Ionicons
-              name={
-                focused
-                  ? heartIcon
-                  : `${heartIcon}-outline`
-              }
+              name={focused ? heartIcon : `${heartIcon}-outline`}
               size={26}
               style={{ color: tintColor }}
             />
@@ -89,11 +74,7 @@ const TabNav = TabNavigator(
         }) {
           return (
             <Ionicons
-              name={
-                focused
-                  ? profileIcon
-                  : `${profileIcon}-outline`
-              }
+              name={focused ? profileIcon : `${profileIcon}-outline`}
               size={26}
               style={{ color: tintColor }}
             />

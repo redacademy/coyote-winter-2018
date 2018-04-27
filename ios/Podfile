@@ -20,10 +20,15 @@ target 'coyote' do
     'RCTWebSocket',
   ]
 
+
   pod 'react-native-maps', path: rn_maps_path
 
   pod 'GoogleMaps'  # Remove this line if you don't want to support Google Maps on iOS
   pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support Google Maps on iOS
+
+
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+
 end
 
 post_install do |installer|

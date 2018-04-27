@@ -9,6 +9,7 @@ import loginReducer from './modules/login';
 import listingsReducer from './modules/listings';
 import userReducer from './modules/user';
 import landlordReducer from './modules/landlord';
+import autocompleteReducer from './modules/autocomplete';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   application: applicationReducer,
   login: loginReducer,
   user: userReducer,
-  landlord: landlordReducer
+  landlord: landlordReducer,
+  autocomplete: autocompleteReducer
 });
 export default rootReducer;

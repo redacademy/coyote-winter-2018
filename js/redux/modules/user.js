@@ -10,7 +10,6 @@ const GET_USER_LOADING = 'GET_USER_LOADING';
 const GET_USER = 'GET_USER';
 const GET_USER_ERROR = 'GET_USER_ERROR';
 
-const UPDATE_USER_LOADING = 'UPDATE_USER_LOADING';
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
 
@@ -31,11 +30,7 @@ const getUserError = error => ({
   payload: error
 });
 
-const updateUserLoading = () => ({
-  type: UPDATE_USER_LOADING
-});
-
-const updateUser = updateUserData => ({
+export const updateUser = updateUserData => ({
   type: UPDATE_USER,
   payload: updateUserData
 });
@@ -51,14 +46,12 @@ const toggleEditable = () => ({
 
 // ASYNC ACTION CREATOR
 
-export const fetchUser = userId => dispatch => {
+export const fetchUser = userId => async dispatch => {
   dispatch(getUserLoading());
-
-  getUserProfile(userId)
+  await getUserProfile(userId)
     .then(doc => {
       if (doc.exists) {
         const userData = unMarshallResult(doc);
-
         return userData;
       }
     })
@@ -69,8 +62,6 @@ export const fetchUser = userId => dispatch => {
 };
 
 export const updateUserData = (userId, userData) => async dispatch => {
-  dispatch(updateUserLoading());
-  dispatch(updateUser(userData));
   await updateUserProfile(userId, userData).catch(error =>
     dispatch(updateUserError(error))
   );
@@ -85,8 +76,20 @@ export const updateToggleEditable = () => dispatch => {
 export default (
   state = {
     isLoading: false,
-    userData: {},
-    updateUserData: {},
+    userData: {
+      bio: '',
+      firstName: '',
+      lastName: '',
+      location: '',
+      image: ''
+    },
+    updateUserData: {
+      bio: '',
+      firstName: '',
+      lastName: '',
+      location: '',
+      image: ''
+    },
     error: '',
     editable: false
   },
@@ -101,6 +104,7 @@ export default (
         ...state,
         isLoading: false,
         userData: action.payload,
+        updateUserData: action.payload,
         error: ''
       };
     }
@@ -108,9 +112,6 @@ export default (
       return { ...state, isLoading: false, error: action.payload };
     }
 
-    case UPDATE_USER_LOADING: {
-      return { ...state, isLoading: true, error: '' };
-    }
     case UPDATE_USER: {
       return {
         ...state,
